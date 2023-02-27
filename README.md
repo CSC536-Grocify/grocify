@@ -1,9 +1,20 @@
-# grocify
+# Grocify
 
-# Harshita Narnoli
+## Docker set up
 
-# Eric Duong
+Install `docker` and `docker-compose`
 
-# Caleb Jones Shibu
+On Ubuntu
+```bash
+sudo apt install docker.io docker-compose
+```
 
-# Mary Eskandari
+Launch both the front-end and the back-end servers
+```bash
+sudo docker-compose up
+```
+
+Stop both the front-end and the back-end servers
+```bash
+sudo docker-compose down
+```
