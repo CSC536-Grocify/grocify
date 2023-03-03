@@ -1,20 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
-import axios from 'axios'
+import axios from 'axios';
 import React from "react";
 
 const api = axios.create({
   baseURL: 'http://127.0.0.1:8000'
-})
+});
 
 function App() {
-
   const [person, setPerson] = React.useState({});
 
   React.useEffect(() => {
     async function fetchData() {
       const request = await api.get('/');
-      setPerson(request.data)
+      setPerson(request.data);
       return request;
     }
     fetchData();
