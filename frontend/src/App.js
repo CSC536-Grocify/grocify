@@ -1,13 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios'
+import React from "react";
+
+const api = axios.create({
+  baseURL: 'http://127.0.0.1:8000'
+})
 
 function App() {
+
+  const [person, setPerson] = React.useState({});
+
+  React.useEffect(() => {
+    async function fetchData() {
+      const request = await api.get('/');
+      setPerson(request.data)
+      return request;
+    }
+    fetchData();
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Hi, I am <code>{person.name}</code>. I am <code>{person.age}</code> years old.
         </p>
         <a
           className="App-link"
