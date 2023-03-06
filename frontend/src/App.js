@@ -4,10 +4,13 @@ import axios from 'axios';
 import React from "react";
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.REACT_APP_ENV && process.env.REACT_APP_ENV === 'production' ? 
+    process.env.REACT_APP_REMOTE_API_URL : process.env.REACT_APP_LOCAL_API_URL,
 });
 
 function App() {
+  console.log("REACT_APP_ENV=".concat(process.env.REACT_APP_ENV));
+
   const [person, setPerson] = React.useState({});
 
   React.useEffect(() => {
