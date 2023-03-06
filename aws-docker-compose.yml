@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+    backend:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+        image: "456666878609.dkr.ecr.us-west-1.amazonaws.com/grocify:backend-${TAG}"
+        ports:
+            - 8000:8000
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        image: "456666878609.dkr.ecr.us-west-1.amazonaws.com/grocify:frontend-${TAG}"
+        ports:
+            - 3000:3000
