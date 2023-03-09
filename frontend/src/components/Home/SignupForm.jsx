@@ -41,6 +41,7 @@ const SignupForm = (event) => {
           setUsername(data.username);
           setPassword(data.password);
           popup.close();
+          //u
         }}
       />
     );
