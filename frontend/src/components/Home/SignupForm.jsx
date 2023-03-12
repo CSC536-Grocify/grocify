@@ -17,37 +17,40 @@ const SignupForm = (event) => {
     event.preventDefault();
     // Handle form submission here
   }
+  const handlePopup = () =>{
+      // Open a new web page
+    const newPage = window.open();
+    // Create three columns using HTML and CSS
+    const columnsHTML = `
+      <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+            height: 100%;
+          }
+        .column {
+          width: 33.33%;
+          float: left;
+          height: 100%;
+          padding: 10px;
+          box-sizing: border-box;
+        }
+        </style>
+          <div class="container">
+            
+            <div class="column">
+            
+            </div>
+          </div>
+        `;
 
-  const handlePopup = () => {
-    const width = window.innerWidth * 0.25;
-    const height = window.innerHeight / 4;
-    const left = window.innerWidth / 2 - width / 2;
-    const top = window.innerHeight / 2 - height / 2;
-    const popup = window.open(
-      '',
-      'loginPopup',
-      `width=${width},height=${height},left=${left},top=${top}`
-    );
-    popup.document.title = 'Log In';
-    popup.document.body.style.backgroundColor = 'white';
-    popup.document.body.style.display = 'flex';
-    popup.document.body.style.justifyContent = 'center';
-    popup.document.body.style.alignItems = 'center';
-    popup.document.body.innerHTML = '<div id="login-form"></div>';
-
-    const loginForm = (
-      <LoginPopup
-        onLogin={(data) => {
-          setUsername(data.username);
-          setPassword(data.password);
-          popup.close();
-          //u
-        }}
-      />
-    );
-
-    ReactDOM.render(loginForm, popup.document.getElementById('login-form'));
+    // Write the HTML code to the new page
+    newPage.document.write(columnsHTML);
   };
+
+  
+
+
   
   return (
     <form className="signup-form" onSubmit={handleSubmit}>
@@ -69,32 +72,7 @@ const SignupForm = (event) => {
   );
 };
 
-const LoginPopup = ({ onLogin }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    onLogin({ username, password });
-  };
-
-  return (
-    <div>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Log In</button>
-    </div>
-  );
-};
 
 export default SignupForm;
 
