@@ -5,6 +5,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from './pages/main/Main';
 import Login from './pages/login/Login';
+import PageNotFound from './pages/error/PageNotFound';
 
 // const api = axios.create({
 //   baseURL: process.env.REACT_APP_ENV && process.env.REACT_APP_ENV === 'production' ? 
@@ -29,6 +30,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/main" element={<Main />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>
 
