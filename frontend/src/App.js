@@ -1,14 +1,15 @@
 // import logo from './logo.svg';
 import './App.css';
-import axios from 'axios';
+// import axios from 'axios';
 import React from "react";
-import Home from './components/Home/Home'
-import Navbar from './components/Navbar/Navbar'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Main from './pages/main/Main';
+import Login from './pages/login/Login';
 
-const api = axios.create({
-  baseURL: process.env.REACT_APP_ENV && process.env.REACT_APP_ENV === 'production' ? 
-    process.env.REACT_APP_REMOTE_API_URL : process.env.REACT_APP_LOCAL_API_URL,
-});
+// const api = axios.create({
+//   baseURL: process.env.REACT_APP_ENV && process.env.REACT_APP_ENV === 'production' ? 
+//     process.env.REACT_APP_REMOTE_API_URL : process.env.REACT_APP_LOCAL_API_URL,
+// });
 //don't change 3lines above
 
 function App() {
@@ -24,11 +25,13 @@ function App() {
   // }, []);
 
   return (
-      <>
-        <Navbar />
-        <Home />
-      </>
-    
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/main" element={<Main />} />
+      </Routes>
+    </Router>
+
     // <div className="App">
     //   <header className="App-header">
     //     <img src={logo} className="App-logo" alt="logo" />
