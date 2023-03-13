@@ -17,7 +17,8 @@ const SignupForm = (event) => {
     event.preventDefault();
     // Handle form submission here
   }
-  const handlePopup = () =>{
+
+  const handlePopup = () => {
       // Open a new web page
     const newPage = window.open();
     // Create three columns using HTML and CSS
@@ -48,10 +49,6 @@ const SignupForm = (event) => {
     newPage.document.write(columnsHTML);
   };
 
-  
-
-
-  
   return (
     <form className="signup-form" onSubmit={handleSubmit}>
       <div>
@@ -72,12 +69,7 @@ const SignupForm = (event) => {
   );
 };
 
-
-
 export default SignupForm;
-
-
-
 
 // import React, { useState } from 'react';
 
