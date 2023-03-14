@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = (event) => {
   const [username, setUsername] = useState('');
@@ -17,41 +18,40 @@ const SignupForm = (event) => {
     event.preventDefault();
     // Handle form submission here
   }
-  const handlePopup = () =>{
-      // Open a new web page
-    const newPage = window.open();
-    // Create three columns using HTML and CSS
-    const columnsHTML = `
-      <style>
-        .container {
-            display: flex;
-            justify-content: space-between;
-            height: 100%;
-          }
-        .column {
-          width: 33.33%;
-          float: left;
-          height: 100%;
-          padding: 10px;
-          box-sizing: border-box;
-        }
-        </style>
-          <div class="container">
+
+  // const handlePopup = () => {
+  //     // Open a new web page
+  //   const newPage = window.open();
+  //   // Create three columns using HTML and CSS
+  //   const columnsHTML = `
+  //     <style>
+  //       .container {
+  //           display: flex;
+  //           justify-content: space-between;
+  //           height: 100%;
+  //         }
+  //       .column {
+  //         width: 33.33%;
+  //         float: left;
+  //         height: 100%;
+  //         padding: 10px;
+  //         box-sizing: border-box;
+  //       }
+  //       </style>
+  //         <div class="container">
             
-            <div class="column">
+  //           <div class="column">
             
-            </div>
-          </div>
-        `;
+  //           </div>
+  //         </div>
+  //       `;
 
-    // Write the HTML code to the new page
-    newPage.document.write(columnsHTML);
-  };
+  //   // Write the HTML code to the new page
+  //   newPage.document.write(columnsHTML);
+  // };
 
-  
+  let navigate = useNavigate();
 
-
-  
   return (
     <form className="signup-form" onSubmit={handleSubmit}>
       <div>
@@ -66,18 +66,15 @@ const SignupForm = (event) => {
         <button type="submit">Sign up</button>
       </div>
       <div className="home-footer">
-        <p>Already have an account? <a onClick={handlePopup}>Login</a></p>
+        <p>Already have an account? <a onClick={() => {
+          navigate("/main");
+        }}>Login</a></p>
       </div>
     </form>
   );
 };
 
-
-
 export default SignupForm;
-
-
-
 
 // import React, { useState } from 'react';
 

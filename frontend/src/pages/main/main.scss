@@ -1,0 +1,34 @@
+html, body, #root {
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  padding: 0;
+  height: 100%;
+}
+
+.tag-pannel {
+  flex: 1;
+  height: 100%;
+  background-color: red;
+}
+
+.recipes-ingredients {
+  flex: 1;
+  height: 100%;
+  background-color: green;
+}
+
+.grocery-list {
+  flex: 1;
+  height: 100%;
+  background-color: blue;
+}
+
+@media (max-width: 600px) {
+  .container {
+    height: 100%;
+    flex-direction: column;
+  }
+}

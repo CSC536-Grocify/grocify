@@ -97,7 +97,6 @@ const Home = () => {
                 With <span className='homeTitle'>Grocify</span> Categorize your grocery list effortlessly!
               </p>
               <SignupForm />
-              
             </div>
           </div>
         </section>
