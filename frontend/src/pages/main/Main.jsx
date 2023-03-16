@@ -19,20 +19,22 @@ function Main() {
     <div id="root">
       {matches && (
         <div className="container">
-          <div className="tag-pannel">
+          <div className="column">
             <TagsPannel />
           </div>
-          <div className="recipes-ingredients">
+          <div className="column">
             <RecipesIngredients />
           </div>
-          <div className="grocery-list">
+          <div className="column">
             <GroceryList />
           </div>
         </div>
       )}
       {!matches && (
-        <div className="grocery-list">
-          <GroceryList />
+        <div className="container">
+          <div className="column">
+            <GroceryList />
+          </div>
         </div>
       )}
     </div>
