@@ -7,7 +7,7 @@ import GroceryList from "./grocerylist/GroceryList";
 function Main() {
   const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 768px)").matches
-  )
+  );
 
   useEffect(() => {
     window
