@@ -11,7 +11,7 @@ services:
     frontend:
         build:
             context: ./frontend
-            dockerfile: Dockerfile
+            target: development
         image: "grocify-frontend:${TAG}"
         ports:
             - 3000:3000
