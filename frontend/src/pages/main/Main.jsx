@@ -14,10 +14,18 @@ function Main() {
     window.matchMedia("(min-width: 768px)").matches
   );
 
+  // Set matches to true if device is PC, else false (i.e., device is mobile)
   useEffect(() => {
-    window
-    .matchMedia("(min_width: 768px)")
-    .addEventListener('change', e => setMatches(e.matches));
+    const mediaQueryList = window.matchMedia('(min-width: 768px)');
+    const listener = (e) => setMatches(e.matches);
+
+    // Attach the listener to the MediaQueryList
+    mediaQueryList.addEventListener('change', listener);
+
+    // Clean up the listener when the component is unmounted
+    return () => {
+      mediaQueryList.removeEventListener('change', listener);
+    };
   }, []);
 
   const [bottomNavigationValue, setBottomNavigationValue] = useState(2);
