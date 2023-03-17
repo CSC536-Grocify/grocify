@@ -3,6 +3,7 @@ html, body, #root {
 }
 
 .container {
+  flex-grow: 1;
   display: flex;
   justify-content: space-between;
   padding: 1rem;
@@ -11,12 +12,32 @@ html, body, #root {
   background-color: #f6c7ff;
 }
 
+.mobile-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
 .column {
   flex: 1;
   background-color: #ffffff;
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-column {
+  overflow-y: auto;
+  height: 100%;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-navigation {
+  flex-shrink: 0;
 }
 
 @media (max-width: 768px) {
