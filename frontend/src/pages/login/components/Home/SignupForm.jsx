@@ -68,9 +68,6 @@ const SignupForm = (event) => {
       <div>
         <AiOutlineUser className='icon'/>
         <label htmlFor="password">Password:</label>
-        {/* <div className="icon">
-            <BsLockFill />
-        </div> */}
         <input type="password" placeholder = "Password" id="password" value={password} onChange={handlePasswordChange} required />
       </div>
       <div>
