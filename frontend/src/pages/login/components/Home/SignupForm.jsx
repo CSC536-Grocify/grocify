@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import './SignupForm.scss';
-import { BrowserRouter as Router, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {AiOutlineUser} from 'react-icons/ai'
 
 
 const SignupForm = (event) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -22,36 +20,39 @@ const SignupForm = (event) => {
     event.preventDefault();
     // Handle form submission here
   }
-  const handlePopup = () =>{
-      // Open a new web page
-    const newPage = window.open();
-    // Create three columns using HTML and CSS
-    const columnsHTML = `
-      <style>
-        .container {
-            display: flex;
-            justify-content: space-between;
-            height: 100%;
-          }
-        .column {
-          width: 33.33%;
-          float: left;
-          height: 100%;
-          padding: 10px;
-          box-sizing: border-box;
-        }
-        </style>
-          <div class="container">
-            
-            <div class="column">
-            
-            </div>
-          </div>
-        `;
 
-    // Write the HTML code to the new page
-    newPage.document.write(columnsHTML);
-  };
+  // const handlePopup = () => {
+  //     // Open a new web page
+  //   const newPage = window.open();
+  //   // Create three columns using HTML and CSS
+  //   const columnsHTML = `
+  //     <style>
+  //       .container {
+  //           display: flex;
+  //           justify-content: space-between;
+  //           height: 100%;
+  //         }
+  //       .column {
+  //         width: 33.33%;
+  //         float: left;
+  //         height: 100%;
+  //         padding: 10px;
+  //         box-sizing: border-box;
+  //       }
+  //       </style>
+  //         <div class="container">
+            
+  //           <div class="column">
+            
+  //           </div>
+  //         </div>
+  //       `;
+
+  //   // Write the HTML code to the new page
+  //   newPage.document.write(columnsHTML);
+  // };
+
+  let navigate = useNavigate();
 
   return (
     <div className="signup-container">
@@ -76,14 +77,14 @@ const SignupForm = (event) => {
         <button type="submit">Sign up</button>
       </div>
       <div className="home-footer">
-        <p>Already have an account? {' '} <a onClick={() => navigate('/main')}>Login</a></p>
+        <p>Already have an account? <a onClick={() => {
+          navigate("/main");
+        }}>Login</a></p>
       </div>
     </form>
     </div>
   );
 };
-
-
 
 export default SignupForm;
 
