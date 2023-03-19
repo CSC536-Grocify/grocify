@@ -11,7 +11,7 @@ services:
     frontend:
         build:
             context: ./frontend
-            dockerfile: Dockerfile
+            target: production-nginx
         image: "us-west2-docker.pkg.dev/grocify-379719/grocify/frontend:${TAG}"
         ports:
-            - 3000:3000
+            - 80:80
