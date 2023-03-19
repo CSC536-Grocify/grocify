@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import "./components/Navbar/navbar.scss"
-import "./components/Home/home.scss"
+import "./pages/login/components/Navbar/navbar.scss"
+import "./pages/login/components/Home/home.scss"
 import App from './App';
 import store from './store';
 import { Provider } from 'react-redux';

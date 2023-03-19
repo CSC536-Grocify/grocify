@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import './SignupForm.scss';
 import { useNavigate } from "react-router-dom";
+import {AiOutlineUser} from 'react-icons/ai'
+
 
 const SignupForm = (event) => {
   const [username, setUsername] = useState('');
@@ -53,14 +55,20 @@ const SignupForm = (event) => {
   let navigate = useNavigate();
 
   return (
+    <div className="signup-container">
     <form className="signup-form" onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="username">Username:</label>
-        <input type="text" id="username" value={username} onChange={handleUsernameChange} required />
+        <label htmlFor="email">Email:</label>
+        <input name="Email" type="text" id="email" placeholder = "Email" value={username} onChange={handleUsernameChange} required />
       </div>
       <div>
+        <label htmlFor="username">Username:</label>
+        <input name="Username" type="text" id="username" placeholder = "Username" value={username} onChange={handleUsernameChange} required />
+      </div>
+      <div>
+        <AiOutlineUser className='icon'/>
         <label htmlFor="password">Password:</label>
-        <input type="password" id="password" value={password} onChange={handlePasswordChange} required />
+        <input type="password" placeholder = "Password" id="password" value={password} onChange={handlePasswordChange} required />
       </div>
       <div>
         <button type="submit">Sign up</button>
@@ -71,6 +79,7 @@ const SignupForm = (event) => {
         }}>Login</a></p>
       </div>
     </form>
+    </div>
   );
 };
 
