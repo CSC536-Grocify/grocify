@@ -18,43 +18,7 @@ const SignupForm = (event) => {
     event.preventDefault();
     // Handle form submission here
   }
-  const handlePopup = () =>{
-      // Open a new web page
-    const newPage = window.open();
-    // Create three columns using HTML and CSS
-    const columnsHTML = `
-      <style>
-        .container {
-            display: flex;
-            justify-content: space-between;
-            height: 100%;
-          }
-        .column {
-          width: 33.33%;
-          float: left;
-          height: 100%;
-          padding: 10px;
-          box-sizing: border-box;
-        }
-        </style>
-          <div class="container">
-            
-            <div class="column">
-            
-            </div>
-          </div>
-        `;
 
-<<<<<<< HEAD
-    // Write the HTML code to the new page
-    newPage.document.write(columnsHTML);
-  };
-
-  
-
-
-  
-=======
   // const handlePopup = () => {
   //     // Open a new web page
   //   const newPage = window.open();
@@ -88,7 +52,6 @@ const SignupForm = (event) => {
 
   let navigate = useNavigate();
 
->>>>>>> 58870dc0209632dadeee0d879408061a52d5bbf1
   return (
     <form className="signup-form" onSubmit={handleSubmit}>
       <div>
@@ -111,11 +74,6 @@ const SignupForm = (event) => {
   );
 };
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 58870dc0209632dadeee0d879408061a52d5bbf1
 export default SignupForm;
 
 // import React, { useState } from 'react';
