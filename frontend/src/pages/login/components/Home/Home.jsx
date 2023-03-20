@@ -1,7 +1,7 @@
 import React from 'react';
 import './home.css'
 import SignupForm from './SignupForm';
-import img from '../../Assets/fruits.jpg'
+import img from '../../../../Assets/fruits.jpg'
 // import { FaFacebookF } from 'react-icons/fa'
 // import { AiOutlineTwitter } from 'react-icons/ai'
 // import { FaPinterest } from 'react-icons/fa'
