@@ -43,7 +43,7 @@ class LoginView(APIView):
 
             tokens = create_jwt_pair_for_user(user)
 
-            response = {"message": "Login Successfull", "tokens": tokens}
+            response = {"message": "Login Successful", "tokens": tokens, "username": user.username}
             return Response(data=response, status=status.HTTP_200_OK)
 
         else:
