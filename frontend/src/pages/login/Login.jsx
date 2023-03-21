@@ -1,15 +1,14 @@
 import React from "react";
-import Home from './components/Home/Home';
+import Homelogin from './components/Home/Homelogin';
 import Navbar from './components/Navbar/Navbar';
 
-function Login() {
+function LoginForm() {
   return (
     <div>
       <Navbar />
-      <Home />
-      <Outlet />
+      <Homelogin />  
     </div>
   )
 }
 
-export default Login;
+export default LoginForm;
