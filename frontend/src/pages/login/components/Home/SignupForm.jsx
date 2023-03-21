@@ -5,8 +5,6 @@ import {AiOutlineUser} from 'react-icons/ai'
 import {AiOutlineMail} from 'react-icons/ai'
 import {BiLockAlt} from 'react-icons/bi'
 
-
-
 const SignupForm = (event) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
