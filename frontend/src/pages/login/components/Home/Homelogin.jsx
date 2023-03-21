@@ -1,6 +1,6 @@
 import React from 'react';
-import './home.scss'
-import SignupForm from './SignupForm';
+import './Homelogin.scss'
+import LoginForm from './LoginForm';
 
 import img from '../../../../Assets/fruits.jpg'
 // import { FaFacebookF } from 'react-icons/fa'
@@ -9,7 +9,7 @@ import img from '../../../../Assets/fruits.jpg'
 // import { BsInstagram } from 'react-icons/bs'
 
 
-const Home = () => {
+const Homelogin = () => {
     // const [username, setUsername] = useState("");
     // const [password, setPassword] = useState("");
 
@@ -97,11 +97,11 @@ const Home = () => {
               <p className='smallText'>
                 With <span className='homeTitle'>Grocify</span> Categorize your grocery list effortlessly!
               </p>
-              <SignupForm />
+              <LoginForm />
             </div>
           </div>
         </section>
       )
 }
 
-export default Home
+export default Homelogin

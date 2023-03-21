@@ -1,14 +1,14 @@
 import React from "react";
-import Homelogin from './components/Home/Homelogin';
+import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
 
-function LoginForm() {
+function Login() {
   return (
     <>
       <Navbar />
-      <Homelogin />  
+      <Home />
     </>
   )
 }
 
-export default LoginForm;
+export default Login;

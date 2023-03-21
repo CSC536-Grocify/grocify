@@ -5,6 +5,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from './pages/main/Main';
 import Login from './pages/login/Login';
+import Signup from './pages/login/Signup';
 import PageNotFound from './pages/error/PageNotFound';
 
 // const api = axios.create({
@@ -28,8 +29,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Signup />} />
         <Route path="/main" element={<Main />} />
+        <Route path="/components/Home/Login" element={<Login />} />
+        <Route path="*" element={<PageNotFound />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>

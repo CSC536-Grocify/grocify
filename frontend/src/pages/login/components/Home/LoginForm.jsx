@@ -1,23 +1,17 @@
 import React, { useState } from 'react';
-import './SignupForm.scss';
+import './LoginForm.scss';
 import { useNavigate } from "react-router-dom";
-import {AiOutlineUser} from 'react-icons/ai'
-import {AiOutlineMail} from 'react-icons/ai'
 import {BiLockAlt} from 'react-icons/bi'
+import {AiOutlineMail} from 'react-icons/ai'
 
 
 
-const SignupForm = (event) => {
+const LoginForm = (event) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
-  }
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
   }
 
   const handlePasswordChange = (event) => {
@@ -28,44 +22,32 @@ const SignupForm = (event) => {
     event.preventDefault();
     // Handle form submission here
   }
-
   let navigate = useNavigate();
-
   return (
-    <div className="signup-container">
-    <form className="signup-form" onSubmit={handleSubmit}>
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <AiOutlineUser className='icon' style={{ marginRight: '8px' }}/>
-        {/* <label htmlFor="name">Name:</label> */}
-        <input name="name" type="text" id="name" placeholder = "Name" style={{ marginBottom: '25px' }} value={name} onChange={handleNameChange} required />
-      </div>
+    <div className="login-container">
+    <form className="login-form" onSubmit={handleSubmit}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <AiOutlineMail className='icon' style={{ marginRight: '8px' }}/>    
+        <AiOutlineMail className='icon' style={{ marginRight: '8px' }}/>
         {/* <label htmlFor="email">Email:</label> */}
         <input name="Email" type="text" id="email" placeholder = "Email" style={{ marginBottom: '25px' }} value={email} onChange={handleEmailChange} required />
       </div>
       
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        {/* <label htmlFor="password">Password:</label> */}
         <BiLockAlt className='icon' style={{ marginRight: '8px' }}/>
+        {/* <label htmlFor="password">Password:</label> */}
         <input type="password" placeholder = "Password" id="password" style={{ marginBottom: '25px' }} value={password} onChange={handlePasswordChange} required />
       </div>
       <div>
         <button type="submit" onClick={() => {
           navigate("/main");
-        }}>Sign up</button>
-      </div>
-      <div className="home-footer">
-        <p>Already have an account? <a onClick={() => {
-          navigate("/components/Home/Login");
-        }}>Login</a></p>
+        }}>Login</button>
       </div>
     </form>
     </div>
   );
 };
 
-export default SignupForm;
+export default LoginForm;
 
 // import React, { useState } from 'react';
 
