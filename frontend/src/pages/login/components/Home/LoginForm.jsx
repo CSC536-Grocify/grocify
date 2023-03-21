@@ -3,18 +3,26 @@ import './LoginForm.scss';
 import { useNavigate } from "react-router-dom";
 import {BiLockAlt} from 'react-icons/bi'
 import {AiOutlineMail} from 'react-icons/ai'
+<<<<<<< HEAD
 import { useDispatch } from 'react-redux';
 import { setToken } from '../../../../features/auth/authSlice';
 import { useLoginMutation } from '../../../../features/auth/authApiSlice';
+=======
+
+
+>>>>>>> ceda4dc (Mary new (#30))
 
 const LoginForm = (event) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+<<<<<<< HEAD
   const [errMsg, setErrMsg] = useState('');
   let navigate = useNavigate();
 
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
+=======
+>>>>>>> ceda4dc (Mary new (#30))
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -60,11 +68,22 @@ const LoginForm = (event) => {
         {/* <label htmlFor="password">Password:</label> */}
         <input type="password" placeholder = "Password" id="password" style={{ marginBottom: '25px' }} value={password} onChange={handlePasswordChange} required />
       </div>
+<<<<<<< HEAD
       <button type="submit" >Login</button>
       <div>{errMsg}</div>
     </form>
     </div>
   ));
+=======
+      <div>
+        <button type="submit" onClick={() => {
+          navigate("/main");
+        }}>Login</button>
+      </div>
+    </form>
+    </div>
+  );
+>>>>>>> ceda4dc (Mary new (#30))
 };
 
 export default LoginForm;
