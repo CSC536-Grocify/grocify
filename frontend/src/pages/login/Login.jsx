@@ -7,7 +7,6 @@ function LoginForm() {
     <div>
       <Navbar />
       <Homelogin />
-      <Outlet />
     </div>
   )
 }
