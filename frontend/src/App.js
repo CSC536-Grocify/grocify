@@ -31,7 +31,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Signup />} />
         <Route path="/main" element={<Main />} />
-        <Route path="/components/Home/Login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="*" element={<PageNotFound />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

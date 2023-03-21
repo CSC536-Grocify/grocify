@@ -55,7 +55,7 @@ const SignupForm = (event) => {
       </div>
       <div className="home-footer">
         <p>Already have an account? <a onClick={() => {
-          navigate("/components/Home/Login");
+          navigate("/login");
         }}>Login</a></p>
       </div>
     </form>
