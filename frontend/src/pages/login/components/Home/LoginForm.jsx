@@ -29,7 +29,7 @@ const LoginForm = (event) => {
 
     try {
       const userData = await login({ email, password }).unwrap();
-      dispatch(setToken({ tokens: userData.tokens }));
+      dispatch(setToken(userData.tokens));
       setEmail('');
       setPassword('');
       navigate('/main');
