@@ -94,6 +94,9 @@ DATABASES = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 87c8ef0 (React redux login authentication (#31))
 =======
 >>>>>>> 87c8ef0 (React redux login authentication (#31))
         'NAME': getenv('POSTGRES_DB'),
@@ -101,6 +104,7 @@ DATABASES = {
         'PASSWORD': getenv('POSTGRES_PASSWORD'),
         'HOST': getenv('POSTGRES_HOST'),
         'PORT': getenv('POSTGRES_PORT'),
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -116,6 +120,8 @@ DATABASES = {
 >>>>>>> 87c8ef0 (React redux login authentication (#31))
 =======
 >>>>>>> 42e0e4c (CSC536-81 and CSC536-66: Signup and login authentication added. (#28))
+=======
+>>>>>>> 87c8ef0 (React redux login authentication (#31))
     }
 }
 
