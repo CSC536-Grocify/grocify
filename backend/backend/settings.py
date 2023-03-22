@@ -141,9 +141,11 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000',
-     'https://frontend-omtljfrdga-uw.a.run.app'
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'https://frontend-omtljfrdga-uw.a.run.app'
 ]
 
 REST_FRAMEWORK = {
