@@ -106,6 +106,7 @@ function Main() {
           </div>
         </div>
       )}
+      <Outlet />
     </div>
   );
 }
