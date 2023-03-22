@@ -4,10 +4,10 @@ import Navbar from './components/Navbar/Navbar';
 
 function LoginForm() {
   return (
-    <>
+    <div>
       <Navbar />
-      <Homelogin />  
-    </>
+      <Homelogin />
+    </div>
   )
 }
 

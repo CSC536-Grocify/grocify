@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Outlet } from 'react-router-dom';
 import './main.scss';
 import TagsPannel from "./tagspannel/TagsPannel";
 import RecipesIngredients from "./recipesingredients/RecipesIngredients";
@@ -79,6 +80,7 @@ function Main() {
           </div>
         </div>
       )}
+      <Outlet />
     </div>
   );
 }
