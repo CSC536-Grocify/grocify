@@ -3,12 +3,18 @@ import './LoginForm.scss';
 import { useNavigate } from "react-router-dom";
 import {BiLockAlt} from 'react-icons/bi'
 import {AiOutlineMail} from 'react-icons/ai'
-
-
+import { useDispatch } from 'react-redux';
+import { setToken } from '../../../../features/auth/authSlice';
+import { useLoginMutation } from '../../../../features/auth/authApiSlice';
 
 const LoginForm = (event) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errMsg, setErrMsg] = useState('');
+  let navigate = useNavigate();
+
+  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -18,12 +24,29 @@ const LoginForm = (event) => {
     setPassword(event.target.value);
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle form submission here
+
+    try {
+      const userData = await login({ email, password }).unwrap();
+      dispatch(setToken({ tokens: userData.tokens }));
+      setEmail('');
+      setPassword('');
+      navigate('/main');
+    } catch (error) {
+      if (!error?.response) {
+        setErrMsg('No Server Response');
+      } else if (error.response?.status === 400) {
+        setErrMsg('Missing Email or Password');
+      } else if (error.response?.status === 401) {
+        setErrMsg('Unauthorized');
+      } else {
+        setErrMsg('Login Failed');
+      }
+    }
   }
-  let navigate = useNavigate();
-  return (
+
+  return ( isLoading ? <div>Loading...</div> : (
     <div className="login-container">
     <form className="login-form" onSubmit={handleSubmit}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -37,14 +60,11 @@ const LoginForm = (event) => {
         {/* <label htmlFor="password">Password:</label> */}
         <input type="password" placeholder = "Password" id="password" style={{ marginBottom: '25px' }} value={password} onChange={handlePasswordChange} required />
       </div>
-      <div>
-        <button type="submit" onClick={() => {
-          navigate("/main");
-        }}>Login</button>
-      </div>
+      <button type="submit" >Login</button>
+      <div>{errMsg}</div>
     </form>
     </div>
-  );
+  ));
 };
 
 export default LoginForm;

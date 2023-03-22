@@ -39,7 +39,7 @@ const SignupForm = (event) => {
 
     try {
       const userData = await signup({ email, username, password }).unwrap();
-      dispatch(setCredentials({ ...userData }));
+      dispatch(setCredentials({ email: userData.data.email, username: userData.data.username }));
       setEmail('');
       setPassword('');
       setUserName('');
@@ -52,7 +52,7 @@ const SignupForm = (event) => {
       } else if (error.response?.status === 401) {
         setErrMsg('Unauthorized');
       } else {
-        setErrMsg('Login Failed');
+        setErrMsg('Signup Failed');
       }
     }
   }
