@@ -91,11 +91,19 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+<<<<<<< HEAD
         'NAME': getenv('POSTGRES_DB'),
         'USER': getenv('POSTGRES_USER'),
         'PASSWORD': getenv('POSTGRES_PASSWORD'),
         'HOST': getenv('POSTGRES_HOST'),
         'PORT': getenv('POSTGRES_PORT'),
+=======
+        'NAME': 'grocify',
+        'USER': 'harshitanarnoli',
+        # 'PASSWORD': 'your_db_password',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+>>>>>>> 42e0e4c (CSC536-81 and CSC536-66: Signup and login authentication added. (#28))
     }
 }
 
