@@ -6,7 +6,7 @@ import { AiOutlineMail } from 'react-icons/ai'
 import { BiLockAlt } from 'react-icons/bi'
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../../../features/auth/authSlice';
-import { useLoginMutation } from '../../../../features/auth/authApiSlice';
+import { useSignupMutation } from '../../../../features/auth/authApiSlice';
 
 const SignupForm = (event) => {
   const [email, setEmail] = useState('');
@@ -15,7 +15,7 @@ const SignupForm = (event) => {
   const [errMsg, setErrMsg] = useState('');
   let navigate = useNavigate();
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [signup, { isLoading }] = useSignupMutation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const SignupForm = (event) => {
     event.preventDefault();
 
     try {
-      const userData = await login({ email, username, password }).unwrap();
+      const userData = await signup({ email, username, password }).unwrap();
       console.log(userData);
       dispatch(setCredentials({ ...userData, username }));
       setEmail('');
