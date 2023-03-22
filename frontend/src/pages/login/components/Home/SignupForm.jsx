@@ -39,8 +39,7 @@ const SignupForm = (event) => {
 
     try {
       const userData = await signup({ email, username, password }).unwrap();
-      console.log(userData);
-      dispatch(setCredentials({ ...userData, username }));
+      dispatch(setCredentials({ ...userData }));
       setEmail('');
       setPassword('');
       setUserName('');
