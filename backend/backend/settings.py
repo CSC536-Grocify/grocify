@@ -93,6 +93,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 87c8ef0 (React redux login authentication (#31))
         'NAME': getenv('POSTGRES_DB'),
@@ -102,14 +103,19 @@ DATABASES = {
         'PORT': getenv('POSTGRES_PORT'),
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> 42e0e4c (CSC536-81 and CSC536-66: Signup and login authentication added. (#28))
         'NAME': 'grocify',
         'USER': 'harshitanarnoli',
         # 'PASSWORD': 'your_db_password',
         'HOST': '127.0.0.1',
         'PORT': '5432',
+<<<<<<< HEAD
 >>>>>>> 42e0e4c (CSC536-81 and CSC536-66: Signup and login authentication added. (#28))
 =======
 >>>>>>> 87c8ef0 (React redux login authentication (#31))
+=======
+>>>>>>> 42e0e4c (CSC536-81 and CSC536-66: Signup and login authentication added. (#28))
     }
 }
 
