@@ -4,10 +4,36 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  background-color: white; // Change the background color to white
+  background-color: white;
   border-radius: 10px;
 
-  button {
+  .button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .left-btn {
+    border: none;
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    outline: none;
+    margin-right: 10px;
+
+    &:hover,
+    &:focus {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    svg {
+      color: gray;
+      font-size: 24px;
+    }
+  }
+
+  .bottom-btn {
     border: none;
     background-color: transparent;
     border-radius: 50%;
