@@ -2,14 +2,22 @@ html, body, #root {
   height: 100%;
 }
 
+.pc-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: 1rem;
+  height: 100%;
+  padding: 1rem; // Add padding to all sides of the pc-container
+  background-color: #f6c7ff;
+}
+
 .container {
-  flex-grow: 1;
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
   gap: 1rem;
   height: 100%;
-  background-color: #f6c7ff;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .mobile-container {

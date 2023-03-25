@@ -9,6 +9,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import EggIcon from '@mui/icons-material/Egg';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
+import VerticalNav from "./verticalnav/VerticalNav";
 
 function Main() {
   const [matches, setMatches] = useState(
@@ -47,16 +48,19 @@ function Main() {
   return (
     <div id="root">
       {matches ? (
-        <div className="container">
-          <div className="column">
-            <TagsPannel />
+        <div className="pc-container">
+          <div className="container">
+            <div className="column">
+              <TagsPannel />
+            </div>
+            <div className="column">
+              <RecipesIngredients />
+            </div>
+            <div className="column">
+              <GroceryList />
+            </div>
           </div>
-          <div className="column">
-            <RecipesIngredients />
-          </div>
-          <div className="column">
-            <GroceryList />
-          </div>
+          <VerticalNav />
         </div>
       ) : (
         <div className="mobile-container">
