@@ -9,8 +9,7 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  background-color: white;
-  border-radius: 10px;
+  background-color: transparent;
 
   .button-container {
     display: flex;
@@ -20,18 +19,19 @@
 
   .bottom-btn {
     border: none;
-    background-color: transparent;
+    background-color: white;
     border-radius: 50%;
     padding: 10px;
     cursor: pointer;
     outline: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
     &:hover{
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: rgb(219, 219, 219);
     }
 
     svg {
-      color: gray; // Change the icon color to gray
+      color: gray;
       font-size: 24px;
     }
   }
@@ -43,16 +43,17 @@
   right: calc(100% + 10px);
   bottom: 10px;
   border: none;
-  background-color: white;
+  background-color: rgb(235, 235, 235);
   border-radius: 10px;
   padding: 10px;
   cursor: pointer;
   outline: none;
   min-width: 80px;
   text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   &:hover{
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgb(219, 219, 219);
   }
 
   svg {
