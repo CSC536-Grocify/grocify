@@ -1,3 +1,8 @@
+.nav-container {
+  position: relative;
+  height: 100%;
+}
+
 .vertical-nav {
   height: 100%;
   display: flex;
@@ -13,26 +18,6 @@
     align-items: center;
   }
 
-  .left-btn {
-    border: none;
-    background-color: transparent;
-    border-radius: 10px;
-    padding: 10px;
-    cursor: pointer;
-    outline: none;
-    margin-right: 10px;
-
-    &:hover,
-    &:focus {
-      background-color: rgba(0, 0, 0, 0.1);
-    }
-
-    svg {
-      color: gray;
-      font-size: 24px;
-    }
-  }
-
   .bottom-btn {
     border: none;
     background-color: transparent;
@@ -41,8 +26,7 @@
     cursor: pointer;
     outline: none;
 
-    &:hover,
-    &:focus {
+    &:hover{
       background-color: rgba(0, 0, 0, 0.1);
     }
 
@@ -50,5 +34,29 @@
       color: gray; // Change the icon color to gray
       font-size: 24px;
     }
+  }
+}
+
+.left-btn {
+  position: absolute;
+  // Move the button to the left of the vertical-nav with a 10px gap
+  right: calc(100% + 10px);
+  bottom: 10px;
+  border: none;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  outline: none;
+  min-width: 80px;
+  text-align: center;
+
+  &:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  svg {
+    color: gray;
+    font-size: 24px;
   }
 }

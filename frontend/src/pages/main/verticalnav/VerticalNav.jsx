@@ -10,13 +10,13 @@ const VerticalNav = () => {
   };
 
   return (
-    <div className="vertical-nav">
-      <div className="button-container">
-        {showLeftButton && (
-          <button className="left-btn">
-            Log out
-          </button>
-        )}
+    <div className="nav-container">
+      {showLeftButton && (
+        <button className="left-btn">
+          Log out
+        </button>
+      )}
+      <div className="vertical-nav">
         <button className="bottom-btn" onClick={handleButtonClick}>
           <FaUser />
         </button>
