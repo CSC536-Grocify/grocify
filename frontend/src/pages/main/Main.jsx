@@ -10,6 +10,7 @@ import KitchenIcon from '@mui/icons-material/Kitchen';
 import EggIcon from '@mui/icons-material/Egg';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import VerticalNav from "./verticalnav/VerticalNav";
+import ListIcon from '@mui/icons-material/List';
 
 function Main() {
   const [matches, setMatches] = useState(
@@ -40,6 +41,8 @@ function Main() {
         return <RecipesIngredients />;
       case 2:
         return <GroceryList />;
+      case 3:
+        return <VerticalNav />;
       default:
         return <GroceryList />;
     }
@@ -80,11 +83,11 @@ function Main() {
               <BottomNavigationAction label="Tags" icon={<RestaurantIcon />} />
               <BottomNavigationAction label="Food" icon={<KitchenIcon />} />
               <BottomNavigationAction label="Grocery" icon={<EggIcon />} />
+              <BottomNavigationAction label="Options" icon={<ListIcon />} />
             </BottomNavigation>
           </div>
         </div>
       )}
-      <Outlet />
     </div>
   );
 }
