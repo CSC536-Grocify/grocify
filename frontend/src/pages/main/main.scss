@@ -56,6 +56,8 @@ html, body, #root {
 .mobile-vertical-navigation {
   flex-grow: 1;
   margin: 1rem;
+  justify-content: flex-end;
+  display: flex;
 }
 
 @media (max-width: 768px) {
