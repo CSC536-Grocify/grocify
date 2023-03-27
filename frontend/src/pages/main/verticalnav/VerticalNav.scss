@@ -1,0 +1,63 @@
+.nav-container {
+  position: relative;
+  height: 100%;
+}
+
+.vertical-nav {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: transparent;
+
+  .button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .bottom-btn {
+    border: none;
+    background-color: white;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    &:hover{
+      background-color: rgb(219, 219, 219);
+    }
+
+    svg {
+      color: gray;
+      font-size: 24px;
+    }
+  }
+}
+
+.left-btn {
+  position: absolute;
+  // Move the button to the left of the vertical-nav with a 10px gap
+  right: calc(100% + 10px);
+  bottom: 10px;
+  border: none;
+  background-color: rgb(235, 235, 235);
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  outline: none;
+  min-width: 80px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  &:hover{
+    background-color: rgb(219, 219, 219);
+  }
+
+  svg {
+    color: gray;
+    font-size: 24px;
+  }
+}
