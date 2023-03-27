@@ -9,6 +9,8 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import EggIcon from '@mui/icons-material/Egg';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
+import VerticalNav from "./verticalnav/VerticalNav";
+import ListIcon from '@mui/icons-material/List';
 
 function Main() {
   const [matches, setMatches] = useState(
@@ -34,36 +36,59 @@ function Main() {
   const renderColumn = () => {
     switch (bottomNavigationValue) {
       case 0:
-        return <TagsPannel />;
+        return (
+          <div className="mobile-column">
+            <TagsPannel />
+          </div>
+        );
       case 1:
-        return <RecipesIngredients />;
+        return (
+          <div className="mobile-column">
+            <RecipesIngredients />
+          </div>
+        );
       case 2:
-        return <GroceryList />;
+        return (
+          <div className="mobile-column">
+            <GroceryList />
+          </div>
+        );
+      case 3:
+        return (
+          <div className="mobile-vertical-navigation">
+            <VerticalNav />
+          </div>
+        );
       default:
-        return <GroceryList />;
+        return (
+          <div className="mobile-column">
+            <GroceryList />
+          </div>
+        );
     }
   };
 
   return (
     <div id="root">
       {matches ? (
-        <div className="container">
-          <div className="column">
-            <TagsPannel />
+        <div className="pc-container">
+          <div className="container">
+            <div className="column">
+              <TagsPannel />
+            </div>
+            <div className="column">
+              <RecipesIngredients />
+            </div>
+            <div className="column">
+              <GroceryList />
+            </div>
           </div>
-          <div className="column">
-            <RecipesIngredients />
-          </div>
-          <div className="column">
-            <GroceryList />
-          </div>
+          <VerticalNav />
         </div>
       ) : (
         <div className="mobile-container">
           <div className="container">
-            <div className="mobile-column">
-              {renderColumn()}
-            </div>
+            {renderColumn()}
           </div>
           <div className="bottom-navigation">
             <BottomNavigation
@@ -76,11 +101,11 @@ function Main() {
               <BottomNavigationAction label="Tags" icon={<RestaurantIcon />} />
               <BottomNavigationAction label="Food" icon={<KitchenIcon />} />
               <BottomNavigationAction label="Grocery" icon={<EggIcon />} />
+              <BottomNavigationAction label="Options" icon={<ListIcon />} />
             </BottomNavigation>
           </div>
         </div>
       )}
-      <Outlet />
     </div>
   );
 }

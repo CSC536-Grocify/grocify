@@ -70,7 +70,7 @@ const SignupForm = (event) => {
         {/* <label htmlFor="email">Email:</label> */}
         <input name="Email" type="text" id="email" placeholder = "Email" style={{ marginBottom: '25px' }} value={email} onChange={handleEmailChange} required />
       </div>
-      
+
       <div style={{ display: 'flex', alignItems: 'center' }}>
         {/* <label htmlFor="password">Password:</label> */}
         <BiLockAlt className='icon' style={{ marginRight: '8px' }}/>
