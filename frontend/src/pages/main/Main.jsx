@@ -36,15 +36,35 @@ function Main() {
   const renderColumn = () => {
     switch (bottomNavigationValue) {
       case 0:
-        return <TagsPannel />;
+        return (
+          <div className="mobile-column">
+            <TagsPannel />
+          </div>
+        );
       case 1:
-        return <RecipesIngredients />;
+        return (
+          <div className="mobile-column">
+            <RecipesIngredients />
+          </div>
+        );
       case 2:
-        return <GroceryList />;
+        return (
+          <div className="mobile-column">
+            <GroceryList />
+          </div>
+        );
       case 3:
-        return <VerticalNav />;
+        return (
+          <div className="mobile-vertical-navigation">
+            <VerticalNav />
+          </div>
+        );
       default:
-        return <GroceryList />;
+        return (
+          <div className="mobile-column">
+            <GroceryList />
+          </div>
+        );
     }
   };
 
@@ -68,9 +88,7 @@ function Main() {
       ) : (
         <div className="mobile-container">
           <div className="container">
-            <div className="mobile-column">
-              {renderColumn()}
-            </div>
+            {renderColumn()}
           </div>
           <div className="bottom-navigation">
             <BottomNavigation
