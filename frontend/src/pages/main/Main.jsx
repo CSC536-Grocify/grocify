@@ -58,13 +58,13 @@ function Main() {
     }
   };
 
-  const openPopUpBox = () => {
-    document.querySelector(".bg-popContainer").style.display = "flex";
-  }
+  // const openPopUpBox = () => {
+  //   document.querySelector(".bg-popContainer").style.display = "flex";
+  // }
 
-  const closePopUpBox = () => {
-    document.querySelector(".bg-popContainer").style.display = "none";
-  }
+  // const closePopUpBox = () => {
+  //   document.querySelector(".bg-popContainer").style.display = "none";
+  // }
 
   return (
     <div id="root">
