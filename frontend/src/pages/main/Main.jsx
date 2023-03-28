@@ -9,11 +9,25 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import EggIcon from '@mui/icons-material/Egg';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
+import IngredientsTab from "./recipesingredients/RecipesTab"
+import RecipesTab from "./recipesingredients/IngredientsTab";
+import { TabContext, TabPanel } from "@mui/lab";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import App from "../../App";
 
 function Main() {
   const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 768px)").matches
   );
+
+  const [tabValue, setTabValue] = useState("recipes");
+
+  function handleTabChange (event, newValue) {
+    setTabValue(newValue);
+  }
+
+
 
   // Set matches to true if device is PC, else false (i.e., device is mobile)
   useEffect(() => {
@@ -44,6 +58,14 @@ function Main() {
     }
   };
 
+  const openPopUpBox = () => {
+    document.querySelector(".bg-popContainer").style.display = "flex";
+  }
+
+  const closePopUpBox = () => {
+    document.querySelector(".bg-popContainer").style.display = "none";
+  }
+
   return (
     <div id="root">
       {matches ? (
@@ -52,8 +74,34 @@ function Main() {
             <TagsPannel />
           </div>
           <div className="column">
-            <RecipesIngredients />
+            {/* <RecipesIngredients /> */}
+            <TabContext value={tabValue}>
+              <Tabs value={tabValue} onChange={handleTabChange} aria-label="Recipes Ingredients tabs">
+                {/* <Tab label="Recipes" value="recipes" /> */}
+                <a href="" id="button"><Tab label="Recipes" value="recipes">RECIPES</Tab></a>
+                <Tab label="Ingredients" value="ingredients" />
+              </Tabs>
+              <TabPanel value="recipes">
+                <RecipesTab />
+              </TabPanel>
+              <TabPanel value="ingredients">
+                <IngredientsTab />
+              </TabPanel>
+            </TabContext>
           </div>
+          <div class="bg-popContainer">
+            <div class="pop-box">
+              <div id="close" class="closer" onClick={() => {
+              document.querySelector(".bg-popContainer").style.display = "none"
+            }}>+</div>
+              <input type="text" className="fieldStylehead" placeholder="Title"></input>
+              <textarea type="text" className="fieldStylebody" placeholder="Enter your Recipe"></textarea>
+              <button type="submit" className="button"  onClick={() => {
+              document.querySelector(".bg-popContainer").style.display = "none"
+            }}>Create</button>
+            </div>
+          </div>
+          
           <div className="column">
             <GroceryList />
           </div>

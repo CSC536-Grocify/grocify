@@ -70,7 +70,7 @@
   }
 
   button {
-    background-color: blue;
+    background-color: rgb(51, 0, 255);
     color: white;
     padding: 10px 20px;
     border: none;
@@ -84,10 +84,8 @@
     }
   }
   .icon{
-    font-size:10px;
-  }
-  .icon{
-    font-size:20px;
+    margin-bottom: 20px;
+    font-size:25px;
   }
 }
 
@@ -100,6 +98,8 @@
     color: blue;
     text-decoration: none;
     transition: all 0.3s ease;
+    cursor: pointer;
+
 
     &:hover {
       color: navy;
