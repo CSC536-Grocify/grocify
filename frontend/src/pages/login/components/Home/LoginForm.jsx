@@ -3,38 +3,18 @@ import './LoginForm.scss';
 import { useNavigate } from "react-router-dom";
 import {BiLockAlt} from 'react-icons/bi'
 import {AiOutlineMail} from 'react-icons/ai'
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { useDispatch } from 'react-redux';
 import { setToken } from '../../../../features/auth/authSlice';
 import { useLoginMutation } from '../../../../features/auth/authApiSlice';
-=======
-
-
->>>>>>> ceda4dc (Mary new (#30))
-=======
-import { useDispatch } from 'react-redux';
-import { setToken } from '../../../../features/auth/authSlice';
-import { useLoginMutation } from '../../../../features/auth/authApiSlice';
->>>>>>> 87c8ef0 (React redux login authentication (#31))
 
 const LoginForm = (event) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 87c8ef0 (React redux login authentication (#31))
   const [errMsg, setErrMsg] = useState('');
   let navigate = useNavigate();
 
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
-<<<<<<< HEAD
-=======
->>>>>>> ceda4dc (Mary new (#30))
-=======
->>>>>>> 87c8ef0 (React redux login authentication (#31))
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -80,30 +60,11 @@ const LoginForm = (event) => {
         {/* <label htmlFor="password">Password:</label> */}
         <input type="password" placeholder = "Password" id="password" style={{ marginBottom: '25px' }} value={password} onChange={handlePasswordChange} required />
       </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
       <button type="submit" >Login</button>
       <div>{errMsg}</div>
     </form>
     </div>
   ));
-=======
-      <div>
-        <button type="submit" onClick={() => {
-          navigate("/main");
-        }}>Login</button>
-      </div>
-    </form>
-    </div>
-  );
->>>>>>> ceda4dc (Mary new (#30))
-=======
-      <button type="submit" >Login</button>
-      <div>{errMsg}</div>
-    </form>
-    </div>
-  ));
->>>>>>> 87c8ef0 (React redux login authentication (#31))
 };
 
 export default LoginForm;
