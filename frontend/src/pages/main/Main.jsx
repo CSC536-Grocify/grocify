@@ -9,6 +9,8 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import EggIcon from '@mui/icons-material/Egg';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
+import VerticalNav from "./verticalnav/VerticalNav";
+import ListIcon from '@mui/icons-material/List';
 import IngredientsTab from "./recipesingredients/RecipesTab"
 import RecipesTab from "./recipesingredients/IngredientsTab";
 import { TabContext, TabPanel } from "@mui/lab";
