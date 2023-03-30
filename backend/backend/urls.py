@@ -1,16 +1,16 @@
 from django.urls import path
-from recipes import recipe_views
+from recipes import views as recipe_views
+from accounts import views as accounts_views
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
 )
-from accounts import views
   
 urlpatterns = [
-    path("signup/", views.SignUpView.as_view(), name="signup"),
-    path("login/", views.LoginView.as_view(), name="login"),
+    path("signup/", accounts_views.SignUpView.as_view(), name="signup"),
+    path("login/", accounts_views.LoginView.as_view(), name="login"),
     path("jwt/create/", TokenObtainPairView.as_view(), name="jwt_create"),
     path("jwt/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("jwt/verify/", TokenVerifyView.as_view(), name="token_verify"),
