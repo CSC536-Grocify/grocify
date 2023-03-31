@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from .serializers import RecipeSerializer
 from .models import Recipe
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 
 # Create your views here.
@@ -13,12 +13,13 @@ def getRecipes(request):
     serializer = RecipeSerializer(user, many=True)
     return Response(serializer.data)
 
-@api_view(['POST'])
-def createRecipe(request):
-    serializer = RecipeSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
+# @api_view(['POST'])
+# def createRecipe(request):
+#     print(request)
+#     serializer = RecipeSerializer(data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#     return Response(serializer.data)
 
 @api_view(['PUT'])
 def updateRecipe(request):
