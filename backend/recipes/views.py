@@ -19,11 +19,19 @@ def getRecipes(request):
 
 @api_view(['POST'])
 def createRecipe(request):
-    print(request)
-    serializer = RecipeSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
+    try:
+        serializer = RecipeSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            response = {"data": serializer.data, "message": "Recipe created successfully."}
+            return Response(data=response, status=status.HTTP_201_CREATED)
+        else:
+            response = {"data": serializer.errors, "message": "Recipe creation issues."}
+            return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        response = {"data": [], "message": "Recipe creation issues."}
+        return Response(data=response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['PUT'])
 def updateRecipe(request):
