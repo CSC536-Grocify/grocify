@@ -15,3 +15,18 @@ def getIngredients(request):
     except Exception as e:
         response = {"data": [], "message": "Ingredients loading issues."}
         return Response(data=response, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['POST'])
+def createIngredient(request):
+    try:
+        serializer = IngredientSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            response = {"data": serializer.data, "message": "Ingredient created successfully."}
+            return Response(data=response, status=status.HTTP_201_CREATED)
+        else:
+            response = {"data": [], "message": "Ingredient creation issues."}
+            return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        response = {"data": [], "message": "Ingredient creation issues."}
+        return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
