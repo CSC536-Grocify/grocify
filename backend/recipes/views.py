@@ -6,20 +6,24 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 
-# Create your views here.
 @api_view(['GET']) 
 def getRecipes(request):
-    user = Recipe.objects.all()
-    serializer = RecipeSerializer(user, many=True)
-    return Response(serializer.data)
+    try:
+        recipes = Recipe.objects.filter(user=request.user)
+        serializer = RecipeSerializer(recipes, many=True)
+        response = {"data": serializer.data, "message": "Recipes loaded successfully."}
+        return Response(data=response, status=status.HTTP_200_OK)
+    except Exception as e:
+        response = {"data": [], "message": "Recipes loading issues."}
+        return Response(data=response, status=status.HTTP_404_NOT_FOUND)
 
-# @api_view(['POST'])
-# def createRecipe(request):
-#     print(request)
-#     serializer = RecipeSerializer(data=request.data)
-#     if serializer.is_valid():
-#         serializer.save()
-#     return Response(serializer.data)
+@api_view(['POST'])
+def createRecipe(request):
+    print(request)
+    serializer = RecipeSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
 
 @api_view(['PUT'])
 def updateRecipe(request):
