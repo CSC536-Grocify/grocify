@@ -11,11 +11,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-# from dotenv import load_dotenv, find_dotenv
+from dotenv import load_dotenv, find_dotenv
 from os import getenv
 
 # Load environment variables from the .env file
-# load_dotenv(find_dotenv())
+load_dotenv(find_dotenv())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -93,11 +93,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'grocify',
-        'USER': 'harshitanarnoli',
-        # 'PASSWORD': 'your_db_password',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': getenv('POSTGRES_DB'),
+        'USER': getenv('POSTGRES_USER'),
+        'PASSWORD': getenv('POSTGRES_PASSWORD'),
+        'HOST': getenv('POSTGRES_HOST'),
+        'PORT': getenv('POSTGRES_PORT'),
     }
 }
 

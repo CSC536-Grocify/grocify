@@ -16,8 +16,8 @@ urlpatterns = [
     path("jwt/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("jwt/verify/", TokenVerifyView.as_view(), name="token_verify"),
     path('recipes/', recipe_views.getRecipes, name="get_recipes"),
-    path('recipes/create', recipe_views.createRecipe, name="create_recipe"),
-    path('recipes/update', recipe_views.updateRecipe, name="update_recipe"),
-    path('recipes/delete', recipe_views.deleteRecipe, name="delete_recipe"),
+    # path('recipes/create', recipe_views.createRecipe, name="create_recipe"),
+    # path('recipes/update', recipe_views.updateRecipe, name="update_recipe"),
+    # path('recipes/delete', recipe_views.deleteRecipe, name="delete_recipe"),
     path('ingredients/', ingredients_views.getIngredients, name="get_ingredients")
 ]
