@@ -12,58 +12,7 @@
     --bodyColor: rgb(240, 240, 246);
     --cardBG: rgb(225, 225, 235);
 }
-.firstOne{
-  width: 72px;
-  font-size: medium;
-  height: 80px;
-
-}
-.secondOne{
-  width: 100%;
-  background-color: #fff;
-  padding: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-}
-.add-btn{
-    background-color: #f0f6f3;
-        border: .5px solid rgb(106, 111, 109);
-        border-radius: 5px;
-        font-size: 20px;
-        font-weight: bold;
-        color: #0a0a0a;
-        padding: 5px;
-        margin-left: 95%;
-}
-
-.fieldStylehead{
-    width: 200px;
-    height: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    // margin-top: 20px;
-    // margin-left: 20px;
-    margin: 15px auto;
-    padding: 5px;
-    font-size: medium;
-  }
-  
-  .fieldStylebody{
-    width: 450px;
-    height: 300px; 
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 15px auto;
-    padding: 5px;
-    font-size: medium;
-  }
-  
-  .bg-popContainer{
+.bg-popContainer{
     height: 100%;
     width: 100%;
     margin-left: -37.5%;
@@ -195,4 +144,44 @@
 
 
 
+
+
+
+// *{
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: border-box;
+//   font-family: 'Poppins', sans-serif;
+// }
+// .cont-drop{
+//   position:relative;
+//   border-radius: 5px;
+// }
+// .select-btn{
+//   display: flex;
+//   // height: 50px;
+//   align-items: center;
+//   padding: 0 16px;
+//   border-radius: 8px;
+//   cursor: pointer;
+//   background-color: #fff;
+//   box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+//   .btn-text{
+//     font-size: 17px;
+//     font-weight: 400;
+//     color: #333;
+//   }
+//   .arrow-dwn{
+//     display: flex;
+//     // height: 21px;
+//     // width: 21px;
+//     color: #fff;
+//     font-size: 14px;
+//     border-radius: 50%;
+//     background: #6e93f7;
+//     align-items: center;
+//     justify-content: center;
+
+//   }
+// }
 
