@@ -1,6 +1,7 @@
 from django.urls import path
 from recipes import views as recipe_views
 from accounts import views as accounts_views
+from ingredients import views as ingredients_views
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -18,4 +19,5 @@ urlpatterns = [
     path('recipes/create', recipe_views.createRecipe, name="create_recipe"),
     path('recipes/update', recipe_views.updateRecipe, name="update_recipe"),
     path('recipes/delete', recipe_views.deleteRecipe, name="delete_recipe"),
+    path('ingredients/', ingredients_views.getIngredients, name="get_ingredients")
 ]
