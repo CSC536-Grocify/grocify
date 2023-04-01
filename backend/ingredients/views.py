@@ -30,3 +30,19 @@ def createIngredient(request):
     except Exception as e:
         response = {"data": [], "message": "Ingredient creation issues."}
         return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['PUT'])
+def updateIngredient(request):
+    try:
+        ingredient = Ingredient.objects.get(id=request.data['id'], user=request.user)
+        serializer = IngredientSerializer(ingredient, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            response = {"data": serializer.data, "message": "Ingredient updated successfully."}
+            return Response(data=response, status=status.HTTP_200_OK)
+        else:
+            response = {"data": [], "message": "Ingredient update issues."}
+            return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        response = {"data": [], "message": "Ingredient update issues."}
+        return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
