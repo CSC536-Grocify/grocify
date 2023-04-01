@@ -19,5 +19,6 @@ urlpatterns = [
     # path('recipes/create', recipe_views.createRecipe, name="create_recipe"),
     # path('recipes/update', recipe_views.updateRecipe, name="update_recipe"),
     # path('recipes/delete', recipe_views.deleteRecipe, name="delete_recipe"),
-    path('ingredients/', ingredients_views.getIngredients, name="get_ingredients")
+    path('ingredients/', ingredients_views.getIngredients, name="get_ingredients"),
+    path('ingredients/create/', ingredients_views.createIngredient, name="create_ingredient")
 ]
