@@ -22,4 +22,5 @@ urlpatterns = [
     path('ingredients/', ingredients_views.getIngredients, name="get_ingredients"),
     path('ingredients/create/', ingredients_views.createIngredient, name="create_ingredient"),
     path('ingredients/update/', ingredients_views.updateIngredient, name="update_ingredient"),
+    path('ingredients/delete/', ingredients_views.deleteIngredient, name="delete_ingredient")
 ]

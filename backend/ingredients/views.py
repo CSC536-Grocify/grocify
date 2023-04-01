@@ -46,3 +46,15 @@ def updateIngredient(request):
     except Exception as e:
         response = {"data": [], "message": "Ingredient update issues."}
         return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['DELETE'])
+def deleteIngredient(request):
+    try:
+        ingredient = Ingredient.objects.get(id=request.data['id'], user=request.user)
+        serializer = IngredientSerializer(ingredient)
+        response = {"data": serializer.data, "message": "Ingredient deleted successfully."}
+        ingredient.delete()
+        return Response(data=response, status=status.HTTP_200_OK)
+    except Exception as e:
+        response = {"data": [], "message": "Ingredient delete issues."}
+        return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
