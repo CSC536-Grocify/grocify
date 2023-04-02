@@ -12,6 +12,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import VerticalNav from "./verticalnav/VerticalNav";
 import ListIcon from '@mui/icons-material/List';
 
+
 function Main() {
   const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 768px)").matches

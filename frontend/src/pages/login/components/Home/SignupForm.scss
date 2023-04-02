@@ -84,13 +84,9 @@
     }
   }
   .icon{
-    font-size:10px;
+    margin-bottom: 20px;
+    font-size:25px;
   }
-  .icon{
-    font-size:20px;
-  }
-}
-
 
 .home-footer {
   margin-top: 20px;
@@ -100,9 +96,11 @@
     color: blue;
     text-decoration: none;
     transition: all 0.3s ease;
-
+    cursor: pointer;
+    
     &:hover {
       color: navy;
     }
   }
+}
 }
