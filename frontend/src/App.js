@@ -7,7 +7,7 @@ import Main from './pages/main/Main';
 import Login from './pages/login/Login';
 import Signup from './pages/login/Signup';
 import PageNotFound from './pages/error/PageNotFound';
-import RecipesPop from './pages/main/recipesingredients/RecipesPop';
+import Recipesdropdown from './pages/main/recipesingredients/RecipesDropDown';
 
 
 
@@ -35,7 +35,7 @@ function App() {
         <Route path="/" element={<Signup />} />
         <Route path="/main" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/Recipepop" element={<RecipesPop />} />
+        <Route path="/RecipesDropdown" element={<Recipesdropdown />} />
         <Route path="*" element={<PageNotFound />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

@@ -1,3 +1,4 @@
+@import url("http://cdn.syncfusion.com/ej2/bootstraps.css");
 :root {
     --PrimaryColor: rgb(8, 132, 232);
     --SecondaryColor: rgb(5, 179, 242);
@@ -12,24 +13,49 @@
     --bodyColor: rgb(240, 240, 246);
     --cardBG: rgb(225, 225, 235);
 }
+.fieldStylehead{
+  width: 200px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // margin-top: 20px;
+  // margin-left: 20px;
+  margin: 15px auto;
+  padding: 5px;
+  font-size: medium;
+}
+
+.fieldStylebody{
+  width: 450px;
+  height: 300px; 
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px auto;
+  padding: 5px;
+  font-size: medium;
+}
 .bg-popContainer{
-    height: 100%;
-    width: 100%;
-    margin-left: -37.5%;
-    // margin-right: -30%;
-    background-color: rgba(0,0,0,0.7);
-    display: flex;
-    position: absolute;
-    top: 0;
+
+    height: 100vh;
+    position: relative;
+    width:100%;
+    display:flex;
     align-items: center;
-    justify-content: center;
-    // display: none;
+    justify-content:center;
+    margin:auto;
+    background-color: rgba(0,0,0,0.7);
+    // position: absolute;
+    // // top: 0;
+
   }
   
   .pop-box{
     width: 500px;
     height: 500px;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     border-radius: 10px;
     text-align: center;
     padding: 20px;
@@ -53,8 +79,8 @@
     font-size: 22px;
     cursor: pointer;
     font-family:'Times New Roman', Times, serif;
-    background-color: green;
-    border-color: green;
+    background-color: rgb(22, 145, 221);
+    border-color: rgb(22, 145, 221);
     border-radius: 5px; 
   }
   
@@ -138,6 +164,46 @@
   .checkbox .check-icon{
     font-size: 11px;
     transform: scale(0);
+  }
+
+  .firstOne{
+    width: 200px;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px auto;
+    padding: 5px;
+    font-size: medium;
+
+  
+  }
+  .secondOne{
+    width: 100%;
+    background-color: #fff;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+  }
+  .dropDown{
+    background-color: white;
+    margin-top: 4px;
+    width: 100%;
+    max-height:60px;
+    overflow-y: auto;
+  }
+  .dDitems{
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    text-align: left;
+  
+    &:hover {
+      // color: rgb(29, 29, 209);
+      background: rgb(11, 152, 234);
+      color: #c0c0c0;
+    }
   }
 
 
