@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './LoginForm.scss';
 import { useNavigate } from "react-router-dom";
-import {BiLockAlt} from 'react-icons/bi'
-import {AiOutlineMail} from 'react-icons/ai'
+import { BiLockAlt } from 'react-icons/bi'
+import { AiOutlineMail } from 'react-icons/ai'
 import { useDispatch } from 'react-redux';
 import { setCredentials, setToken } from '../../../../features/auth/authSlice';
 import { useLoginMutation } from '../../../../features/auth/authApiSlice';
