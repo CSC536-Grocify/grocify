@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
 from os import getenv
+from datetime import timedelta
 
 # Load environment variables from the .env file
 load_dotenv(find_dotenv())
@@ -153,3 +154,8 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = "accounts.User"
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
