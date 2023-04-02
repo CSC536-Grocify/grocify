@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {BiLockAlt} from 'react-icons/bi'
 import {AiOutlineMail} from 'react-icons/ai'
 import { useDispatch } from 'react-redux';
-import { setToken } from '../../../../features/auth/authSlice';
+import { setCredentials, setToken } from '../../../../features/auth/authSlice';
 import { useLoginMutation } from '../../../../features/auth/authApiSlice';
 
 const LoginForm = (event) => {
@@ -30,6 +30,7 @@ const LoginForm = (event) => {
     try {
       const userData = await login({ email, password }).unwrap();
       dispatch(setToken(userData.tokens));
+      dispatch(setCredentials({ username: userData.username, email: email }))
       setEmail('');
       setPassword('');
       navigate('/main');
