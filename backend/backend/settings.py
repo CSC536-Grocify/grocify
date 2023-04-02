@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'accounts',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'recipes',
+    'ingredients'
 ]
 
 MIDDLEWARE = [
@@ -95,7 +97,6 @@ DATABASES = {
         'PORT': getenv('POSTGRES_PORT'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
