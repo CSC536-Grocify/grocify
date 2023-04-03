@@ -40,7 +40,7 @@ function RecipesDropDown(event) {
             console.log(recipeData);
             navigate('/main');
         } catch (error) {
-            console.log(error)
+            console.error(error);
         }
     }
 
@@ -67,24 +67,24 @@ function RecipesDropDown(event) {
                     +
                 </div>
                 <div>
-                <label>
-                    <input className="fieldStylehead" placeholder="Title" type="text" value={title} onChange={handleTitleChange} />
-                </label>
-                {/* <Multiselect
-                    options={objectArray}
-                    displayValue="key"
-                    isMulti
-                    closeMenuOnSelect={false}
-                    showCheckbox={true}
-                    onSelect={handleSelect}
-                    onRemove={handleRemove}
-                /> */}
-                {/* <div>
-                    <div>Selected Items:</div>
-                    {selectedItems.map((item) => (
-                    <div key={item.value}>{item.key}</div>
-                    ))}
-                </div> */}
+                    <label>
+                        <input className="fieldStylehead" placeholder="Title" type="text" value={title} onChange={handleTitleChange} />
+                    </label>
+                    {/* <Multiselect
+                        options={objectArray}
+                        displayValue="key"
+                        isMulti
+                        closeMenuOnSelect={false}
+                        showCheckbox={true}
+                        onSelect={handleSelect}
+                        onRemove={handleRemove}
+                    /> */}
+                    {/* <div>
+                        <div>Selected Items:</div>
+                        {selectedItems.map((item) => (
+                        <div key={item.value}>{item.key}</div>
+                        ))}
+                    </div> */}
                 </div>
                 {/* <button className="button" onClick={handleCreate}> */}
                 <button className="button" onClick={handleCreateSubmit}>
