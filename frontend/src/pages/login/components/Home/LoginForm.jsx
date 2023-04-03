@@ -28,7 +28,7 @@ const LoginForm = (event) => {
     event.preventDefault();
 
     try {
-      const userData = await login({ email, password }).unwrap();
+      const userData = await login({ email: email, password: password }).unwrap();
       dispatch(setToken(userData.tokens));
       dispatch(setCredentials({ username: userData.username, email: email }))
       setEmail('');

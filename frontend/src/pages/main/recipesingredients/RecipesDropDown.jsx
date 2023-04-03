@@ -36,7 +36,7 @@ function RecipesDropDown(event) {
         event.preventDefault();
 
         try {
-            const recipeData = await createRecipe({ title: title, description:'' }).unwrap();
+            const recipeData = await createRecipe({ title: title, description:'NA' }).unwrap();
             console.log(recipeData);
             navigate('/main');
         } catch (error) {

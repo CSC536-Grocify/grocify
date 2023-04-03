@@ -5,7 +5,7 @@ const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:8000/',
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
-        const token = getState().auth.token;
+        const token = getState().auth.tokens && getState().auth.tokens.access;
         if (token) {
             headers.set('authorization', `Bearer ${token}`);
         }
@@ -19,7 +19,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     // if the original query failed with 403, try to refresh the token
     if (result?.error?.originalStatus === 403) {
         console.log('sending refresh token');
-        
+
         // send refresh token to get new access token
         const refreshResult = await baseQuery('/refresh', api, extraOptions);
         console.log(refreshResult)
