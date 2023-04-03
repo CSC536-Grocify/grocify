@@ -1,9 +1,7 @@
-// import React from "react";
 import React, { useEffect } from 'react';
 import './RecipesTab.scss';
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetRecipesQuery } from '../../../features/recipes_ingredients/recipesApiSlice';
 import { upsertRecipes, selectAllRecipes } from '../../../features/recipes_ingredients/recipesSlice';
 
@@ -39,7 +37,7 @@ function RecipesTab() {
       </button>
       <div className="recipes-container">
         {recipes.map((recipe) => (
-          <div key={recipe.id}>
+          <div className="recipe-card" key={recipe.id}>
             <div>{recipe.title}</div>
           </div>
         ))}
