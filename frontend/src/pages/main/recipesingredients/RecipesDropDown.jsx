@@ -37,7 +37,6 @@ function RecipesDropDown(event) {
 
         try {
             const recipeData = await createRecipe({ title: title, description:'NA' }).unwrap();
-            console.log(recipeData);
             navigate('/main');
         } catch (error) {
             console.error(error);
