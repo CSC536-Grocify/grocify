@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './RecipesDropDown.scss';
-import { Multiselect } from 'multiselect-react-dropdown';
+// import { Multiselect } from 'multiselect-react-dropdown';
 import { useCreateRecipeMutation } from '../../../features/recipes_ingredients/recipesApiSlice';
+import { useDispatch } from 'react-redux';
+import { addOrUpdateRecipe } from '../../../features/recipes_ingredients/recipesSlice';
 
 
 // const objectArray = [
@@ -14,9 +16,10 @@ import { useCreateRecipeMutation } from '../../../features/recipes_ingredients/r
 
 function RecipesDropDown(event) {
     const [title, setTitle] = useState('');
-    const [selectedItems, setSelectedItems] = useState([]);
+    // const [selectedItems, setSelectedItems] = useState([]);
     const [createRecipe, { isLoading }] = useCreateRecipeMutation();
     let navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
@@ -36,7 +39,8 @@ function RecipesDropDown(event) {
         event.preventDefault();
 
         try {
-            const recipeData = await createRecipe({ title: title, description:'NA' }).unwrap();
+            const { data: recipe } = await createRecipe({ title: title, description:'NA' }).unwrap();
+            dispatch(addOrUpdateRecipe(recipe));
             navigate('/main');
         } catch (error) {
             console.error(error);
