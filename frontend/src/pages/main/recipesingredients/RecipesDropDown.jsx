@@ -5,12 +5,12 @@ import { Multiselect } from 'multiselect-react-dropdown';
 import { useCreateRecipeMutation } from '../../../features/recipes_ingredients/recipesApiSlice';
 
 
-const objectArray = [
-    { key: 'banana', value: 'Apple' },
-    { key: 'apple', value: 'Banana' },
-    { key: 'orange', value: 'Orange' },
-    { key: 'grapes', value: 'Grapes' }
-  ];
+// const objectArray = [
+//     { key: 'banana', value: 'Apple' },
+//     { key: 'apple', value: 'Banana' },
+//     { key: 'orange', value: 'Orange' },
+//     { key: 'grapes', value: 'Grapes' }
+// ];
 
 function RecipesDropDown(event) {
     const [title, setTitle] = useState('');
@@ -22,15 +22,15 @@ function RecipesDropDown(event) {
         setTitle(event.target.value);
     };
 
-    const handleSelect = (selectedList, selectedItem) => {
-        setSelectedItems(selectedList);
-        console.log(selectedItems);
-    };
+    // const handleSelect = (selectedList, selectedItem) => {
+    //     setSelectedItems(selectedList);
+    //     console.log(selectedItems);
+    // };
 
-    const handleRemove = (selectedList, removedItem) => {
-        setSelectedItems(selectedList);
-        console.log(selectedItems);
-    };
+    // const handleRemove = (selectedList, removedItem) => {
+    //     setSelectedItems(selectedList);
+    //     console.log(selectedItems);
+    // };
 
     const handleCreateSubmit = async (event) => {
         event.preventDefault();
@@ -43,15 +43,15 @@ function RecipesDropDown(event) {
         }
     }
 
-    const divStyle ={
-        margin: 100,
-        width: 300
-    }
+    // const divStyle ={
+    //     margin: 100,
+    //     width: 300
+    // }
 
-    const handleCreate = () => {
-        console.log("Selected Items:", selectedItems);
-        // Add your logic to create something with the selected items here
-    };
+    // const handleCreate = () => {
+    //     console.log("Selected Items:", selectedItems);
+    //     // Add your logic to create something with the selected items here
+    // };
 
     return ( isLoading ? <div>Loading...</div> : (
         <div className="bg-popContainer">
