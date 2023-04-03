@@ -1,57 +1,61 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './RecipesDropDown.scss';
-import { Multiselect } from 'multiselect-react-dropdown';
+// import { Multiselect } from 'multiselect-react-dropdown';
 import { useCreateRecipeMutation } from '../../../features/recipes_ingredients/recipesApiSlice';
+import { useDispatch } from 'react-redux';
+import { addOrUpdateRecipe } from '../../../features/recipes_ingredients/recipesSlice';
 
 
-const objectArray = [
-    { key: 'banana', value: 'Apple' },
-    { key: 'apple', value: 'Banana' },
-    { key: 'orange', value: 'Orange' },
-    { key: 'grapes', value: 'Grapes' }
-  ];
+// const objectArray = [
+//     { key: 'banana', value: 'Apple' },
+//     { key: 'apple', value: 'Banana' },
+//     { key: 'orange', value: 'Orange' },
+//     { key: 'grapes', value: 'Grapes' }
+// ];
 
 function RecipesDropDown(event) {
     const [title, setTitle] = useState('');
-    const [selectedItems, setSelectedItems] = useState([]);
+    // const [selectedItems, setSelectedItems] = useState([]);
     const [createRecipe, { isLoading }] = useCreateRecipeMutation();
     let navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
     };
 
-    const handleSelect = (selectedList, selectedItem) => {
-        setSelectedItems(selectedList);
-        console.log(selectedItems);
-    };
+    // const handleSelect = (selectedList, selectedItem) => {
+    //     setSelectedItems(selectedList);
+    //     console.log(selectedItems);
+    // };
 
-    const handleRemove = (selectedList, removedItem) => {
-        setSelectedItems(selectedList);
-        console.log(selectedItems);
-    };
+    // const handleRemove = (selectedList, removedItem) => {
+    //     setSelectedItems(selectedList);
+    //     console.log(selectedItems);
+    // };
 
     const handleCreateSubmit = async (event) => {
         event.preventDefault();
 
         try {
-            const recipeData = await createRecipe({ title: title, description:'NA' }).unwrap();
+            const { data: recipe } = await createRecipe({ title: title, description:'NA' }).unwrap();
+            dispatch(addOrUpdateRecipe(recipe));
             navigate('/main');
         } catch (error) {
             console.error(error);
         }
     }
 
-    const divStyle ={
-        margin: 100,
-        width: 300
-    }
+    // const divStyle ={
+    //     margin: 100,
+    //     width: 300
+    // }
 
-    const handleCreate = () => {
-        console.log("Selected Items:", selectedItems);
-        // Add your logic to create something with the selected items here
-    };
+    // const handleCreate = () => {
+    //     console.log("Selected Items:", selectedItems);
+    //     // Add your logic to create something with the selected items here
+    // };
 
     return ( isLoading ? <div>Loading...</div> : (
         <div className="bg-popContainer">

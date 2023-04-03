@@ -9,9 +9,13 @@ export const recipesApiSlice = apiSlice.injectEndpoints({
                 body: { ...recipeInfo }
             })
         }),
+        getRecipes: builder.query({
+            query: () => "/recipes/",
+        }),
     })
 });
 
 export const {
-    useCreateRecipeMutation
+    useCreateRecipeMutation,
+    useGetRecipesQuery,
 } = recipesApiSlice;
