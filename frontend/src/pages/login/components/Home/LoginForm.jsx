@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './LoginForm.scss';
 import { useNavigate } from "react-router-dom";
-import {BiLockAlt} from 'react-icons/bi'
-import {AiOutlineMail} from 'react-icons/ai'
+import { BiLockAlt } from 'react-icons/bi'
+import { AiOutlineMail } from 'react-icons/ai'
 import { useDispatch } from 'react-redux';
-import { setToken } from '../../../../features/auth/authSlice';
+import { setCredentials, setToken } from '../../../../features/auth/authSlice';
 import { useLoginMutation } from '../../../../features/auth/authApiSlice';
 
 const LoginForm = (event) => {
@@ -28,8 +28,9 @@ const LoginForm = (event) => {
     event.preventDefault();
 
     try {
-      const userData = await login({ email, password }).unwrap();
+      const userData = await login({ email: email, password: password }).unwrap();
       dispatch(setToken(userData.tokens));
+      dispatch(setCredentials({ username: userData.username, email: email }))
       setEmail('');
       setPassword('');
       navigate('/main');
