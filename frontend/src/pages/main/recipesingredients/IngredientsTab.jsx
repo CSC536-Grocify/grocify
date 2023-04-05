@@ -1,32 +1,44 @@
 import React, { useEffect } from 'react';
 import './IngredientsTab.scss';
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { useGetIngredientsQuery } from '../../../features/recipes_ingredients/ingredientsApiSlice';
-import { upsertIngredients, selectAllIngredients } from '../../../features/recipes_ingredients/ingredientsSlice';
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDeleteIngredientMutation, useGetIngredientsQuery } from '../../../features/recipes_ingredients/ingredientsApiSlice';
 
 function IngredientsTab() {
+  let navigate = useNavigate();
+  const location = useLocation();
+  const [deleteIngredientAPI, { isDeleteIngredientLoading }] = useDeleteIngredientMutation();
   const { 
     data: ingredientsFromAPI, // rename data to ingredients
     isLoading, 
     isSuccess, 
     isError, 
-    error 
+    error,
+    refetch
   } = useGetIngredientsQuery();
-  const dispatch = useDispatch();
-
-  // Ensure that the upsertIngredients action is dispatched only
-  // when the ingredientsFromAPI value changes, and not during the
-  // component's render
+  
   useEffect(() => {
-    if (ingredientsFromAPI) {
-      dispatch(upsertIngredients(ingredientsFromAPI.data));
+    refetch();
+  }, [location, refetch]);
+
+  const handleEditButton = async (event) => {
+    event.preventDefault();
+    try {
+      navigate('/IngredientsDropdown');
+    } catch (error) {
+      console.error(error);
     }
-  }, [ingredientsFromAPI, dispatch]);
+  }
 
-  const ingredients = useSelector(selectAllIngredients);
+  const handleRemoveButton = async (event, id) => {
+    event.preventDefault();
+    try{
+      await deleteIngredientAPI({ id: id }).unwrap();
+      refetch();
+    }catch (error) {
+      console.error(error);
+    }
+  };
 
-  let navigate = useNavigate();
   return ( isLoading ? <div>Loading...</div> : (
     <div>
       <button id="button" className="add-btn" onClick={() => {
@@ -35,9 +47,11 @@ function IngredientsTab() {
       <span>+</span>
       </button>
       <div className="ingredients-container">
-        {ingredients.map((ingredient) => (
+        {ingredientsFromAPI.data.map((ingredient) => (
           <div className="ingredient-card" key={ingredient.id}>
-            <div>{ingredient.name}</div>
+            <span className="ingredient-title">{ingredient.name}</span>
+            <button className="edit-button" onClick= { handleEditButton } >Edit</button>
+            <button className="Remove-button" onClick= {(event) => handleRemoveButton(event, ingredient.id)}>Remove</button>
           </div>
         ))}
       </div>
