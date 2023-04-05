@@ -12,10 +12,18 @@ export const ingredientsApiSlice = apiSlice.injectEndpoints({
         getIngredients: builder.query({
             query: () => "/ingredients/",
         }),
+        deleteIngredient: builder.mutation({
+            query: (recipeInfo) => ({
+                url: "/ingredients/delete/",
+                method: "DELETE",
+                body: { ...recipeInfo }
+            })
+        }),
     })
 });
 
 export const {
     useCreateIngredientMutation,
     useGetIngredientsQuery,
+    useDeleteIngredientMutation,
 } = ingredientsApiSlice;
