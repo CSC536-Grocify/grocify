@@ -20,10 +20,10 @@ function IngredientsTab() {
     refetch();
   }, [location, refetch]);
 
-  const handleEditButton = async (event) => {
+  const handleEditButton = (event) => {
     event.preventDefault();
     try {
-      navigate('/IngredientsDropdown');
+      navigate('/ingredient_edit');
     } catch (error) {
       console.error(error);
     }
@@ -39,10 +39,10 @@ function IngredientsTab() {
     }
   };
 
-  return ( isLoading ? <div>Loading...</div> : (
+  return ( isLoading || isDeleteIngredientLoading ? <div>Loading...</div> : (
     <div>
       <button id="button" className="add-btn" onClick={() => {
-        navigate("/IngredientsDropdown");
+        navigate("/ingredient_edit");
       }}>
       <span>+</span>
       </button>

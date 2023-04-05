@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './IngredientsDropDown.scss';
 import { useCreateIngredientMutation } from '../../../features/recipes_ingredients/ingredientsApiSlice';
-import { useDispatch } from 'react-redux';
-import { addOrUpdateIngredient } from '../../../features/recipes_ingredients/ingredientsSlice';
 
 function IngredientsDropDown(event) {
     const [name, setName] = useState('');
     const [createIngredient, { isLoading }] = useCreateIngredientMutation();
     let navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const handleNameChange = (event) => {
         setName(event.target.value);
@@ -19,8 +16,7 @@ function IngredientsDropDown(event) {
         event.preventDefault();
 
         try {
-            const { data: ingredient } = await createIngredient({ name: name }).unwrap();
-            dispatch(addOrUpdateIngredient(ingredient));
+            await createIngredient({ name: name }).unwrap();
             navigate('/main');
         } catch (error) {
             console.error(error);
