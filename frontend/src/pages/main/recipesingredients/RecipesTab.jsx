@@ -52,7 +52,7 @@ function RecipesTab() {
             <button className="edit-button" onClick={(event) => handleEditButton(event, recipe.id, recipe.title)}>
               Edit
             </button>
-            <button className="Remove-button" onClick={(event) => handleRemoveButton(event, recipe.id)}>
+            <button className="remove-button" onClick={(event) => handleRemoveButton(event, recipe.id)}>
               Remove
             </button>
           </div>

@@ -4,7 +4,7 @@ import './RecipesDropDown.scss';
 import { useCreateRecipeMutation, useUpdateRecipeMutation } from '../../../features/recipes_ingredients/recipesApiSlice';
 
 
-function RecipesDropDown(event) {
+function RecipesDropDown() {
     const [title, setTitle] = useState('');
     const [createRecipe, { isLoading }] = useCreateRecipeMutation();
     const [updateRecipe, { isUpdateLoading }] = useUpdateRecipeMutation();
