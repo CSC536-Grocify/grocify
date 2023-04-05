@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import './RecipesDropDown.scss';
-import { useCreateRecipeMutation } from '../../../features/recipes_ingredients/recipesApiSlice';
-import { useDispatch } from 'react-redux';
-import { addOrUpdateRecipe } from '../../../features/recipes_ingredients/recipesSlice';
+import { useCreateRecipeMutation, useUpdateRecipeMutation } from '../../../features/recipes_ingredients/recipesApiSlice';
 
 
-function RecipesDropDown(event) {
+function RecipesDropDown() {
     const [title, setTitle] = useState('');
     const [createRecipe, { isLoading }] = useCreateRecipeMutation();
+    const [updateRecipe, { isUpdateLoading }] = useUpdateRecipeMutation();
     let navigate = useNavigate();
-    const dispatch = useDispatch();
+    const location = useLocation();
+    const recipeInfo = location.state?.data;
+
+    // Only load the recipe info after component is mounted
+    useEffect(() => {
+        if (recipeInfo) {
+            setTitle(recipeInfo.title);
+        }
+    }, [recipeInfo]);
 
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
@@ -20,15 +27,25 @@ function RecipesDropDown(event) {
         event.preventDefault();
 
         try {
-            const { data: recipe } = await createRecipe({ title: title, description:'NA' }).unwrap();
-            dispatch(addOrUpdateRecipe(recipe));
+            await createRecipe({ title: title, description: 'NA' }).unwrap();
             navigate('/main');
         } catch (error) {
             console.error(error);
         }
     }
 
-    return ( isLoading ? <div>Loading...</div> : (
+    const handleSaveSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            await updateRecipe({ title: title, id: recipeInfo.id }).unwrap();
+            navigate('/main');
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    return (isLoading || isUpdateLoading ? <div>Loading...</div> : (
         <div className="bg-popContainer">
             <div className="pop-box">
                 <div
@@ -37,7 +54,7 @@ function RecipesDropDown(event) {
                     onClick={() => {
                         navigate("/main");
                     }}
-                    >
+                >
                     +
                 </div>
                 <div>
@@ -60,9 +77,15 @@ function RecipesDropDown(event) {
                         ))}
                     </div> */}
                 </div>
-                <button className="button" onClick={handleCreateSubmit}>
-                    create
-                </button>
+                {!recipeInfo ? (
+                    <button className="button" onClick={handleCreateSubmit}>
+                        Create
+                    </button>
+                ) : (
+                    <button className="button" onClick={handleSaveSubmit}>
+                        Save
+                    </button>
+                )}
             </div>
         </div>
     ));

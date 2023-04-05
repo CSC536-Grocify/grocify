@@ -36,8 +36,8 @@ function App() {
         <Route path="/" element={<Signup />} />
         <Route path="/main" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/RecipesDropdown" element={<Recipesdropdown />} />
-        <Route path="/Ingredientsdropdown" element={<Ingredientsdropdown />} />
+        <Route path="/recipe_edit" element={<Recipesdropdown />} />
+        <Route path="/ingredient_edit" element={<Ingredientsdropdown />} />
         <Route path="*" element={<PageNotFound />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
