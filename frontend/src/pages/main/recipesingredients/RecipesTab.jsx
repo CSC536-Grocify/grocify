@@ -7,11 +7,11 @@ function RecipesTab() {
   let navigate = useNavigate();
   const location = useLocation();
   const [deleteRecipeAPI, { isDeleteRecipeLoading }] = useDeleteRecipeMutation();
-  const { 
+  const {
     data: recipesFromAPI, // rename data to recipes
-    isLoading, 
-    isSuccess, 
-    isError, 
+    isLoading,
+    isSuccess,
+    isError,
     error,
     refetch
   } = useGetRecipesQuery();
@@ -20,40 +20,41 @@ function RecipesTab() {
     refetch();
   }, [location, refetch]);
 
-
-  const handleEditButton = async (event) => {
+  const handleEditButton = (event, id, title) => {
     event.preventDefault();
+    navigate('/recipe_edit', { state: { data: { id: id, title: title } } });
+  }
 
-    try {
-      navigate('/RecipesDropdown');
-    } catch (error) {
-      console.error(error);
-    }
+  const handleCreateButton = (event) => {
+    event.preventDefault();
+    navigate('/recipe_edit');
   }
 
   const handleRemoveButton = async (event, id) => {
     event.preventDefault();
-    try{
+    try {
       await deleteRecipeAPI({ id: id }).unwrap();
       refetch();
-    }catch (error) {
+    } catch (error) {
       console.error(error);
     }
   };
 
-  return ( isLoading ? <div>Loading...</div> : (
+  return (isLoading ? <div>Loading...</div> : (
     <div>
-      <button id="button" className="add-btn" onClick={() => {
-        navigate("/RecipesDropdown");
-      }}>
-      <span>+</span>
+      <button id="button" className="add-btn" onClick={(event) => handleCreateButton(event)}>
+        <span>+</span>
       </button>
       <div className="recipes-container">
         {recipesFromAPI.data.map((recipe) => (
           <div className="recipe-card" key={recipe.id}>
             <span className="food-title">{recipe.title}</span>
-            <button className="edit-button" onClick= { handleEditButton } >Edit</button>
-            <button className="Remove-button" onClick= {(event) => handleRemoveButton(event, recipe.id)}>Remove</button>
+            <button className="edit-button" onClick={(event) => handleEditButton(event, recipe.id, recipe.title)}>
+              Edit
+            </button>
+            <button className="Remove-button" onClick={(event) => handleRemoveButton(event, recipe.id)}>
+              Remove
+            </button>
           </div>
         ))}
       </div>
