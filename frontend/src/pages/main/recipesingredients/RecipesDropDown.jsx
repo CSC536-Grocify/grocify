@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import './RecipesDropDown.scss';
 import { useCreateRecipeMutation, useUpdateRecipeMutation } from '../../../features/recipes_ingredients/recipesApiSlice';
-
+import Autocomplete from '@mui/lab/Autocomplete';
+import TextField from '@mui/material/TextField';
+import { useGetIngredientsQuery } from '../../../features/recipes_ingredients/ingredientsApiSlice';
 
 function RecipesDropDown() {
     const [title, setTitle] = useState('');
@@ -11,6 +13,20 @@ function RecipesDropDown() {
     let navigate = useNavigate();
     const location = useLocation();
     const recipeInfo = location.state?.data;
+    const {
+        data: ingredientsFromAPI, // rename data to ingredients
+        isIngredientsLoading,
+        isSuccess,
+        isError,
+        error,
+        refetch
+    } = useGetIngredientsQuery();
+
+    const [selectedIngredients, setSelectedIngredients] = useState([]);
+
+    const handleSelectionChange = (event, newIngredient) => {
+        setSelectedIngredients([...selectedIngredients, newIngredient]);
+    };
 
     // Only load the recipe info after component is mounted
     useEffect(() => {
@@ -18,6 +34,10 @@ function RecipesDropDown() {
             setTitle(recipeInfo.title);
         }
     }, [recipeInfo]);
+
+    useEffect(() => {
+        refetch();
+    }, [location, refetch]);
 
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
@@ -45,7 +65,7 @@ function RecipesDropDown() {
         }
     }
 
-    return (isLoading || isUpdateLoading ? <div>Loading...</div> : (
+    return (isLoading || isUpdateLoading || isIngredientsLoading ? <div>Loading...</div> : (
         <div className="bg-popContainer">
             <div className="pop-box">
                 <div
@@ -59,23 +79,25 @@ function RecipesDropDown() {
                 </div>
                 <div>
                     <label>
-                        <input className="fieldStylehead" placeholder="Title" type="text" value={title} onChange={handleTitleChange} />
+                        <input className="fieldStylehead"
+                            placeholder="Title"
+                            type="text"
+                            value={title}
+                            onChange={handleTitleChange}
+                        />
                     </label>
-                    {/* <Multiselect
-                        options={objectArray}
-                        displayValue="key"
-                        isMulti
-                        closeMenuOnSelect={false}
-                        showCheckbox={true}
-                        onSelect={handleSelect}
-                        onRemove={handleRemove}
-                    /> */}
-                    {/* <div>
-                        <div>Selected Items:</div>
-                        {selectedItems.map((item) => (
-                        <div key={item.value}>{item.key}</div>
-                        ))}
-                    </div> */}
+                    <Autocomplete
+                        // when the component is initially rendered, the data from the API might not be available yet
+                        options={ingredientsFromAPI?.data || []}
+                        getOptionLabel={(option) => option.name}
+                        onChange={handleSelectionChange}
+                        renderInput={(params) => (
+                            <TextField {...params} label="Ingredient Search" variant="outlined" />
+                        )}
+                    />
+                    {selectedIngredients.map((ingredient) => (
+                        <li key={ingredient.id}>{ingredient.name}</li>
+                    ))}
                 </div>
                 {!recipeInfo ? (
                     <button className="button" onClick={handleCreateSubmit}>
