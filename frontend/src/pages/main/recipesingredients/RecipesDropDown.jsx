@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import './RecipesDropDown.scss';
 import { useCreateRecipeMutation, useUpdateRecipeMutation } from '../../../features/recipes_ingredients/recipesApiSlice';
-import Autocomplete from '@mui/lab/Autocomplete';
+import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useGetIngredientsQuery } from '../../../features/recipes_ingredients/ingredientsApiSlice';
 
@@ -25,7 +25,12 @@ function RecipesDropDown() {
     const [selectedIngredients, setSelectedIngredients] = useState([]);
 
     const handleSelectionChange = (event, newIngredient) => {
-        setSelectedIngredients([...selectedIngredients, newIngredient]);
+        // Check if ingredient with same ID already exists
+        const ingredientExists = selectedIngredients.some((ingredient) => ingredient.id === newIngredient.id);
+
+        if (!ingredientExists) {
+            setSelectedIngredients([...selectedIngredients, newIngredient]);
+        }
     };
 
     // Only load the recipe info after component is mounted
