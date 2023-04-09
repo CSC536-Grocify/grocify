@@ -6,6 +6,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useGetIngredientsQuery } from '../../../features/recipes_ingredients/ingredientsApiSlice';
 
+
 function RecipesDropDown() {
     const [title, setTitle] = useState('');
     const [createRecipe, { isLoading }] = useCreateRecipeMutation();
@@ -31,6 +32,11 @@ function RecipesDropDown() {
         if (!ingredientExists) {
             setSelectedIngredients([...selectedIngredients, newIngredient]);
         }
+    };
+
+    const removeIngredient = (id) => {
+        const updatedSelectedIngredients = selectedIngredients.filter((ingredient) => ingredient.id !== id);
+        setSelectedIngredients(updatedSelectedIngredients);
     };
 
     // Only load the recipe info after component is mounted
@@ -100,9 +106,14 @@ function RecipesDropDown() {
                             <TextField {...params} label="Ingredient Search" variant="outlined" />
                         )}
                     />
-                    {selectedIngredients.map((ingredient) => (
-                        <li key={ingredient.id}>{ingredient.name}</li>
-                    ))}
+                    <div className="selected-ingredients-container">
+                        {selectedIngredients.map((ingredient) => (
+                            <div className="selected-ingredients" key={ingredient.id} >
+                                <p>{ingredient.name}</p>
+                                <button onClick={() => removeIngredient(ingredient.id)}>Remove</button>
+                            </div>
+                        ))}
+                    </div>
                 </div>
                 {!recipeInfo ? (
                     <button className="button" onClick={handleCreateSubmit}>
