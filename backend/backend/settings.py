@@ -13,12 +13,7 @@ from os import getenv, environ
 from datetime import timedelta
 
 # Load environment variables from the .env file
-env = environ.get("ENV", "dev")
-if env == "prod":
-    dotenv_file = ".env.prod"
-else:
-    dotenv_file = ".env"
-load_dotenv(find_dotenv(dotenv_file))
+load_dotenv(find_dotenv())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -93,28 +88,16 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if env == "prod":
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': getenv('GCLOUD_POSTGRES_DB'),
-            'USER': getenv('GCLOUD_POSTGRES_USER'),
-            'PASSWORD': getenv('GCLOUD_POSTGRES_PASSWORD'),
-            'HOST': getenv('GCLOUD_POSTGRES_HOST'),
-            'PORT': getenv('GCLOUD_POSTGRES_PORT'),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': "grocify",
+        'USER': "grocify",
+        'PASSWORD': 'q#}k@fvX"j=?v3%.',
+        'HOST': "/cloudsql/grocify-379719:us-west1:grocify-postgresql",
+        'PORT': 5432,
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': getenv('POSTGRES_DB'),
-            'USER': getenv('POSTGRES_USER'),
-            'PASSWORD': getenv('POSTGRES_PASSWORD'),
-            'HOST': getenv('POSTGRES_HOST'),
-            'PORT': getenv('POSTGRES_PORT'),
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
