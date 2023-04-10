@@ -9,7 +9,7 @@ services:
         image: "grocify-backend:${TAG}"
         ports:
             - 8000:8000
-    
+
     db:
         image: postgres:15
         env_file:

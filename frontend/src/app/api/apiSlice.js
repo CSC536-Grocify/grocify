@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { setCredentials, logOut } from '../../features/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://backend-omtljfrdga-uw.a.run.app/',
+    baseUrl: process.env.NODE_ENV === 'production' ? process.env.REACT_APP_REMOTE_API_URL : process.env.REACT_APP_LOCAL_API_URL,
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.tokens && getState().auth.tokens.access;
