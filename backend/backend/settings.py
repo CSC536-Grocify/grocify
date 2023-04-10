@@ -12,8 +12,17 @@ from dotenv import load_dotenv, find_dotenv
 from os import getenv, environ
 from datetime import timedelta
 
+IS_PRODUCTION = False
+env = environ.get("ENV", "dev")
+if env == "prod":
+    IS_PRODUCTION = True
+
 # Load environment variables from the .env file
-load_dotenv(find_dotenv())
+dotenv_file = ".env"
+if IS_PRODUCTION:
+    dotenv_file = ".env.prod"
+
+load_dotenv(find_dotenv(dotenv_file))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +35,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)+zew-&x^gj8t(seq!yd%s8&y-a+)cnb)g3gub6#zvezoieltd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not IS_PRODUCTION
 
 # TODO (eduong): remove `*` after connecting the front-end with the back-end
 ALLOWED_HOSTS = [
@@ -88,16 +97,28 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "grocify",
-        'USER': "grocify",
-        'PASSWORD': 'q#}k@fvX"j=?v3%.',
-        'HOST': "/cloudsql/grocify-379719:us-west1:grocify-postgresql",
-        'PORT': 5432,
+if IS_PRODUCTION:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': getenv("GCLOUD_POSTGRES_DB"),
+            'USER': getenv("GCLOUD_POSTGRES_USER"),
+            'PASSWORD': getenv("GCLOUD_POSTGRES_PASSWORD"),
+            'HOST': getenv("GCLOUD_POSTGRES_HOST"),
+            'PORT': getenv("GCLOUD_POSTGRES_PORT"),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': getenv("POSTGRES_DB"),
+            'USER': getenv("POSTGRES_USER"),
+            'PASSWORD': getenv("POSTGRES_PASSWORD"),
+            'HOST': getenv("POSTGRES_HOST"),
+            'PORT': getenv("POSTGRES_PORT"),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -141,11 +162,13 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_CREDENTIALS = True
-
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'https://frontend-omtljfrdga-uw.a.run.app'
+    'http://localhost:3000'
 ]
+if IS_PRODUCTION:
+    CORS_ALLOWED_ORIGINS = [
+        'https://frontend-omtljfrdga-uw.a.run.app'
+    ]
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
