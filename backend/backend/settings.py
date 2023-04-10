@@ -37,12 +37,15 @@ SECRET_KEY = 'django-insecure-)+zew-&x^gj8t(seq!yd%s8&y-a+)cnb)g3gub6#zvezoieltd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = not IS_PRODUCTION
 
-# TODO (eduong): remove `*` after connecting the front-end with the back-end
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '*'
-]
+if IS_PRODUCTION:
+    ALLOWED_HOSTS = [
+        "backend-omtljfrdga-uw.a.run.app"
+    ]
+else:
+    ALLOWED_HOSTS = [
+        'localhost',
+        '127.0.0.1'
+    ]
 
 
 # Application definition
