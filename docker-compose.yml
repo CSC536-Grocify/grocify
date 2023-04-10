@@ -4,6 +4,7 @@ services:
     backend:
         build:
             context: ./backend
+            target: development
             dockerfile: Dockerfile
         image: "grocify-backend:${TAG}"
         ports:

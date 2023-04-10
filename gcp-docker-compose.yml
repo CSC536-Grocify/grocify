@@ -4,6 +4,7 @@ services:
     backend:
         build:
             context: ./backend
+            target: production
             dockerfile: Dockerfile
         image: "us-west2-docker.pkg.dev/grocify-379719/grocify/backend:${TAG}"
         ports:
