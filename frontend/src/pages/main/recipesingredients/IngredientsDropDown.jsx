@@ -10,14 +10,16 @@ function IngredientsDropDown() {
     const [updateIngredient, { isUpdateLoading }] = useUpdateIngredientMutation();
     let navigate = useNavigate();
     const location = useLocation();
-    const ingredientInfo = location.state?.data;
+    const ingredientId = location?.state?.data?.ingredient_id;
+    const ingredientName = location?.state?.data?.ingredient_name;
+    const backToAddr = location?.state?.data?.back_to_addr;
 
     // Only load the ingredient info after component is mounted
     useEffect(() => {
-        if (ingredientInfo) {
-            setName(ingredientInfo.name);
+        if (ingredientName) {
+            setName(ingredientName);
         }
-    }, [ingredientInfo]);
+    }, [ingredientName]);
 
     const handleNameChange = (event) => {
         setName(event.target.value);
@@ -28,7 +30,12 @@ function IngredientsDropDown() {
 
         try {
             await createIngredient({ name: name }).unwrap();
-            navigate('/main');
+
+            if (backToAddr) {
+                navigate(backToAddr);
+            } else {
+                navigate('/main');
+            }
         } catch (error) {
             console.error(error);
         }
@@ -38,21 +45,30 @@ function IngredientsDropDown() {
         event.preventDefault();
 
         try {
-            await updateIngredient({ name: name, id: ingredientInfo.id }).unwrap();
-            navigate('/main');
+            await updateIngredient({ name: name, id: ingredientId }).unwrap();
+
+            if (backToAddr) {
+                navigate(backToAddr);
+            } else {
+                navigate('/main');
+            }
         } catch (error) {
             console.error(error);
         }
     }
 
-    return (isLoading ? <div>Loading...</div> : (
+    return (isLoading || isUpdateLoading ? <div>Loading...</div> : (
         <div className="bg-popContainer">
             <div className="pop-box">
                 <div
                     id="close"
                     className="closer"
                     onClick={() => {
-                        navigate("/main");
+                        if (backToAddr) {
+                            navigate(backToAddr);
+                        } else {
+                            navigate('/main');
+                        }
                     }}
                 >
                     +
@@ -62,7 +78,7 @@ function IngredientsDropDown() {
                         <input className="fieldStylehead" placeholder="Name" type="text" value={name} onChange={handleNameChange} />
                     </label>
                 </div>
-                {!ingredientInfo ? (
+                {!ingredientId ? (
                     <button className="button" onClick={handleCreateSubmit}>
                         Create
                     </button>
