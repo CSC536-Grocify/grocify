@@ -27,7 +27,7 @@ function IngredientsTab() {
         data: {
           ingredient_id: id,
           ingredient_name: name,
-          back_to_addr: "/"
+          back_to_addr: "/main"
         }
       }
     });
@@ -35,7 +35,7 @@ function IngredientsTab() {
 
   const handleCreateButton = (event) => {
     event.preventDefault();
-    navigate('/ingredient_edit', { state: { data: { back_to_addr: "/" } } });
+    navigate('/ingredient_edit', { state: { data: { back_to_addr: "/main" } } });
   }
 
   const handleRemoveButton = async (event, id) => {
