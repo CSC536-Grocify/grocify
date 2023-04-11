@@ -8,7 +8,9 @@ import { useGetIngredientsQuery } from '../../../features/recipes_ingredients/in
 
 
 function RecipesDropDown() {
-    const [title, setTitle] = useState('');
+    const [recipeTitle, setRecipeTitle] = useState('');
+    const [recipeId, setRecipeId] = useState('');
+    const [ingredientSearchValue, setIngredientSearchValue] = useState('');
     const [createRecipe, { isLoading }] = useCreateRecipeMutation();
     const [updateRecipe, { isUpdateLoading }] = useUpdateRecipeMutation();
     let navigate = useNavigate();
@@ -41,24 +43,25 @@ function RecipesDropDown() {
 
     // Only load the recipe info after component is mounted
     useEffect(() => {
-        if (recipeInfo) {
-            setTitle(recipeInfo.title);
-        }
-    }, [recipeInfo]);
-
-    useEffect(() => {
         refetch();
-    }, [location, refetch]);
+
+        if (loadRecipeInfoFromLocalStorage()) {
+            return;
+        } else if (recipeInfo) {
+            setRecipeTitle(recipeInfo.title);
+            setRecipeId(recipeInfo.id);
+        }
+    }, [location, refetch, recipeInfo]);
 
     const handleTitleChange = (event) => {
-        setTitle(event.target.value);
+        setRecipeTitle(event.target.value);
     };
 
     const handleCreateSubmit = async (event) => {
         event.preventDefault();
 
         try {
-            await createRecipe({ title: title, description: 'NA' }).unwrap();
+            await createRecipe({ title: recipeTitle, description: 'NA' }).unwrap();
             navigate('/main');
         } catch (error) {
             console.error(error);
@@ -69,12 +72,74 @@ function RecipesDropDown() {
         event.preventDefault();
 
         try {
-            await updateRecipe({ title: title, id: recipeInfo.id }).unwrap();
+            await updateRecipe({ title: recipeTitle, id: recipeId }).unwrap();
             navigate('/main');
         } catch (error) {
             console.error(error);
         }
     }
+
+    const saveRecipeInfoToLocalStorage = () => {
+        const savingRecipeInfo = {
+            id: recipeId,
+            title: recipeTitle,
+            selectedIngredients: selectedIngredients,
+        };
+
+        localStorage.setItem('recipeInfo', JSON.stringify(savingRecipeInfo));
+    };
+
+    function loadRecipeInfoFromLocalStorage() {
+        const savedRecipeInfoJSON = localStorage.getItem('recipeInfo');
+
+        if (savedRecipeInfoJSON) {
+            const savedRecipeInfo = JSON.parse(savedRecipeInfoJSON);
+
+            // Restore the recipe information from the local storage
+            setRecipeTitle(savedRecipeInfo.title);
+            setRecipeId(savedRecipeInfo.id);
+            setSelectedIngredients(savedRecipeInfo.selectedIngredients);
+
+            // Remove the recipe information from localStorage
+            localStorage.removeItem("recipeInfo");
+
+            return true
+        }
+
+        return false
+    };
+
+    const handleInputChange = (event, value, reason) => {
+        setIngredientSearchValue(value)
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            const ingredientExists = ingredientsFromAPI?.data.some(
+                (ingredient) => ingredient.name === ingredientSearchValue
+            );
+
+            if (!ingredientExists) {
+                createNewIngredient(ingredientSearchValue);
+            }
+        }
+    };
+
+    const createNewIngredient = async (name) => {
+        // Save the recipe information in the local storage
+        saveRecipeInfoToLocalStorage();
+
+        // Navigate to the create ingredient page with the name of the ingredient
+        // and the current page as the backToAddr
+        navigate('/ingredient_edit', {
+            state: {
+                data: {
+                    ingredient_name: name,
+                    back_to_addr: location.pathname
+                }
+            }
+        });
+    };
 
     return (isLoading || isUpdateLoading || isIngredientsLoading ? <div>Loading...</div> : (
         <div className="bg-popContainer">
@@ -93,17 +158,23 @@ function RecipesDropDown() {
                         <input className="fieldStylehead"
                             placeholder="Title"
                             type="text"
-                            value={title}
+                            value={recipeTitle}
                             onChange={handleTitleChange}
                         />
                     </label>
                     <Autocomplete
+                        freeSolo
                         // when the component is initially rendered, the data from the API might not be available yet
                         options={ingredientsFromAPI?.data || []}
-                        getOptionLabel={(option) => option.name}
+                        getOptionLabel={(option) => typeof option === 'string' ? option : option.name}
                         onChange={handleSelectionChange}
+                        onInputChange={handleInputChange}
                         renderInput={(params) => (
-                            <TextField {...params} label="Ingredient Search" variant="outlined" />
+                            <TextField
+                                {...params}
+                                label="Ingredient Search"
+                                variant="outlined"
+                                onKeyDown={handleKeyDown} />
                         )}
                     />
                     <div className="selected-ingredients-container">
@@ -115,7 +186,7 @@ function RecipesDropDown() {
                         ))}
                     </div>
                 </div>
-                {!recipeInfo ? (
+                {!recipeId ? (
                     <button className="button" onClick={handleCreateSubmit}>
                         Create
                     </button>

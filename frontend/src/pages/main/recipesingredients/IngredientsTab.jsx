@@ -22,12 +22,20 @@ function IngredientsTab() {
 
   const handleEditButton = (event, id, name) => {
     event.preventDefault();
-    navigate('/ingredient_edit', { state: { data: { id: id, name: name } } });
+    navigate('/ingredient_edit', {
+      state: {
+        data: {
+          ingredient_id: id,
+          ingredient_name: name,
+          back_to_addr: "/"
+        }
+      }
+    });
   }
 
   const handleCreateButton = (event) => {
     event.preventDefault();
-    navigate('/ingredient_edit');
+    navigate('/ingredient_edit', { state: { data: { back_to_addr: "/" } } });
   }
 
   const handleRemoveButton = async (event, id) => {
