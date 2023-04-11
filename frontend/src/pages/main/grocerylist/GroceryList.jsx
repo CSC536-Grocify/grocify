@@ -33,7 +33,7 @@ function GroceryList() {
   return (isLoading ? <div>Loading...</div> : (
     <div>
       <div>Grocery List</div>
-      <button id="button" onClick={handleMakeGroceryListButton}>
+      <button id="button" className="Grocbutton" onClick={handleMakeGroceryListButton}>
         <span>Make grocery list</span>
       </button>
       {fetchIngredients && ingredientsFromAPI && ingredientsFromAPI.data &&
