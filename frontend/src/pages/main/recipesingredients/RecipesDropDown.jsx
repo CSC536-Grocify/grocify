@@ -109,9 +109,9 @@ function RecipesDropDown() {
                     <div className="selected-ingredients-container">
                         {selectedIngredients.map((ingredient) => (
                             <div className="selected-ingredients" key={ingredient.id} >
-                                <p>{ingredient.name}</p>
-                                <button onClick={() => removeIngredient(ingredient.id)}>Remove</button>
-                            </div>
+                                <span className="selected_remove_item">{ingredient.name}</span>
+                                <button className="selected_remove" onClick={() => removeIngredient(ingredient.id)}>Remove</button>
+                                </div>
                         ))}
                     </div>
                 </div>
