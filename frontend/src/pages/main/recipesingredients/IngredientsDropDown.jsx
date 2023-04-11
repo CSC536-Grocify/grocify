@@ -30,13 +30,10 @@ function IngredientsDropDown() {
 
         try {
             await createIngredient({ name: name }).unwrap();
-            console.log("Created ingredient successfully!")
 
             if (backToAddr) {
-                console.log("Navigating to " + backToAddr)
                 navigate(backToAddr);
             } else {
-                console.log("Navigating to /main")
                 navigate('/main');
             }
         } catch (error) {
