@@ -16,8 +16,6 @@ function IngredientsDropDown({ open, handleClose, handleSave, currentIngredientI
     useEffect(() => {
         if (currentIngredientInfo) {
             setName(currentIngredientInfo.name);
-        } else {
-            setName("");
         }
     }, [currentIngredientInfo]);
 
@@ -31,7 +29,7 @@ function IngredientsDropDown({ open, handleClose, handleSave, currentIngredientI
             id: null,
         };
 
-        if (currentIngredientInfo) {
+        if (currentIngredientInfo && currentIngredientInfo.hasOwnProperty('id')) {
             newIngredientInfo.id = currentIngredientInfo.id;
         }
 
