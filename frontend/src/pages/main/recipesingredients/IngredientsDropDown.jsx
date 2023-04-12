@@ -1,95 +1,66 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import './IngredientsDropDown.scss';
-import { useCreateIngredientMutation, useUpdateIngredientMutation } from '../../../features/recipes_ingredients/ingredientsApiSlice';
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    TextField,
+} from "@mui/material";
 
 
-function IngredientsDropDown() {
+function IngredientsDropDown({ open, handleClose, handleSave, currentIngredientInfo = null }) {
     const [name, setName] = useState('');
-    const [createIngredient, { isLoading }] = useCreateIngredientMutation();
-    const [updateIngredient, { isUpdateLoading }] = useUpdateIngredientMutation();
-    let navigate = useNavigate();
-    const location = useLocation();
-    const ingredientId = location?.state?.data?.ingredient_id;
-    const ingredientName = location?.state?.data?.ingredient_name;
-    const backToAddr = location?.state?.data?.back_to_addr;
 
-    // Only load the ingredient info after component is mounted
     useEffect(() => {
-        if (ingredientName) {
-            setName(ingredientName);
+        if (currentIngredientInfo) {
+            setName(currentIngredientInfo.name);
         }
-    }, [ingredientName]);
+    }, [currentIngredientInfo]);
 
     const handleNameChange = (event) => {
         setName(event.target.value);
     };
 
-    const handleCreateSubmit = async (event) => {
-        event.preventDefault();
+    const handleSaveClick = () => {
+        const newIngredientInfo = {
+            name: name,
+            id: null,
+        };
 
-        try {
-            await createIngredient({ name: name }).unwrap();
-
-            if (backToAddr) {
-                navigate(backToAddr);
-            } else {
-                navigate('/main');
-            }
-        } catch (error) {
-            console.error(error);
+        if (currentIngredientInfo && currentIngredientInfo.hasOwnProperty('id')) {
+            newIngredientInfo.id = currentIngredientInfo.id;
         }
-    }
 
-    const handleSaveSubmit = async (event) => {
-        event.preventDefault();
+        handleSave(newIngredientInfo);
+        setName("");
+        handleClose();
+    };
 
-        try {
-            await updateIngredient({ name: name, id: ingredientId }).unwrap();
-
-            if (backToAddr) {
-                navigate(backToAddr);
-            } else {
-                navigate('/main');
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    return (isLoading || isUpdateLoading ? <div>Loading...</div> : (
-        <div className="bg-popContainer">
-            <div className="pop-box">
-                <div
-                    id="close"
-                    className="closer"
-                    onClick={() => {
-                        if (backToAddr) {
-                            navigate(backToAddr);
-                        } else {
-                            navigate('/main');
-                        }
-                    }}
-                >
-                    +
-                </div>
-                <div>
-                    <label>
-                        <input className="fieldStylehead" placeholder="Name" type="text" value={name} onChange={handleNameChange} />
-                    </label>
-                </div>
-                {!ingredientId ? (
-                    <button className="button" onClick={handleCreateSubmit}>
-                        Create
-                    </button>
-                ) : (
-                    <button className="button" onClick={handleSaveSubmit}>
-                        Save
-                    </button>
-                )}
-            </div>
-        </div>
-    ));
+    return (
+        <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>{currentIngredientInfo ? "Edit Ingredient" : "Add New Ingredient"}</DialogTitle>
+            <DialogContent>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    label="Ingredient Name"
+                    fullWidth
+                    value={name}
+                    onChange={handleNameChange}
+                />
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                    Cancel
+                </Button>
+                <Button onClick={handleSaveClick} color="primary">
+                    Save
+                </Button>
+            </DialogActions>
+        </Dialog>
+    );
 }
 
 export default IngredientsDropDown;
