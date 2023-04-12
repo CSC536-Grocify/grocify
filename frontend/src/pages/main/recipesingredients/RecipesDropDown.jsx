@@ -39,12 +39,15 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
 
     const handleSaveIngredient = async (newIngredientInfo) => {
         try {
+            let newIngredientFromAPI = null;
             if (newIngredientInfo.id === null) {
-                await createIngredient({ name: newIngredientInfo.name }).unwrap();
+                newIngredientFromAPI = await createIngredient({ name: newIngredientInfo.name }).unwrap();
             } else {
-                await updateIngredient({ id: newIngredientInfo.id, name: newIngredientInfo.name }).unwrap();
+                newIngredientFromAPI = await updateIngredient({ id: newIngredientInfo.id, name: newIngredientInfo.name }).unwrap();
             }
             await refetch();
+
+            addIngredientToSelectedIngredients(newIngredientFromAPI.data);
         } catch (error) {
             console.error(error);
         }
@@ -69,12 +72,19 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
         handleClose();
     };
 
-    const handleSelectionChange = (event, newIngredient) => {
-        // Check if ingredient with same ID already exists
+    const addIngredientToSelectedIngredients = (newIngredient) => {
         const ingredientExists = selectedIngredients.some((ingredient) => ingredient.id === newIngredient.id);
 
         if (!ingredientExists) {
             setSelectedIngredients([...selectedIngredients, newIngredient]);
+        }
+    };
+
+    const handleSelectionChange = (event, newIngredient) => {
+        const ingredientExistsInAPI = ingredientsFromAPI?.data.some((ingredient) => ingredient.id === newIngredient.id);
+
+        if (ingredientExistsInAPI) {
+            addIngredientToSelectedIngredients(newIngredient);
         }
     };
 
