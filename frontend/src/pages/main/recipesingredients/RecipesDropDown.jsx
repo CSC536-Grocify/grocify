@@ -113,7 +113,7 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
         setIngredientModalOpen(true);
     };
 
-    return (isIngredientsLoading ? <div>Loading...</div> : (
+    return (isIngredientsLoading || isCreateLoading || isUpdateLoading ? <div>Loading...</div> : (
         <Dialog open={open} onClose={handleClose}>
             <DialogTitle>{currentRecipeInfo ? "Edit Recipe" : "Add New Recipe"}</DialogTitle>
             <IngredientsDropDown

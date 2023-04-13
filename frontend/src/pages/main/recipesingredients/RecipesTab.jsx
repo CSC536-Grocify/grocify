@@ -61,7 +61,7 @@ function RecipesTab() {
         }
     };
 
-    return (isLoading || isDeleteRecipeLoading ? <div>Loading...</div> : (
+    return (isLoading || isDeleteRecipeLoading || isCreateLoading || isUpdateLoading ? <div>Loading...</div> : (
         <div>
             <button id="button" className="add-btn" onClick={() => handleModalOpen()}>
                 <span>+</span>

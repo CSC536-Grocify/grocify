@@ -61,7 +61,7 @@ function IngredientsTab() {
         }
     };
 
-    return (isLoading || isDeleteIngredientLoading ? <div>Loading...</div> : (
+    return (isLoading || isDeleteIngredientLoading || isCreateLoading || isUpdateLoading ? <div>Loading...</div> : (
         <div>
             <button id="button" className="add-btn" onClick={() => handleModalOpen()}>
                 <span>+</span>
