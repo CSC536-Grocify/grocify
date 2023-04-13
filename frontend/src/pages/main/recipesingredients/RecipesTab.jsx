@@ -23,7 +23,6 @@ function RecipesTab() {
         refetch();
     }, [location, refetch]);
 
-    // Opening modal when modal argument is set
     const handleCreateNew = () => {
         const modalInformation = {
             recipe_info: null
@@ -40,6 +39,7 @@ function RecipesTab() {
         setModalOpenArgument(modalInformation);
     }
 
+    // Opening modal when modal argument is set
     useEffect(() => {
         if (modelOpenArgument) {
             setModalOpen(true);
@@ -69,7 +69,7 @@ function RecipesTab() {
         event.preventDefault();
         try {
             await deleteRecipeAPI({ id: id }).unwrap();
-            refetch();
+            await refetch();
         } catch (error) {
             console.error(error);
         }
