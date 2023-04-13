@@ -23,7 +23,7 @@ function IngredientsDropDown({ open, handleClose, handleSave, currentIngredientI
         setName(event.target.value);
     };
 
-    const handleSaveClick = () => {
+    const handleSaveClick = async () => {
         const newIngredientInfo = {
             name: name,
             id: null,
@@ -33,7 +33,7 @@ function IngredientsDropDown({ open, handleClose, handleSave, currentIngredientI
             newIngredientInfo.id = currentIngredientInfo.id;
         }
 
-        handleSave(newIngredientInfo);
+        await handleSave(newIngredientInfo);
         setName("");
         handleClose();
     };

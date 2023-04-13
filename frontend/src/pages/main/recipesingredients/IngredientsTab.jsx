@@ -23,15 +23,18 @@ function IngredientsTab() {
         refetch();
     }, [location, refetch]);
 
-    const handleModalOpen = () => {
+    const handleCreateNew = () => {
+        setSelectedIngredient(null)
         setModalOpen(true);
     };
 
     const handleModalClose = () => {
+        setSelectedIngredient(null)
         setModalOpen(false);
     };
 
     const handleSaveIngredient = async (newIngredientInfo) => {
+        setSelectedIngredient(null);
         try {
             if (newIngredientInfo.id === null) {
                 await createIngredient({ name: newIngredientInfo.name }).unwrap();
@@ -63,7 +66,7 @@ function IngredientsTab() {
 
     return (isLoading || isDeleteIngredientLoading || isCreateLoading || isUpdateLoading ? <div>Loading...</div> : (
         <div>
-            <button id="button" className="add-btn" onClick={() => handleModalOpen()}>
+            <button id="button" className="add-btn" onClick={() => handleCreateNew()}>
                 <span>+</span>
             </button>
             <IngredientsDropDown

@@ -8,7 +8,7 @@ import RecipesDropDown from './RecipesDropDown';
 
 function RecipesTab() {
     const [modalOpen, setModalOpen] = useState(false);
-    const [selectedRecipe, setSelectedRecipe] = useState(null);
+    const [modelOpenArgument, setModalOpenArgument] = useState(null);
     const [createRecipe, { isCreateLoading }] = useCreateRecipeMutation();
     const [updateRecipe, { isUpdateLoading }] = useUpdateRecipeMutation();
     const [deleteRecipeAPI, { isDeleteRecipeLoading }] = useDeleteRecipeMutation();
@@ -23,11 +23,31 @@ function RecipesTab() {
         refetch();
     }, [location, refetch]);
 
-    const handleModalOpen = () => {
-        setModalOpen(true);
+    // Opening modal when modal argument is set
+    const handleCreateNew = () => {
+        const modalInformation = {
+            recipe_info: null
+        };
+        setModalOpenArgument(modalInformation);
     };
 
+    const handleEditButton = (event, recipe) => {
+        event.preventDefault();
+
+        const modalInformation = {
+            recipe_info: recipe
+        };
+        setModalOpenArgument(modalInformation);
+    }
+
+    useEffect(() => {
+        if (modelOpenArgument) {
+            setModalOpen(true);
+        }
+    }, [modelOpenArgument]);
+
     const handleModalClose = () => {
+        setModalOpenArgument(null);
         setModalOpen(false);
     };
 
@@ -39,17 +59,11 @@ function RecipesTab() {
                 await updateRecipe({ id: newRecipeInfo.id, title: newRecipeInfo.title }).unwrap();
             }
             await refetch();
+            setModalOpenArgument(null);
         } catch (error) {
             console.error(error);
         }
     };
-
-    const handleEditButton = (event, recipe) => {
-        event.preventDefault();
-
-        setSelectedRecipe(recipe);
-        setModalOpen(true);
-    }
 
     const handleRemoveButton = async (event, id) => {
         event.preventDefault();
@@ -63,14 +77,14 @@ function RecipesTab() {
 
     return (isLoading || isDeleteRecipeLoading || isCreateLoading || isUpdateLoading ? <div>Loading...</div> : (
         <div>
-            <button id="button" className="add-btn" onClick={() => handleModalOpen()}>
+            <button id="button" className="add-btn" onClick={() => handleCreateNew()}>
                 <span>+</span>
             </button>
             <RecipesDropDown
                 open={modalOpen}
                 handleClose={handleModalClose}
                 handleSave={handleSaveRecipe}
-                currentRecipeInfo={selectedRecipe}
+                currentRecipeInfo={modelOpenArgument? modelOpenArgument.recipe_info : null}
             />
             <div className="recipes-container">
                 {recipesFromAPI.data.map((recipe) => (

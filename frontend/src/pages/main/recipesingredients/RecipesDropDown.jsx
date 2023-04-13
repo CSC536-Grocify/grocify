@@ -57,7 +57,7 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
         setRecipeTitle(event.target.value);
     };
 
-    const handleSaveClick = () => {
+    const handleSaveClick = async () => {
         const newRecipeInfo = {
             title: recipeTitle,
             id: null,
@@ -67,8 +67,9 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
             newRecipeInfo.id = currentRecipeInfo.id;
         }
 
-        handleSave(newRecipeInfo);
+        await handleSave(newRecipeInfo);
         setRecipeTitle("");
+        setSelectedIngredients([]);
         handleClose();
     };
 
