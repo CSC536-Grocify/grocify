@@ -1,5 +1,3 @@
-@import url("http://cdn.syncfusion.com/ej2/bootstraps.css");
-
 :root {
   --PrimaryColor: rgb(8, 132, 232);
   --SecondaryColor: rgb(5, 179, 242);
@@ -227,8 +225,10 @@
   border: 1px solid black;
   padding: 10px;
   margin: 10px;
-  height: 250px; /* set a fixed height */
-  overflow-y: auto; /* add scrollbar when content overflows */
+  height: 250px;
+  /* set a fixed height */
+  overflow-y: auto;
+  /* add scrollbar when content overflows */
 }
 
 .selected-ingredients {
@@ -244,13 +244,13 @@
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.selected_remove_item{
+.selected_remove_item {
   flex-grow: 1;
   font-weight: bold;
   margin-right: 250px;
 }
 
-.selected_remove{
+.selected_remove {
   border: .5px solid rgb(14, 167, 126);
   background-color: #00b894;
   padding: 2px;

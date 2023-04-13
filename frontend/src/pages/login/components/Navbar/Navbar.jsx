@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import './navbar.css'
+import './navbar.scss'
 import { BsCardChecklist } from 'react-icons/bs'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { TbGridDots } from 'react-icons/tb'
@@ -25,7 +25,7 @@ const Navbar = () => {
                 </div>
 
                 <div className={active}>
-                    <u1 className="navLists flex">
+                    <ul className="navLists flex">
                         <li className='navItem'>
                             <a href=" " className='navLink'>Welcome</a>
                         </li>
@@ -52,8 +52,7 @@ const Navbar = () => {
                         <button className='btn'>
                             <a href="#">Sign up</a>
                         </button> */}
-
-                    </u1>
+                    </ul>
                     <div onClick={removeNavbar} className="closeNavbar">
                         <AiFillCloseCircle className="icon" />
                     </div>

@@ -19,6 +19,7 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
     const [ingredientSearchValue, setIngredientSearchValue] = useState('');
     const [selectedIngredients, setSelectedIngredients] = useState([]);
     const [ingredientModalOpen, setIngredientModalOpen] = useState(false);
+    const [ingredientModelOpenArgument, setIngredientModalOpenArgument] = useState(null);
     const [createIngredient, { isCreateLoading }] = useCreateIngredientMutation();
     const [updateIngredient, { isUpdateLoading }] = useUpdateIngredientMutation();
     const {
@@ -34,6 +35,7 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
     }, [currentRecipeInfo]);
 
     const handleIngredientModalClose = () => {
+        setIngredientModalOpenArgument(null);
         setIngredientModalOpen(false);
     };
 
@@ -46,7 +48,7 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
                 newIngredientFromAPI = await updateIngredient({ id: newIngredientInfo.id, name: newIngredientInfo.name }).unwrap();
             }
             await refetch();
-
+            setIngredientModalOpenArgument(null);
             addIngredientToSelectedIngredients(newIngredientFromAPI.data);
         } catch (error) {
             console.error(error);
@@ -57,7 +59,12 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
         setRecipeTitle(event.target.value);
     };
 
-    const handleSaveClick = () => {
+    const resetData = () => {
+        setRecipeTitle("");
+        setSelectedIngredients([]);
+    };
+
+    const handleSaveClick = async () => {
         const newRecipeInfo = {
             title: recipeTitle,
             id: null,
@@ -67,10 +74,15 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
             newRecipeInfo.id = currentRecipeInfo.id;
         }
 
-        handleSave(newRecipeInfo);
-        setRecipeTitle("");
+        await handleSave(newRecipeInfo);
+        resetData();
         handleClose();
     };
+
+    const handleCloseClick = () => {
+        resetData();
+        handleClose();
+    }
 
     const addIngredientToSelectedIngredients = (newIngredient) => {
         const ingredientExists = selectedIngredients.some((ingredient) => ingredient.id === newIngredient.id);
@@ -110,17 +122,29 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
     };
 
     const createNewIngredient = () => {
-        setIngredientModalOpen(true);
+        const modalInformation = {
+            ingredient_info: {
+                name: ingredientSearchValue
+            }
+        };
+        setIngredientModalOpenArgument(modalInformation);
     };
 
-    return (isIngredientsLoading ? <div>Loading...</div> : (
-        <Dialog open={open} onClose={handleClose}>
+    // Opening modal when modal argument is set
+    useEffect(() => {
+        if (ingredientModelOpenArgument) {
+            setIngredientModalOpen(true);
+        }
+    }, [ingredientModelOpenArgument]);
+
+    return (isIngredientsLoading || isCreateLoading || isUpdateLoading ? <div>Loading...</div> : (
+        <Dialog open={open} onClose={handleCloseClick}>
             <DialogTitle>{currentRecipeInfo ? "Edit Recipe" : "Add New Recipe"}</DialogTitle>
             <IngredientsDropDown
                 open={ingredientModalOpen}
                 handleClose={handleIngredientModalClose}
                 handleSave={handleSaveIngredient}
-                currentIngredientInfo={{ name: ingredientSearchValue }}
+                currentIngredientInfo={ingredientModelOpenArgument? ingredientModelOpenArgument.ingredient_info : null}
             />
             <DialogContent>
                 <TextField
@@ -156,7 +180,7 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
                 </div>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose} color="primary">
+                <Button onClick={handleCloseClick} color="primary">
                     Cancel
                 </Button>
                 <Button onClick={handleSaveClick} color="primary">

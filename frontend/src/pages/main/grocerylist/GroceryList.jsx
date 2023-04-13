@@ -9,9 +9,6 @@ function GroceryList() {
   const {
     data: ingredientsFromAPI, // rename data to ingredients
     isLoading,
-    isSuccess,
-    isError,
-    error,
     refetch
   } = useGetIngredientsQuery({ skip: !fetchIngredients });
 

@@ -8,7 +8,7 @@ import IngredientsDropDown from './IngredientsDropDown';
 
 function IngredientsTab() {
     const [modalOpen, setModalOpen] = useState(false);
-    const [selectedIngredient, setSelectedIngredient] = useState(null);
+    const [modelOpenArgument, setModalOpenArgument] = useState(null);
     const [createIngredient, { isCreateLoading }] = useCreateIngredientMutation();
     const [updateIngredient, { isUpdateLoading }] = useUpdateIngredientMutation();
     const [deleteIngredientAPI, { isDeleteIngredientLoading }] = useDeleteIngredientMutation();
@@ -23,11 +23,31 @@ function IngredientsTab() {
         refetch();
     }, [location, refetch]);
 
-    const handleModalOpen = () => {
-        setModalOpen(true);
+    const handleCreateNew = () => {
+        const modalInformation = {
+            ingredient_info: null
+        };
+        setModalOpenArgument(modalInformation);
     };
 
+    const handleEditButton = (event, ingredient) => {
+        event.preventDefault();
+
+        const modalInformation = {
+            ingredient_info: ingredient
+        };
+        setModalOpenArgument(modalInformation);
+    }
+
+    // Opening modal when modal argument is set
+    useEffect(() => {
+        if (modelOpenArgument) {
+            setModalOpen(true);
+        }
+    }, [modelOpenArgument]);
+
     const handleModalClose = () => {
+        setModalOpenArgument(null);
         setModalOpen(false);
     };
 
@@ -39,38 +59,32 @@ function IngredientsTab() {
                 await updateIngredient({ id: newIngredientInfo.id, name: newIngredientInfo.name }).unwrap();
             }
             await refetch();
+            setModalOpenArgument(null);
         } catch (error) {
             console.error(error);
         }
     };
-
-    const handleEditButton = (event, ingredient) => {
-        event.preventDefault();
-
-        setSelectedIngredient(ingredient);
-        setModalOpen(true);
-    }
 
     const handleRemoveButton = async (event, id) => {
         event.preventDefault();
         try {
             await deleteIngredientAPI({ id: id }).unwrap();
-            refetch();
+            await refetch();
         } catch (error) {
             console.error(error);
         }
     };
 
-    return (isLoading || isDeleteIngredientLoading ? <div>Loading...</div> : (
+    return (isLoading || isDeleteIngredientLoading || isCreateLoading || isUpdateLoading ? <div>Loading...</div> : (
         <div>
-            <button id="button" className="add-btn" onClick={() => handleModalOpen()}>
+            <button id="button" className="add-btn" onClick={() => handleCreateNew()}>
                 <span>+</span>
             </button>
             <IngredientsDropDown
                 open={modalOpen}
                 handleClose={handleModalClose}
                 handleSave={handleSaveIngredient}
-                currentIngredientInfo={selectedIngredient}
+                currentIngredientInfo={modelOpenArgument? modelOpenArgument.ingredient_info : null}
             />
             <div className="ingredients-container">
                 {ingredientsFromAPI.data.map((ingredient) => (
