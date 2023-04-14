@@ -9,8 +9,8 @@ from recipes.models import Recipe
 class RecipeIngredient(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    quantity = models.FloatField()
-    measurement = models.ForeignKey(Measurement, on_delete=models.CASCADE)
+    quantity = models.FloatField(null=True)
+    measurement = models.ForeignKey(Measurement, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def _str_(self):
