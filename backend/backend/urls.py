@@ -2,6 +2,7 @@ from django.urls import path
 from recipes import views as recipe_views
 from accounts import views as accounts_views
 from ingredients import views as ingredients_views
+from tags import views as tags_views
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -22,5 +23,10 @@ urlpatterns = [
     path('ingredients/', ingredients_views.getIngredients, name="get_ingredients"),
     path('ingredients/create/', ingredients_views.createIngredient, name="create_ingredient"),
     path('ingredients/update/', ingredients_views.updateIngredient, name="update_ingredient"),
-    path('ingredients/delete/', ingredients_views.deleteIngredient, name="delete_ingredient")
+    path('ingredients/delete/', ingredients_views.deleteIngredient, name="delete_ingredient"),
+    path('tags/create/', tags_views.createTags, name="create_tag"),
+    path('tags/delete/', tags_views.deleteTags, name="delete_tags"),
+    path('tags/update/', tags_views.updateTags, name="update_tags"),
+    path('tags/', tags_views.getTages, name="get_tags"),
+
 ]

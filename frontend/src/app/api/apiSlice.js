@@ -14,7 +14,7 @@ const baseQuery = fetchBaseQuery({
 });
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
-    const result = await baseQuery(args, api, extraOptions);
+    let result = await baseQuery(args, api, extraOptions);
 
     // if the original query failed with 403, try to refresh the token
     if (result?.error?.originalStatus === 403) {
