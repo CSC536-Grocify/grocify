@@ -140,8 +140,8 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
     }, [ingredientModelOpenArgument]);
 
     return (isIngredientsLoading || isCreateLoading || isUpdateLoading ? <div>Loading...</div> : (
-        <Dialog open={open} onClose={handleCloseClick} className="popUpStyle">
-            <DialogTitle>{currentRecipeInfo ? "Edit Recipe" : "Add New Recipe"}</DialogTitle>
+        <Dialog open={open} onClose={handleCloseClick}>
+            <DialogTitle className="popUpStyle">{currentRecipeInfo ? "Edit Recipe" : "Add New Recipe"}</DialogTitle>
             <IngredientsDropDown
                 open={ingredientModalOpen}
                 handleClose={handleIngredientModalClose}
