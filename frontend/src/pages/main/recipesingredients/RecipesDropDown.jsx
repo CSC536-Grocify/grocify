@@ -31,6 +31,7 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
     useEffect(() => {
         if (currentRecipeInfo) {
             setRecipeTitle(currentRecipeInfo.title);
+            setSelectedIngredients(currentRecipeInfo.ingredients);
         }
     }, [currentRecipeInfo]);
 
@@ -68,6 +69,7 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
         const newRecipeInfo = {
             title: recipeTitle,
             id: null,
+            ingredient_ids: selectedIngredients.map((ingredient) => ingredient.id)
         };
 
         if (currentRecipeInfo) {

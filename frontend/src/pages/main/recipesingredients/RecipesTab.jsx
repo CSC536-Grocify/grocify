@@ -54,9 +54,16 @@ function RecipesTab() {
     const handleSaveRecipe = async (newRecipeInfo) => {
         try {
             if (newRecipeInfo.id === null) {
-                await createRecipe({ title: newRecipeInfo.title }).unwrap();
+                await createRecipe({
+                    title: newRecipeInfo.title,
+                    ingredient_ids: newRecipeInfo.ingredient_ids.join(',')
+                }).unwrap();
             } else {
-                await updateRecipe({ id: newRecipeInfo.id, title: newRecipeInfo.title }).unwrap();
+                await updateRecipe({
+                    id: newRecipeInfo.id,
+                    title: newRecipeInfo.title,
+                    ingredient_ids: newRecipeInfo.ingredient_ids.join(',')
+                }).unwrap();
             }
             await refetch();
             setModalOpenArgument(null);
@@ -84,7 +91,7 @@ function RecipesTab() {
                 open={modalOpen}
                 handleClose={handleModalClose}
                 handleSave={handleSaveRecipe}
-                currentRecipeInfo={modelOpenArgument? modelOpenArgument.recipe_info : null}
+                currentRecipeInfo={modelOpenArgument ? modelOpenArgument.recipe_info : null}
             />
             <div className="recipes-container">
                 {recipesFromAPI.data.map((recipe) => (
