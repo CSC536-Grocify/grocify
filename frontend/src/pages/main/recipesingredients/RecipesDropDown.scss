@@ -235,7 +235,8 @@
   // border: 1px solid black;
   // padding: 10px;
   // margin: 10px;
-  display: flex;
+  // display: flex;
+  display: grid;
   align-items: center;
   padding: 10px;
   background-color: #f8f8f8;
@@ -246,8 +247,9 @@
 
 .selected_remove_item {
   flex-grow: 1;
-  font-weight: bold;
-  margin-right: 250px;
+  font-size: small;
+  // font-weight: bold;
+  // margin-right: 250px;
 }
 
 .selected_remove {
@@ -267,6 +269,6 @@
 }
 
 .popUpStyle{
-  min-width: 500px;
+  width: 100%;
   // background: rgb(11, 152, 234);
 }
