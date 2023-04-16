@@ -23,7 +23,11 @@ function IngredientsDropDown({ open, handleClose, handleSave, currentIngredientI
         setName(event.target.value);
     };
 
-    const handleSaveClick = () => {
+    function resetData() {
+        setName("");
+    }
+
+    const handleSaveClick = async () => {
         const newIngredientInfo = {
             name: name,
             id: null,
@@ -33,13 +37,18 @@ function IngredientsDropDown({ open, handleClose, handleSave, currentIngredientI
             newIngredientInfo.id = currentIngredientInfo.id;
         }
 
-        handleSave(newIngredientInfo);
-        setName("");
+        await handleSave(newIngredientInfo);
+        resetData();
         handleClose();
     };
 
+    const handleCloseClick = () => {
+        resetData();
+        handleClose();
+    }
+
     return (
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open} onClose={handleCloseClick}>
             <DialogTitle>{currentIngredientInfo ? "Edit Ingredient" : "Add New Ingredient"}</DialogTitle>
             <DialogContent>
                 <TextField
@@ -52,7 +61,7 @@ function IngredientsDropDown({ open, handleClose, handleSave, currentIngredientI
                 />
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose} color="primary">
+                <Button onClick={handleCloseClick} color="primary">
                     Cancel
                 </Button>
                 <Button onClick={handleSaveClick} color="primary">

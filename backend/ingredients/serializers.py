@@ -4,4 +4,4 @@ from .models import Ingredient
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredient
-        fields = ('id', 'name', 'notes', 'user_id')
+        fields = ('id', 'name', 'notes')

@@ -6,35 +6,35 @@ import { useDispatch } from 'react-redux';
 import { logOut } from '../../../features/auth/authSlice';
 
 const VerticalNav = () => {
-  const [showLeftButton, setShowLeftButton] = useState(false);
-  let navigate = useNavigate();
-  const dispatch = useDispatch();
+    const [showLeftButton, setShowLeftButton] = useState(false);
+    let navigate = useNavigate();
+    const dispatch = useDispatch();
 
-  const handleButtonClick = () => {
-    setShowLeftButton(!showLeftButton);
-  };
+    const handleButtonClick = () => {
+        setShowLeftButton(!showLeftButton);
+    };
 
-  const handleLogoutButtonClick = (event) => {
-    event.preventDefault();
+    const handleLogoutButtonClick = (event) => {
+        event.preventDefault();
 
-    dispatch(logOut());
-    navigate('/');
-  }
+        dispatch(logOut());
+        navigate('/');
+    }
 
-  return (
-    <div className="nav-container">
-      {showLeftButton && (
-        <button className="left-btn" onClick={handleLogoutButtonClick}>
-          Log out
-        </button>
-      )}
-      <div className="vertical-nav">
-        <button className="bottom-btn" onClick={handleButtonClick}>
-          <FaUser />
-        </button>
-      </div>
-    </div>
-  );
+    return (
+        <div className="nav-container">
+            {showLeftButton && (
+                <button className="left-btn" onClick={handleLogoutButtonClick}>
+                    Log out
+                </button>
+            )}
+            <div className="vertical-nav">
+                <button className="bottom-btn" onClick={handleButtonClick}>
+                    <FaUser />
+                </button>
+            </div>
+        </div>
+    );
 };
 
 export default VerticalNav;

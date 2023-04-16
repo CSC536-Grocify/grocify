@@ -13,7 +13,7 @@ def getIngredients(request):
         response = {"data": serializer.data, "message": "Ingredients loaded successfully."}
         return Response(data=response, status=status.HTTP_200_OK)
     except Exception as e:
-        response = {"data": [], "message": "Ingredients loading issues."}
+        response = {"data": str(e), "message": "Ingredients loading issues."}
         return Response(data=response, status=status.HTTP_404_NOT_FOUND)
     
 @api_view(['POST'])
@@ -28,7 +28,7 @@ def createIngredient(request):
             response = {"data": [], "message": "Ingredient creation issues."}
             return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
-        response = {"data": [], "message": "Ingredient creation issues."}
+        response = {"data": str(e), "message": "Ingredient creation issues."}
         return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['PUT'])
@@ -44,7 +44,7 @@ def updateIngredient(request):
             response = {"data": [], "message": "Ingredient update issues."}
             return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
-        response = {"data": [], "message": "Ingredient update issues."}
+        response = {"data": str(e), "message": "Ingredient update issues."}
         return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['DELETE'])
@@ -56,5 +56,5 @@ def deleteIngredient(request):
         ingredient.delete()
         return Response(data=response, status=status.HTTP_200_OK)
     except Exception as e:
-        response = {"data": [], "message": "Ingredient delete issues."}
+        response = {"data": str(e), "message": "Ingredient delete issues."}
         return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
