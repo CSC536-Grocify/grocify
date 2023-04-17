@@ -53,16 +53,17 @@ def updateRecipe(request):
         recipe_id = request.data['id']
         recipe = Recipe.objects.get(id=recipe_id, user=request.user)
 
-        # Clear existing recipe_ingredients associations
-        RecipeIngredient.objects.filter(recipe=recipe).delete()
-
-        # Create new recipe_ingredients associations based on the ingredient_ids in the request data
         ingredient_ids_str = request.data.get('ingredient_ids', '')
-        ingredient_ids = list(map(int, ingredient_ids_str.split(','))) if ingredient_ids_str else []
+        if ingredient_ids_str is not None and ingredient_ids_str != '':
+            # Clear existing recipe_ingredients associations
+            RecipeIngredient.objects.filter(recipe=recipe).delete()
 
-        for ingredient_id in ingredient_ids:
-            ingredient = Ingredient.objects.get(id=ingredient_id)
-            RecipeIngredient.objects.create(recipe=recipe, ingredient=ingredient, user=request.user)
+            # Create new recipe_ingredients associations based on the ingredient_ids in the request data
+            ingredient_ids = list(map(int, ingredient_ids_str.split(','))) if ingredient_ids_str else []
+
+            for ingredient_id in ingredient_ids:
+                ingredient = Ingredient.objects.get(id=ingredient_id)
+                RecipeIngredient.objects.create(recipe=recipe, ingredient=ingredient, user=request.user)
 
         serializer = RecipeSerializer(recipe, data=request.data, partial=True)
 
