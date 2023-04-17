@@ -66,7 +66,8 @@ INSTALLED_APPS = [
     'ingredients',
     'measurements',
     'recipe_ingredients',
-    'tags'
+    'tags',
+    'recipe_tags'
 ]
 
 MIDDLEWARE = [
