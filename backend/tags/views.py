@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from .serializers import TagsSerializer
 from .models import Tags
+from recipe_tags.models import RecipeTag, Recipe
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
@@ -23,9 +24,21 @@ def createTags(request):
         serializer = TagsSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save(user=request.user)
+            tag = serializer.save(user=request.user)
+           
+            # Get the list of ingredient IDs from the request data
+            recipe_ids_str = request.data.get('recipe_ids', '')
+            recipe_ids = list(map(int, recipe_ids_str.split(','))) if recipe_ids_str else []
+
+            # Create recipe_ingredient objects for each ingredient ID
+            for recipe_id in recipe_ids:
+                recipe_tag = RecipeTag(tag=tag, recipe_id=recipe_id, user=request.user)
+                recipe_tag.save()
+            
+            # Return the response
             response = {"data": serializer.data, "message": "Tags created successfully."}
             return Response(data=response, status=status.HTTP_201_CREATED)
+        
         else:
             response = {"data": serializer.errors, "message": "Tags creation issues."}
             return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
@@ -35,22 +48,36 @@ def createTags(request):
 
 @api_view(['PUT'])
 def updateTags(request):
-    print("Request data:", request.data)
     try:
-        tags = Tags.objects.get(id=request.data['id'], user=request.user)
-        serializer = TagsSerializer(tags, data=request.data, partial=True)
+        tag_id = request.data['id']
+        tag = Tags.objects.get(id=tag_id, user=request.user)
+
+        recipe_ids_str = request.data.get('recipe_ids', '')
+        #recipe_ids is not null 
+        if recipe_ids_str is not None and recipe_ids_str != '':
+             # Clear existing recipe_ingredients associations
+            RecipeTag.objects.filter(tag=tag).delete()
+
+            # Create new recipe_ingredients associations based on the ingredient_ids in the request data
+            recipe_ids = list(map(int, recipe_ids_str.split(','))) if recipe_ids_str else []
+            for recipe_id in recipe_ids:
+                recipe = Recipe.objects.get(id=recipe_id)
+                RecipeTag.objects.create(tag=tag, recipe=recipe, user=request.user)
+
+        serializer = TagsSerializer(tag, data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()
-            response = {"data": serializer.data, "message": "Tags updated successfully."}
+            response = {"data": serializer.data, "message": "Recipe updated successfully."}
             return Response(data=response, status=status.HTTP_200_OK)
         else:
-            response = {"data": serializer.errors, "message": "Tags update issues."}
+            response = {"data": serializer.errors, "message": "Recipe update issues."}
             return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
-        response = {"data": [], "message": f"Tags update issues: {str(e)}"}
+        response = {"data": str(e), "message": f"Recipe update issues: {str(e)}"}
         return Response(data=response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
+
+
 @api_view(['DELETE'])
 def deleteTags(request):
     try:
