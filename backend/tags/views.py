@@ -32,8 +32,8 @@ def createTags(request):
 
             # Create recipe_ingredient objects for each ingredient ID
             for recipe_id in recipe_ids:
-                recipe_ingredient = RecipeTag(tag=tag, recipe_id=recipe_id, user=request.user)
-                recipe_ingredient.save()
+                recipe_tag = RecipeTag(tag=tag, recipe_id=recipe_id, user=request.user)
+                recipe_tag.save()
             
             # Return the response
             response = {"data": serializer.data, "message": "Tags created successfully."}
@@ -46,26 +46,23 @@ def createTags(request):
         response = {"data": [], "message": "Tags creation issues."}
         return Response(data=response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-#recipe = tag
-#ingredient = recipe
-
 @api_view(['PUT'])
-def updateTag(request):
-    print("Request data:", request.data)
+def updateTags(request):
     try:
         tag_id = request.data['id']
         tag = Tags.objects.get(id=tag_id, user=request.user)
 
-        # Clear existing recipe_ingredients associations
-        RecipeTag.objects.filter(tag=tag).delete()
+        recipe_ids_str = request.data.get('recipe_ids', '')
+        #recipe_ids is not null 
+        if recipe_ids_str is not None and recipe_ids_str != '':
+             # Clear existing recipe_ingredients associations
+            RecipeTag.objects.filter(tag=tag).delete()
 
-        # Create new recipe_ingredients associations based on the ingredient_ids in the request data
-        recipe_ids_str = request.data.get('ingredient_ids', '')
-        recipe_ids = list(map(int, recipe_ids_str.split(','))) if ingredient_ids_str else []
-
-        for recipe_id in recipe_ids:
-            recipe = Recipe.objects.get(id=recipe_id)
-            RecipeTag.objects.create(tag=tag, recipe=recipe, user=request.user)
+            # Create new recipe_ingredients associations based on the ingredient_ids in the request data
+            recipe_ids = list(map(int, recipe_ids_str.split(','))) if recipe_ids_str else []
+            for recipe_id in recipe_ids:
+                recipe = Recipe.objects.get(id=recipe_id)
+                RecipeTag.objects.create(tag=tag, recipe=recipe, user=request.user)
 
         serializer = TagsSerializer(tag, data=request.data, partial=True)
 
