@@ -141,54 +141,56 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
 
     return (isIngredientsLoading || isCreateLoading || isUpdateLoading ? <div>Loading...</div> : (
         <Dialog open={open} onClose={handleCloseClick}>
-            <DialogTitle>{currentRecipeInfo ? "Edit Recipe" : "Add New Recipe"}</DialogTitle>
-            <IngredientsDropDown
-                open={ingredientModalOpen}
-                handleClose={handleIngredientModalClose}
-                handleSave={handleSaveIngredient}
-                currentIngredientInfo={ingredientModelOpenArgument? ingredientModelOpenArgument.ingredient_info : null}
-            />
-            <DialogContent>
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    label="Recipe Name"
-                    fullWidth
-                    value={recipeTitle}
-                    onChange={handleTitleChange}
+            <DialogContent className="popUpStyle">
+                <DialogTitle>{currentRecipeInfo ? "Edit Recipe" : "Add New Recipe"}</DialogTitle>
+                <IngredientsDropDown 
+                    open={ingredientModalOpen}
+                    handleClose={handleIngredientModalClose}
+                    handleSave={handleSaveIngredient}
+                    currentIngredientInfo={ingredientModelOpenArgument? ingredientModelOpenArgument.ingredient_info : null}
                 />
-                <Autocomplete
-                    freeSolo
-                    // when the component is initially rendered, the data from the API might not be available yet
-                    options={ingredientsFromAPI?.data || []}
-                    getOptionLabel={(option) => typeof option === 'string' ? option : option.name}
-                    onChange={handleSelectionChange}
-                    onInputChange={handleInputChange}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            label="Ingredient Search"
-                            variant="outlined"
-                            onKeyDown={handleKeyDown} />
-                    )}
-                />
-                <div className="selected-ingredients-container">
-                    {selectedIngredients.map((ingredient) => (
-                        <div className="selected-ingredients" key={ingredient.id} >
-                            <span className="selected_remove_item">{ingredient.name}</span>
-                            <button className="selected_remove" onClick={() => removeIngredient(ingredient.id)}>Remove</button>
-                        </div>
-                    ))}
-                </div>
+                <DialogContent className="popUpStyle">
+                    <TextField 
+                        autoFocus
+                        margin="dense"
+                        label="Recipe Name"
+                        fullWidth
+                        value={recipeTitle}
+                        onChange={handleTitleChange}
+                    />
+                    <Autocomplete
+                        freeSolo
+                        // when the component is initially rendered, the data from the API might not be available yet
+                        options={ingredientsFromAPI?.data || []}
+                        getOptionLabel={(option) => typeof option === 'string' ? option : option.name}
+                        onChange={handleSelectionChange}
+                        onInputChange={handleInputChange}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Ingredient Search"
+                                variant="outlined"
+                                onKeyDown={handleKeyDown} />
+                        )}
+                    />
+                    <div className="selected-ingredients-container">
+                        {selectedIngredients.map((ingredient) => (
+                            <div className="selected-ingredients" key={ingredient.id} >
+                                <span className="selected_remove_item">{ingredient.name}</span>
+                                <button className="selected_remove" onClick={() => removeIngredient(ingredient.id)}>Remove</button>
+                            </div>
+                        ))}
+                    </div>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseClick} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleSaveClick} color="primary">
+                        Save
+                    </Button>
+                </DialogActions>
             </DialogContent>
-            <DialogActions>
-                <Button onClick={handleCloseClick} color="primary">
-                    Cancel
-                </Button>
-                <Button onClick={handleSaveClick} color="primary">
-                    Save
-                </Button>
-            </DialogActions>
         </Dialog>
     ));
 }
