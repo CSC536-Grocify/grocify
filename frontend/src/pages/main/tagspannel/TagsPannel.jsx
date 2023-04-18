@@ -108,8 +108,8 @@ function TagsPanel() {
               ))}
               {contextMenuState.visible && (
                 <div className="context-menu" style={{ top: contextMenuState.y, left: contextMenuState.x }}>
-                    <button onClick={handleEditButton}>Edit</button>
-                    <button onClick={handleRemoveButton}>Remove</button>
+                    <button className="Edit-btn" onClick={handleEditButton}>Edit</button>
+                    <button className="Edit-btn" onClick={handleRemoveButton}>Remove</button>
                 </div>
             )}
           </div>
