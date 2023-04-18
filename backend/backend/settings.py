@@ -67,7 +67,8 @@ INSTALLED_APPS = [
     'measurements',
     'recipe_ingredients',
     'tags',
-    'recipe_tags'
+    'recipe_tags',
+    'grocery_lists'
 ]
 
 MIDDLEWARE = [

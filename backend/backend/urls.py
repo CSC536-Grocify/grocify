@@ -3,6 +3,7 @@ from recipes import views as recipe_views
 from accounts import views as accounts_views
 from ingredients import views as ingredients_views
 from tags import views as tags_views
+from grocery_lists import views as grocery_list_views
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -28,5 +29,7 @@ urlpatterns = [
     path('tags/delete/', tags_views.deleteTags, name="delete_tags"),
     path('tags/update/', tags_views.updateTags, name="update_tags"),
     path('tags/', tags_views.getTages, name="get_tags"),
-
+    path('grocery-lists/make/', grocery_list_views.makeGroceryList, name="create_grocery_list"),
+    path('grocery-lists/add/', grocery_list_views.addGroceryListItem, name="add_grocery_list_item"),
+    path('grocery-lists/delete/', grocery_list_views.deleteGroceryListItem, name="delete_grocery_list_item"),
 ]
