@@ -8,6 +8,8 @@ import './TagsPannel.scss';
 
 function TagsPanel() {
   const [contextMenuState, setContextMenuState] = useState({ visible: false, x: 0, y: 0, tag: null });
+  const [touchTimeout, setTouchTimeout] = useState(null);
+
 
     const handleContextMenu = (event, tag) => {
         event.preventDefault();
@@ -16,6 +18,12 @@ function TagsPanel() {
 
     const handleCloseContextMenu = () => {
         setContextMenuState({ visible: false, x: 0, y: 0, recipe: null });
+    };
+    const handleTouchStart = (event, tag) => {
+      setTouchTimeout(setTimeout(() => handleContextMenu(event, tag), 1000));
+    };
+    const handleTouchEnd = () => {
+      clearTimeout(touchTimeout);
     };
 
     // Update the handleEditButton function
@@ -87,6 +95,7 @@ function TagsPanel() {
             console.error(error);
         }
   };
+  
 
   return (isLoading ? <div>Loading...</div> : (
     <div>
@@ -102,7 +111,7 @@ function TagsPanel() {
             />
             <div className="tags-container">
               {tagsFromAPI.data.map((tag) => (
-                  <div className="tag-card" key={tag.id} onContextMenu={(event) => handleContextMenu(event, tag)}>
+                  <div className="tag-card" key={tag.id} onContextMenu={(event) => handleContextMenu(event, tag)} onTouchStart={event => handleTouchStart(event, tag)} onTouchEnd={handleTouchEnd}>
                       <span className="tag-title">{tag.name}</span>
                   </div>
               ))}
@@ -112,22 +121,12 @@ function TagsPanel() {
                     <button className="Edit-btn" onClick={handleRemoveButton}>Remove</button>
                 </div>
             )}
+            
           </div>
-      {/* <div>
-        {tagsFromAPI.data.map((tag) => (
-          <div key={tag.id}>
-            <span>{tag.name}</span>
-            <ul>
-              {tag.recipes.map((recipe) => (
-                <li key={recipe.id}>{recipe.title}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div> */}
     </div>
   ));
 }
 
 export default TagsPanel;
+
 
