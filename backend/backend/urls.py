@@ -32,4 +32,7 @@ urlpatterns = [
     path('grocery-lists/make/', grocery_list_views.makeGroceryList, name="create_grocery_list"),
     path('grocery-lists/add/', grocery_list_views.addGroceryListItem, name="add_grocery_list_item"),
     path('grocery-lists/delete/', grocery_list_views.deleteGroceryListItem, name="delete_grocery_list_item"),
+    path('grocery-lists/', grocery_list_views.getGroceryLists, name="get_grocery_lists"),
+    path('grocery-lists/update/', grocery_list_views.updateGroceryListItem, name="update_grocery_list_item"),
+    path('grocery-lists/delete-all/', grocery_list_views.deleteGroceryListItems, name="delete_all_grocery_list_items")
 ]

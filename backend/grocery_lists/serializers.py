@@ -5,4 +5,4 @@ from ingredients.serializers import IngredientSerializer
 class GroceryListSerializer(serializers.ModelSerializer):
     class Meta:
         model = GroceryList
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'notes']
