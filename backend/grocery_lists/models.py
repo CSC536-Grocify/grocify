@@ -6,7 +6,7 @@ from ingredients.models import Ingredient
 
 # Create your models here.
 class GroceryList(models.Model):
-    name = models.CharField(max_length=120)
+    name = models.CharField(max_length=120, unique=True)
     notes = models.TextField(null=True)
     quantity = models.FloatField(null=True)
     measurement = models.ForeignKey(Measurement, on_delete=models.CASCADE, null=True)
@@ -15,3 +15,7 @@ class GroceryList(models.Model):
 
     def _str_(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        self.name = self.name.lower()
+        super(GroceryList, self).save(*args, **kwargs)
