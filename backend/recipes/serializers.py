@@ -1,8 +1,10 @@
 from rest_framework import serializers
 from .models import Recipe
 from ingredients.serializers import IngredientSerializer
+from backend import CapitalizedCharField
 
 class RecipeSerializer(serializers.ModelSerializer):
+    title = CapitalizedCharField(max_length=120)
     ingredients = serializers.SerializerMethodField()
 
     class Meta:
