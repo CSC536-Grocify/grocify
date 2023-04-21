@@ -22,7 +22,7 @@ def getTages(request):
 def createTags(request):
     try:
         serializer = TagsSerializer(data=request.data)
-
+        
         if serializer.is_valid():
             tag = serializer.save(user=request.user)
            
@@ -43,7 +43,7 @@ def createTags(request):
             response = {"data": serializer.errors, "message": "Tags creation issues."}
             return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
-        response = {"data": [], "message": "Tags creation issues."}
+        response = {"data": str(e), "message": "Tags creation issues."}
         return Response(data=response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['PUT'])
