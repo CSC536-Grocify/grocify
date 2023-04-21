@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useGetRecipesQuery } from '../../../features/recipes_ingredients/recipesApiSlice';
+
 import {
     Button,
     Dialog,
@@ -6,10 +8,12 @@ import {
     DialogContent,
     DialogTitle,
     TextField,
+    Autocomplete,
 } from "@mui/material";
 
 
 function TagDropDown({ open, handleClose, handleSave, currentTagInfo = null }) {
+    const [selectedRecipes, setSelectedRecipes] = useState([]);
     const [name, setName] = useState('');
 
     useEffect(() => {
@@ -45,6 +49,27 @@ function TagDropDown({ open, handleClose, handleSave, currentTagInfo = null }) {
         resetData();
         handleClose();
     }
+    const {
+        data: recipesFromAPI,
+        isRecipesLoading,
+        recipesRefetch
+    } = useGetRecipesQuery();
+
+    const addRecipeToSelectedRecipes = (newRecipe) => {
+        const recipeExists = selectedRecipes.some((recipe) => recipe.id === newRecipe.id);
+
+        if (!recipeExists) {
+            setSelectedRecipes([...selectedRecipes, newRecipe]);
+        }
+    };
+
+    const handleSelectionChange = (event, newRecipe) => {
+        const recipeExistsInAPI = recipesFromAPI?.data.some((recipe) => recipe.id === newRecipe.id);
+
+        if (recipeExistsInAPI) {
+            addRecipeToSelectedRecipes(newRecipe);
+        }
+    };
 
     return (
         <Dialog open={open} onClose={handleCloseClick}>
@@ -57,6 +82,19 @@ function TagDropDown({ open, handleClose, handleSave, currentTagInfo = null }) {
                     fullWidth
                     value={name}
                     onChange={handleNameChange}
+                />
+                <Autocomplete
+                    // when the component is initially rendered, the data from the API might not be available yet
+                    options={recipesFromAPI?.data || []}
+                    getOptionLabel={(option) => typeof option === 'string' ? option : option.title}
+                    onChange={handleSelectionChange}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Recipe Search"
+                            variant="outlined"
+                        />
+                    )}
                 />
             </DialogContent>
             <DialogActions>

@@ -58,8 +58,10 @@ function TagsPanel() {
     isLoading,
     refetch
   } = useGetTagsQuery();
-  const location = useLocation();
 
+
+
+  const location = useLocation();
   useEffect(() => {
     refetch();
   }, [location, refetch]);
