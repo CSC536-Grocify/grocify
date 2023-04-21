@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useGetRecipesQuery } from '../../../features/recipes_ingredients/recipesApiSlice';
-
 import {
     Button,
     Dialog,
@@ -12,9 +11,13 @@ import {
 } from "@mui/material";
 
 
-function TagDropDown({ open, handleClose, handleSave, currentTagInfo = null }) {
+function TagDropDown({ open, handleClose, handleSave, handleDelete, currentTagInfo = null }) {
     const [selectedRecipes, setSelectedRecipes] = useState([]);
     const [name, setName] = useState('');
+    const {
+        data: recipesFromAPI,
+        isRecipesLoading
+    } = useGetRecipesQuery();
 
     useEffect(() => {
         if (currentTagInfo) {
@@ -48,12 +51,13 @@ function TagDropDown({ open, handleClose, handleSave, currentTagInfo = null }) {
     const handleCloseClick = () => {
         resetData();
         handleClose();
-    }
-    const {
-        data: recipesFromAPI,
-        isRecipesLoading,
-        recipesRefetch
-    } = useGetRecipesQuery();
+    };
+
+    const handleDeleteClick = async () => {
+        await handleDelete(currentTagInfo.id);
+        resetData();
+        handleClose();
+    };
 
     const addRecipeToSelectedRecipes = (newRecipe) => {
         const recipeExists = selectedRecipes.some((recipe) => recipe.id === newRecipe.id);
@@ -71,7 +75,7 @@ function TagDropDown({ open, handleClose, handleSave, currentTagInfo = null }) {
         }
     };
 
-    return (
+    return (isRecipesLoading ? <div>Loading...</div> :
         <Dialog open={open} onClose={handleCloseClick}>
             <DialogTitle>{currentTagInfo ? "Edit Tag" : "Add New Tag"}</DialogTitle>
             <DialogContent>
@@ -98,6 +102,11 @@ function TagDropDown({ open, handleClose, handleSave, currentTagInfo = null }) {
                 />
             </DialogContent>
             <DialogActions>
+                {currentTagInfo && currentTagInfo.hasOwnProperty('id') && (
+                    <Button onClick={handleDeleteClick} color="primary">
+                        Delete
+                    </Button>
+                )}
                 <Button onClick={handleCloseClick} color="primary">
                     Cancel
                 </Button>
