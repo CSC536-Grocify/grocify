@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useGetRecipesQuery } from '../../../features/recipes_ingredients/recipesApiSlice';
-
+import './TagDropDown.scss';
 import {
     Button,
     Dialog,
@@ -12,13 +12,18 @@ import {
 } from "@mui/material";
 
 
-function TagDropDown({ open, handleClose, handleSave, currentTagInfo = null }) {
+function TagDropDown({ open, handleClose, handleSave, handleDelete, currentTagInfo = null }) {
     const [selectedRecipes, setSelectedRecipes] = useState([]);
     const [name, setName] = useState('');
+    const {
+        data: recipesFromAPI,
+        isRecipesLoading
+    } = useGetRecipesQuery();
 
     useEffect(() => {
         if (currentTagInfo) {
             setName(currentTagInfo.name);
+            setSelectedRecipes(currentTagInfo.recipes);
         }
     }, [currentTagInfo]);
 
@@ -34,6 +39,7 @@ function TagDropDown({ open, handleClose, handleSave, currentTagInfo = null }) {
         const newTagInfo = {
             name: name,
             id: null,
+            recipe_ids: selectedRecipes.map((recipe) => recipe.id)
         };
 
         if (currentTagInfo && currentTagInfo.hasOwnProperty('id')) {
@@ -48,12 +54,13 @@ function TagDropDown({ open, handleClose, handleSave, currentTagInfo = null }) {
     const handleCloseClick = () => {
         resetData();
         handleClose();
-    }
-    const {
-        data: recipesFromAPI,
-        isRecipesLoading,
-        recipesRefetch
-    } = useGetRecipesQuery();
+    };
+
+    const handleDeleteClick = async () => {
+        await handleDelete(currentTagInfo.id);
+        resetData();
+        handleClose();
+    };
 
     const addRecipeToSelectedRecipes = (newRecipe) => {
         const recipeExists = selectedRecipes.some((recipe) => recipe.id === newRecipe.id);
@@ -71,7 +78,12 @@ function TagDropDown({ open, handleClose, handleSave, currentTagInfo = null }) {
         }
     };
 
-    return (
+    const removeRecipe = (id) => {
+        const updatedSelectedRecipes = selectedRecipes.filter((recipe) => recipe.id !== id);
+        setSelectedRecipes(updatedSelectedRecipes);
+    };
+
+    return (isRecipesLoading ? <div>Loading...</div> :
         <Dialog open={open} onClose={handleCloseClick}>
             <DialogTitle>{currentTagInfo ? "Edit Tag" : "Add New Tag"}</DialogTitle>
             <DialogContent>
@@ -96,8 +108,21 @@ function TagDropDown({ open, handleClose, handleSave, currentTagInfo = null }) {
                         />
                     )}
                 />
+                <div className="selected-recipes-container">
+                    {selectedRecipes.map((recipe) => (
+                        <div className="selected-recipes" key={recipe.id} >
+                            <span className="selected_remove_item">{recipe.title}</span>
+                            <button className="selected_remove" onClick={() => removeRecipe(recipe.id)}>Remove</button>
+                        </div>
+                    ))}
+                </div>
             </DialogContent>
             <DialogActions>
+                {currentTagInfo && currentTagInfo.hasOwnProperty('id') && (
+                    <Button onClick={handleDeleteClick} color="primary">
+                        Delete
+                    </Button>
+                )}
                 <Button onClick={handleCloseClick} color="primary">
                     Cancel
                 </Button>
