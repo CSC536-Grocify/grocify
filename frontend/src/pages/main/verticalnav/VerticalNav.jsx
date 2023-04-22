@@ -6,12 +6,12 @@ import { useDispatch } from 'react-redux';
 import { logOut } from '../../../features/auth/authSlice';
 
 const VerticalNav = () => {
-    const [showLeftButton, setShowLeftButton] = useState(false);
+    const [showLogOutOption, setShowLogOutOption] = useState(false);
     let navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleButtonClick = () => {
-        setShowLeftButton(!showLeftButton);
+        setShowLogOutOption(!showLogOutOption);
     };
 
     const handleLogoutButtonClick = (event) => {
@@ -23,12 +23,15 @@ const VerticalNav = () => {
 
     return (
         <div className="nav-container">
-            {showLeftButton && (
+            {showLogOutOption && (
                 <button className="left-btn" onClick={handleLogoutButtonClick}>
                     Log out
                 </button>
             )}
             <div className="vertical-nav">
+                <button className="bottom-btn" onClick={handleButtonClick}>
+                    <FaUser />
+                </button>
                 <button className="bottom-btn" onClick={handleButtonClick}>
                     <FaUser />
                 </button>
