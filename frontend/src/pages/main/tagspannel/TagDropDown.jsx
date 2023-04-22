@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useGetRecipesQuery } from '../../../features/recipes_ingredients/recipesApiSlice';
+import './TagDropDown.scss';
 import {
     Button,
     Dialog,
@@ -22,6 +23,7 @@ function TagDropDown({ open, handleClose, handleSave, handleDelete, currentTagIn
     useEffect(() => {
         if (currentTagInfo) {
             setName(currentTagInfo.name);
+            setSelectedRecipes(currentTagInfo.recipes);
         }
     }, [currentTagInfo]);
 
@@ -37,6 +39,7 @@ function TagDropDown({ open, handleClose, handleSave, handleDelete, currentTagIn
         const newTagInfo = {
             name: name,
             id: null,
+            recipe_ids: selectedRecipes.map((recipe) => recipe.id)
         };
 
         if (currentTagInfo && currentTagInfo.hasOwnProperty('id')) {
@@ -75,6 +78,11 @@ function TagDropDown({ open, handleClose, handleSave, handleDelete, currentTagIn
         }
     };
 
+    const removeRecipe = (id) => {
+        const updatedSelectedRecipes = selectedRecipes.filter((recipe) => recipe.id !== id);
+        setSelectedRecipes(updatedSelectedRecipes);
+    };
+
     return (isRecipesLoading ? <div>Loading...</div> :
         <Dialog open={open} onClose={handleCloseClick}>
             <DialogTitle>{currentTagInfo ? "Edit Tag" : "Add New Tag"}</DialogTitle>
@@ -100,6 +108,14 @@ function TagDropDown({ open, handleClose, handleSave, handleDelete, currentTagIn
                         />
                     )}
                 />
+                <div className="selected-recipes-container">
+                    {selectedRecipes.map((recipe) => (
+                        <div className="selected-recipes" key={recipe.id} >
+                            <span className="selected_remove_item">{recipe.title}</span>
+                            <button className="selected_remove" onClick={() => removeRecipe(recipe.id)}>Remove</button>
+                        </div>
+                    ))}
+                </div>
             </DialogContent>
             <DialogActions>
                 {currentTagInfo && currentTagInfo.hasOwnProperty('id') && (

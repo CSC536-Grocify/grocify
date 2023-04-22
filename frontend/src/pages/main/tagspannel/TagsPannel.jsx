@@ -48,9 +48,16 @@ function TagsPanel() {
   const handleSaveTag = async (newTagInfo) => {
     try {
       if (newTagInfo.id === null) {
-        await createTag({ name: newTagInfo.name }).unwrap();
+        await createTag({
+          name: newTagInfo.name,
+          recipe_ids: newTagInfo.recipe_ids.join(',')
+        }).unwrap();
       } else {
-        await updateTag({ id: newTagInfo.id, name: newTagInfo.name }).unwrap();
+        await updateTag({
+          id: newTagInfo.id,
+          name: newTagInfo.name,
+          recipe_ids: newTagInfo.recipe_ids.join(',')
+        }).unwrap();
       }
       await refetch();
       setModalOpenArgument(null);
@@ -79,7 +86,7 @@ function TagsPanel() {
     setModalOpenArgument(modalInformation);
   };
 
-  return (isLoading ? <div>Loading...</div> : (
+  return (isLoading || isCreateLoading || isUpdateLoading || isDeleteTagLoading ? <div>Loading...</div> : (
     <div>
       <div>Tags panel</div>
       <button id="button" className="add-btn" onClick={(event) => handleCreateNew(event)}>
