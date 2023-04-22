@@ -33,7 +33,8 @@
     font-size: 0.9em;
     color: white;
 }
-.Grocbutton{
+
+.Grocbutton {
     margin-top: 10px;
     margin-bottom: 10px;
     border: .5px solid rgb(14, 167, 126);
@@ -50,4 +51,8 @@
     font-size: 0.9em;
     color: white;
     margin-right: 10px;
+}
+
+.add-btn span {
+    position: relative;
 }
