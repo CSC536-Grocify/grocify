@@ -116,6 +116,7 @@ function TagDropDown({ open, handleClose, handleSave, handleDelete, currentTagIn
                         </div>
                     ))}
                 </div>
+                {/* <SelectedRecipesList selectedRecipes={selectedRecipes.title} /> */}
             </DialogContent>
             <DialogActions>
                 {currentTagInfo && currentTagInfo.hasOwnProperty('id') && (

@@ -29,7 +29,7 @@ function GroceryList() {
 
   return (isLoading ? <div>Loading...</div> : (
     <div>
-      <div>Grocery List</div>
+      <div className="grocerylist-tab">GROCERY LIST</div>
       <button id="button" className="Grocbutton" onClick={handleMakeGroceryListButton}>
         <span>Make grocery list</span>
       </button>
