@@ -71,6 +71,10 @@ function TagDropDown({ open, handleClose, handleSave, handleDelete, currentTagIn
     };
 
     const handleSelectionChange = (event, newRecipe) => {
+        if (!newRecipe) {
+            return;
+        }
+
         const recipeExistsInAPI = recipesFromAPI?.data.some((recipe) => recipe.id === newRecipe.id);
 
         if (recipeExistsInAPI) {

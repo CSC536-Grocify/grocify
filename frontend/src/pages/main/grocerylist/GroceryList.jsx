@@ -1,39 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './GroceryList.scss';
-import { useGetIngredientsQuery } from '../../../features/recipes_ingredients/ingredientsApiSlice';
+import TagsSelection from './TagsSelection';
+import AddItemPopup from "./AddItemPopup";
 
 
 function GroceryList() {
-  const [fetchIngredients, setFetchIngredients] = useState(false);
+  const [tagSelectModalOpen, setTagSelectModalOpen] = useState(false);
+  const [addItemModalOpen, setAddItemModalOpen] = useState(false);
+  const [addItemModalOpenArgument, setAddItemModalOpenArgument] = useState(null);
 
-  const {
-    data: ingredientsFromAPI, // rename data to ingredients
-    isLoading,
-    refetch
-  } = useGetIngredientsQuery({ skip: !fetchIngredients });
+  const handleTagSelectionModalClose = () => {
+    setTagSelectModalOpen(false);
+  };
+
+  const handleTagSelectionConfirmSelection = (selectedTags) => {
+    console.log(selectedTags.tag_ids.join(','));
+  };
+
+  const handleAddItemModalClose = () => {
+    setAddItemModalOpen(false);
+  };
+
+  const handleAddItemConfirm = (newItem) => {
+    console.log(newItem);
+  };
 
   const handleMakeGroceryListButton = async (event) => {
     event.preventDefault();
 
-    if (fetchIngredients) {
-      refetch(); // Re-fetch the data when the button is clicked again
-    } else {
-      setFetchIngredients(true);
-    }
+    setTagSelectModalOpen(true);
   };
 
-  function handleRemoveButton(event, id) {
-    event.preventDefault();
-    console.log(id);
-  }
+  const handleCreateNew = () => {
+    const modalInformation = {
+      item_info: null
+    };
+    setAddItemModalOpenArgument(modalInformation);
+  };
 
-  return (isLoading ? <div>Loading...</div> : (
+  // Opening modal when modal argument is set
+  useEffect(() => {
+    if (addItemModalOpenArgument) {
+      setAddItemModalOpen(true);
+    }
+  }, [addItemModalOpenArgument]);
+
+  // function handleRemoveButton(event, id) {
+  //   event.preventDefault();
+  //   console.log(id);
+  // }
+
+  return (
     <div>
       <div className="grocerylist-tab">GROCERY LIST</div>
       <button id="button" className="Grocbutton" onClick={handleMakeGroceryListButton}>
         <span>Make grocery list</span>
       </button>
-      {fetchIngredients && ingredientsFromAPI && ingredientsFromAPI.data &&
+      <button id="button" className="add-btn" onClick={() => handleCreateNew()}>
+        <span>+</span>
+      </button>
+      <TagsSelection
+        open={tagSelectModalOpen}
+        handleClose={handleTagSelectionModalClose}
+        handleConfirm={handleTagSelectionConfirmSelection}
+      />
+      <AddItemPopup
+        open={addItemModalOpen}
+        handleClose={handleAddItemModalClose}
+        handleConfirm={handleAddItemConfirm}
+        currentItemInfo={addItemModalOpenArgument? addItemModalOpenArgument.item_info : null}
+      />
+      {/* {fetchIngredients && ingredientsFromAPI && ingredientsFromAPI.data &&
         <div className="ingredients-container">
           {ingredientsFromAPI.data.map((ingredient) => (
             <div className="ingredient-card" key={ingredient.id}>
@@ -44,9 +81,9 @@ function GroceryList() {
             </div>
           ))}
         </div>
-      }
+      } */}
     </div>
-  ));
+  );
 }
 
 export default GroceryList;
