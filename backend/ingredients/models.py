@@ -7,6 +7,7 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=120, unique=True)
     notes = models.TextField(null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    categories = models.ManyToManyField('categories.Category', through='ingredient_categories.IngredientCategory', related_name='ingredients')
 
     def _str_(self):
         return self.name
