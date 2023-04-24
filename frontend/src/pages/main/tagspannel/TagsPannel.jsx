@@ -88,7 +88,7 @@ function TagsPanel() {
 
   return (isLoading || isCreateLoading || isUpdateLoading || isDeleteTagLoading ? <div>Loading...</div> : (
     <div>
-      <div>Tags panel</div>
+      <div className="tags-tab">TAGS PANEL</div>
       <button id="button" className="add-btn" onClick={(event) => handleCreateNew(event)}>
         <span>+</span>
       </button>
@@ -107,7 +107,13 @@ function TagsPanel() {
             onClick={(event) => handleTagClick(event, tag)}
           >
             <span className="tag-title">{tag.name}</span>
+            <ul>
+              {tag.recipes.map((recipe) => (
+                <li className="recipes-list" key={recipe.id}>{recipe.title}</li>
+              ))}
+            </ul>
           </div>
+          
         ))}
       </div>
     </div>
@@ -115,4 +121,3 @@ function TagsPanel() {
 }
 
 export default TagsPanel;
-
