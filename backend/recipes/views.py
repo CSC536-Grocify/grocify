@@ -64,6 +64,9 @@ def updateRecipe(request):
             for ingredient_id in ingredient_ids:
                 ingredient = Ingredient.objects.get(id=ingredient_id)
                 RecipeIngredient.objects.create(recipe=recipe, ingredient=ingredient, user=request.user)
+        else:
+            # If no ingredient_ids are provided, don't update the recipe_ingredients, delete all existing ones
+            RecipeIngredient.objects.filter(recipe=recipe).delete()
 
         serializer = RecipeSerializer(recipe, data=request.data, partial=True)
 
