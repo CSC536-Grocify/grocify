@@ -12,6 +12,20 @@ export const groceryListApiSlice = apiSlice.injectEndpoints({
         getGroceryList: builder.query({
             query: () => "/grocery-lists/",
         }),
+        addGroceryItem: builder.mutation({
+            query: (itemInfo) => ({
+                url: "/grocery-lists/add/",
+                method: "POST",
+                body: { ...itemInfo }
+            })
+        }),
+        updateGroceryItem: builder.mutation({
+            query: (itemInfo) => ({
+                url: "/grocery-lists/update/",
+                method: "POST",
+                body: { ...itemInfo }
+            })
+        }),
         deleteGroceryItem: builder.mutation({
             query: (itemInfo) => ({
                 url: "/grocery-lists/delete/",
@@ -25,5 +39,7 @@ export const groceryListApiSlice = apiSlice.injectEndpoints({
 export const {
     useMakeGroceryListMutation,
     useGetGroceryListQuery,
+    useAddGroceryItemMutation,
     useDeleteGroceryItemMutation,
+    useUpdateGroceryItemMutation,
 } = groceryListApiSlice;
