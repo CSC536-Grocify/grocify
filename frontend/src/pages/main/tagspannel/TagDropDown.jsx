@@ -33,6 +33,7 @@ function TagDropDown({ open, handleClose, handleSave, handleDelete, currentTagIn
 
     function resetData() {
         setName("");
+        setSelectedRecipes([]);
     }
 
     const handleSaveClick = async () => {
