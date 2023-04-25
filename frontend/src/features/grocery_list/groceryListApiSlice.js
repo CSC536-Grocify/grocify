@@ -22,7 +22,7 @@ export const groceryListApiSlice = apiSlice.injectEndpoints({
         updateGroceryItem: builder.mutation({
             query: (itemInfo) => ({
                 url: "/grocery-lists/update/",
-                method: "POST",
+                method: "PUT",
                 body: { ...itemInfo }
             })
         }),
