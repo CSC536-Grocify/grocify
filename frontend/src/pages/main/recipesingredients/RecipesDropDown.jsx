@@ -95,6 +95,10 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
     };
 
     const handleSelectionChange = (event, newIngredient) => {
+        if (!newIngredient) {
+            return;
+        }
+
         const ingredientExistsInAPI = ingredientsFromAPI?.data.some((ingredient) => ingredient.id === newIngredient.id);
 
         if (ingredientExistsInAPI) {
@@ -143,14 +147,14 @@ function RecipesDropDown({ open, handleClose, handleSave, currentRecipeInfo = nu
         <Dialog open={open} onClose={handleCloseClick}>
             <DialogContent className="popUpStyle">
                 <DialogTitle>{currentRecipeInfo ? "Edit Recipe" : "Add New Recipe"}</DialogTitle>
-                <IngredientsDropDown 
+                <IngredientsDropDown
                     open={ingredientModalOpen}
                     handleClose={handleIngredientModalClose}
                     handleSave={handleSaveIngredient}
-                    currentIngredientInfo={ingredientModelOpenArgument? ingredientModelOpenArgument.ingredient_info : null}
+                    currentIngredientInfo={ingredientModelOpenArgument ? ingredientModelOpenArgument.ingredient_info : null}
                 />
                 <DialogContent className="popUpStyle">
-                    <TextField 
+                    <TextField
                         autoFocus
                         margin="dense"
                         label="Recipe Name"

@@ -126,29 +126,26 @@
         size: auto;
         
       }
-      // &:not(:last-child) {
-      //   margin-right: 10px;
-      // }
     }
   }
   .add-btn {
-    border: none;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    background-color: #009688;
-    color: #fff;
-    cursor: pointer;
-    margin: 10px 0;
-    span {
-      font-size: 25px;
-      font-weight: bold;
-      line-height: 25px;
-    }
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  background-color: #009688;
+  color: #fff;
+  cursor: pointer;
+  margin: 10px 0;
+  span {
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 25px;
   }
-  .Edit-btn{
-    cursor: pointer;
-    margin: 2px 0;
-    border-radius: 5px;
   }
+  .Edit-btn {
+  cursor: pointer;
+  margin: 2px 0;
+  border-radius: 5px;
+}
 

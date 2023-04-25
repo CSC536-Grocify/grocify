@@ -54,9 +54,16 @@ function IngredientsTab() {
     const handleSaveIngredient = async (newIngredientInfo) => {
         try {
             if (newIngredientInfo.id === null) {
-                await createIngredient({ name: newIngredientInfo.name }).unwrap();
+                await createIngredient({
+                    name: newIngredientInfo.name,
+                    category_ids: newIngredientInfo.category_ids.join(',')
+                });
             } else {
-                await updateIngredient({ id: newIngredientInfo.id, name: newIngredientInfo.name }).unwrap();
+                await updateIngredient({
+                    id: newIngredientInfo.id,
+                    name: newIngredientInfo.name,
+                    category_ids: newIngredientInfo.category_ids.join(',')
+                });
             }
             await refetch();
             setModalOpenArgument(null);
@@ -84,7 +91,7 @@ function IngredientsTab() {
                 open={modalOpen}
                 handleClose={handleModalClose}
                 handleSave={handleSaveIngredient}
-                currentIngredientInfo={modelOpenArgument? modelOpenArgument.ingredient_info : null}
+                currentIngredientInfo={modelOpenArgument ? modelOpenArgument.ingredient_info : null}
             />
             <div className="ingredients-container">
                 {ingredientsFromAPI.data.map((ingredient) => (
