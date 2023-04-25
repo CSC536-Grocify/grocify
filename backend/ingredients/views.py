@@ -60,6 +60,9 @@ def updateIngredient(request):
             for category_id in category_ids:
                 category = Category.objects.get(id=category_id)
                 IngredientCategory.objects.create(ingredient=ingredient, category=category, user=request.user)
+        else:
+            # Clear existing recipe_ingredients associations
+            IngredientCategory.objects.filter(ingredient=ingredient).delete()
 
         serializer = IngredientSerializer(ingredient, data=request.data, partial=True)
         if serializer.is_valid():

@@ -63,6 +63,9 @@ def updateTags(request):
             for recipe_id in recipe_ids:
                 recipe = Recipe.objects.get(id=recipe_id)
                 RecipeTag.objects.create(tag=tag, recipe=recipe, user=request.user)
+        else:
+            # Clear existing recipe_ingredients associations
+            RecipeTag.objects.filter(tag=tag).delete()
 
         serializer = TagsSerializer(tag, data=request.data, partial=True)
 
