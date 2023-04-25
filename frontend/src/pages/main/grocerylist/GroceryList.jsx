@@ -105,15 +105,11 @@ function GroceryList() {
 
     const handleEditButton = (event, item) => {
         event.preventDefault();
-        
-        // const modalInformation = {
-        //     item_info: item
-        // };
-        // setAddItemModalOpenArgument(modalInformation);
 
-        // TODO: When grocery item is ready in the backend to include categories, 
-        // uncomment above and remove below
-        console.log(item)
+        const modalInformation = {
+            item_info: item
+        };
+        setAddItemModalOpenArgument(modalInformation);
     };
 
     return (isLoading ||
