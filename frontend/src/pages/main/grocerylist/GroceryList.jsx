@@ -10,9 +10,13 @@ import {
     useAddGroceryItemMutation,
     useUpdateGroceryItemMutation,
 } from '../../../features/grocery_list/groceryListApiSlice';
+import { useGetCategoriesQuery } from '../../../features/categories/categoriesApiSlice';
+import { MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 
 
 function GroceryList() {
+    const location = useLocation();
+    const [selectedCategory, setSelectedCategory] = useState("");
     const [tagSelectModalOpen, setTagSelectModalOpen] = useState(false);
     const [addItemModalOpen, setAddItemModalOpen] = useState(false);
     const [addItemModalOpenArgument, setAddItemModalOpenArgument] = useState(null);
@@ -25,11 +29,16 @@ function GroceryList() {
         isLoading,
         refetch
     } = useGetGroceryListQuery();
-    const location = useLocation();
+    const {
+        data: categoriesFromAPI,
+        isCategoriesLoading,
+        refetch: refetchCategories
+    } = useGetCategoriesQuery();
 
     useEffect(() => {
         refetch();
-    }, [location, refetch]);
+        refetchCategories();
+    }, [location, refetch, refetchCategories]);
 
     const handleTagSelectionModalClose = () => {
         setTagSelectModalOpen(false);
@@ -112,10 +121,19 @@ function GroceryList() {
         setAddItemModalOpenArgument(modalInformation);
     };
 
+    const handleCategoryChange = (event) => {
+        setSelectedCategory(event.target.value);
+    };
+
+    const filteredItems = groceryListFromAPI?.data.filter((item) => {
+        return !selectedCategory || item.categories.some((category) => category.id === selectedCategory.id)
+    });
+
     return (isLoading ||
         isMakeGroceryListLoading ||
         isDeleteGroceryItemLoading ||
         isAddGroceryItemLoading ||
+        isCategoriesLoading ||
         isUpdateGroceryItemLoading ? <div>Loading...</div> :
         <div>
             <div className="grocerylist-tab">GROCERY LIST</div>
@@ -125,6 +143,20 @@ function GroceryList() {
             <button id="button" className="add-btn" onClick={() => handleCreateNew()}>
                 <span>+</span>
             </button>
+            <FormControl fullWidth>
+                <InputLabel id="category-select-label">Category</InputLabel>
+                <Select
+                    labelId="category-select-label"
+                    id="category-select"
+                    value={selectedCategory}
+                    onChange={handleCategoryChange}
+                >
+                    <MenuItem value={""}>No Category</MenuItem>
+                    {categoriesFromAPI.data.map((category) => (
+                        <MenuItem key={category.id} value={category}>{category.name}</MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
             <TagsSelection
                 open={tagSelectModalOpen}
                 handleClose={handleTagSelectionModalClose}
@@ -137,7 +169,7 @@ function GroceryList() {
                 currentIngredientInfo={addItemModalOpenArgument ? addItemModalOpenArgument.item_info : null}
             />
             <div className="ingredients-container">
-                {groceryListFromAPI.data.map((item) => (
+                {filteredItems.map((item) => (
                     <div className="ingredient-card" key={item.id}>
                         <span className="ingredient-title">{item.name}</span>
                         <button onClick={(event) => handleEditButton(event, item)}>
