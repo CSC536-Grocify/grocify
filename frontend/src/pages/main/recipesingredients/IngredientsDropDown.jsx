@@ -24,7 +24,7 @@ function IngredientsDropDown({ open, handleClose, handleSave, currentIngredientI
     useEffect(() => {
         if (currentIngredientInfo) {
             setName(currentIngredientInfo.name);
-            setSelectedCategories(currentIngredientInfo.categories);
+            setSelectedCategories(currentIngredientInfo.hasOwnProperty('categories') ? currentIngredientInfo.categories : []);
         }
     }, [currentIngredientInfo]);
 
