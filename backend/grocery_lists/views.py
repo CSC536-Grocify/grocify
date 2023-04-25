@@ -9,12 +9,16 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 
+from django.db.models import F
+from django.db.models.functions import Coalesce
+
 # Create your views here.
 
 @api_view(['GET'])
 def getGroceryLists(request):
     try:
-        grocery_lists = GroceryList.objects.filter(user=request.user)
+        grocery_lists = GroceryList.objects.prefetch_related('ingredient__categories').annotate(category_name=Coalesce(F('ingredient__categories__name'), 'name')).order_by('name', 'category_name').distinct('name')
+
         serializer = GroceryListSerializer(grocery_lists, many=True)
         response = {"data": serializer.data, "message": "Grocery lists fetched successfully."}
         return Response(data=response, status=status.HTTP_200_OK)
