@@ -21,7 +21,3 @@ class GroceryList(models.Model):
     def save(self, *args, **kwargs):
         self.name = self.name.lower()
         super(GroceryList, self).save(*args, **kwargs)
-
-    class Meta:
-        ordering = ['name']
-        unique_together = ['name', 'user']
