@@ -88,10 +88,10 @@ function CategoriesManagement({ open, handleClose }) {
     };
 
     return (isCategoriesLoading || isCreateLoading || isUpdateLoading || isDeleteCategoryLoading ? <div>Loading...</div> :
-        <Dialog open={open} onClose={handleCloseClick}>
+        <Dialog  open={open} onClose={handleCloseClick}>
             <DialogTitle>Edit Categories</DialogTitle>
             <DialogContent>
-                <button id="button" onClick={() => handleCreateNew()}>
+                <button className="add_category" id="button" onClick={() => handleCreateNew()}>
                     <span>Add category</span>
                 </button>
                 <AddCategoryModal
