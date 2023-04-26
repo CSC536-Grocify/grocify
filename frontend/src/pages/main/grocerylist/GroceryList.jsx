@@ -153,7 +153,7 @@ function GroceryList() {
                     onChange={handleCategoryChange}
                 >
                     <MenuItem value={""}>No Category</MenuItem>
-                    {categoriesFromAPI.data.map((category) => (
+                    {categoriesFromAPI?.data.map((category) => (
                         <MenuItem key={category.id} value={category}>{category.name}</MenuItem>
                     ))}
                 </Select>
