@@ -63,17 +63,18 @@ function GroceryList() {
         try {
             if (newItem.id === null) {
                 await addGroceryItem({
-                    name: newItem.name
+                    name: newItem.name,
+                    category_ids: newItem.category_ids.join(',')
                 });
             } else {
                 await updateGroceryItem({
                     id: newItem.id,
                     name: newItem.name,
+                    category_ids: newItem.category_ids.join(',')
                 });
             }
             await refetch();
             setAddItemModalOpenArgument(null);
-            await refetch();
         } catch (error) {
             console.log(error);
         }
