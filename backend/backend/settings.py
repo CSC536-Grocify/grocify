@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'grocery_lists',
     'categories',
     'ingredient_categories',
+    'grocery_list_category',
 ]
 
 MIDDLEWARE = [
