@@ -13,6 +13,8 @@ class GroceryList(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    categories = models.ManyToManyField('categories.Category', through='grocery_list_category.GroceryListCategory', related_name='grocery_lists')
+
     def _str_(self):
         return self.name
     
