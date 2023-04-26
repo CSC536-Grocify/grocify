@@ -5,7 +5,7 @@ from recipes.models import Recipe
 
 # Create your models here.
 class Tags(models.Model):
-    name = models.CharField(max_length=120, unique=True)
+    name = models.CharField(max_length=120)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     recipes = models.ManyToManyField(Recipe, through='recipe_tags.RecipeTag')
 
@@ -16,3 +16,6 @@ class Tags(models.Model):
         self.name = self.name.lower()
         super(Tags, self).save(*args, **kwargs)
     
+    class Meta:
+        ordering = ['name']
+        unique_together = ['name', 'user']

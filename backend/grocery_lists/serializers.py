@@ -11,8 +11,5 @@ class GroceryListSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'notes', 'categories']
 
     def get_categories(self, obj):
-        if obj.ingredient:
-            categories = obj.ingredient.categories.all().order_by('name').distinct()
-            return CategorySerializer(categories, many=True).data
-        else:
-            return []
+        categories = obj.categories.all().order_by('name').distinct()
+        return CategorySerializer(categories, many=True).data
