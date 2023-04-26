@@ -96,6 +96,7 @@ function IngredientsTab() {
             <div className="ingredients-container">
                 {ingredientsFromAPI.data.map((ingredient) => (
                     <div className="ingredient-card" key={ingredient.id}>
+                        <div className="ingredient-and-buttons">
                         <span className="ingredient-title">{ingredient.name}</span>
                         <button className="edit-button" onClick={(event) => handleEditButton(event, ingredient)}>
                             Edit
@@ -103,6 +104,7 @@ function IngredientsTab() {
                         <button className="remove-button" onClick={(event) => handleRemoveButton(event, ingredient.id)}>
                             Remove
                         </button>
+                        </div>
                     </div>
                 ))}
             </div>

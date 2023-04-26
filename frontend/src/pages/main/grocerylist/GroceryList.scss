@@ -1,5 +1,6 @@
 .ingredient-card {
-    display: flex;
+    margin-top: 10px;
+    display: grid;
     align-items: center;
     padding: 10px;
     background-color: #f8f8f8;
@@ -9,16 +10,38 @@
 }
 
 .ingredients-container {
-    overflow-y: scroll;
+    overflow-y: auto;
+    
 }
 
 .ingredient-title {
     flex-grow: 1;
     font-weight: bold;
     margin-right: 10px;
+    color: #000000;
+    font-size:105%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+
 }
 
-.remove-button {
+.edit-button {
+    border: .5px solid rgb(14, 167, 126);
+    background-color: #00b894;
+    // right: 70px;
+    padding: 2px;
+    // align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .remove-button {
     border: .5px solid rgb(232, 151, 191);
     background-color: #ea8ad0;
     right: 70px;
@@ -32,7 +55,63 @@
     cursor: pointer;
     font-size: 0.9em;
     color: white;
+  
+  }
+  
+  .bg-popContainer {
+    height: 100%;
+    width: 100%;
+    margin-left: -37.5%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    position: absolute;
+    top: 0;
+    align-items: center;
+    justify-content: center;
+    // display: none;
+  }
+
+.selected_remove {
+    border: .5px solid rgb(14, 167, 126);
+    background-color: #00b894;
+    padding: 2px;
+    align-items: center;
+    justify-content: space-between;
+  //   margin-left: 200px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: white;
+    margin-right: 10px;
+  }
+  
+
+.ingredient-and-buttons{
+    // display:inline;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    // padding: 10px;
 }
+
+.category-name{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 5px;
+    color: #04870b;
+    display: flex;
+    flex-direction: column;
+    font-size: medium;
+    font-weight:bold;
+    text-indent: 20px;
+    margin-top: 5px;
+    font-size:90%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    
+  }
+
+
 
 .Grocbutton {
     margin-top: 10px;
@@ -65,4 +144,5 @@
 .add-btn span {
     position: relative;
 }
+
 
