@@ -171,13 +171,20 @@ function GroceryList() {
             <div className="ingredients-container">
                 {filteredItems.map((item) => (
                     <div className="ingredient-card" key={item.id}>
+                        <div className="ingredient-and-buttons">
                         <span className="ingredient-title">{item.name}</span>
-                        <button onClick={(event) => handleEditButton(event, item)}>
+                        <button className="edit-button" onClick={(event) => handleEditButton(event, item)}>
                             Edit
                         </button>
-                        <button onClick={(event) => handleRemoveButton(event, item.id)}>
+                        <button className="remove-button" onClick={(event) => handleRemoveButton(event, item.id)}>
                             Remove
                         </button>
+                        </div>
+                        <ul>
+                            {item.categories.map((category) => (
+                                <li className="category-name" key={category.id}>{category.name}</li>
+                            ))}
+                        </ul>
                     </div>
                 ))}
             </div>
