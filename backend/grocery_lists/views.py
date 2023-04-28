@@ -5,19 +5,19 @@ from .serializers import GroceryListSerializer
 from .models import GroceryList
 from ingredients.models import Ingredient
 from recipes.models import Recipe
+from grocery_list_category.models import GroceryListCategory
+
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
-
-from django.db.models import F
-from django.db.models.functions import Coalesce
 
 # Create your views here.
 
 @api_view(['GET'])
 def getGroceryLists(request):
     try:
-        grocery_lists = GroceryList.objects.prefetch_related('ingredient__categories').annotate(category_name=Coalesce(F('ingredient__categories__name'), 'name')).order_by('name', 'category_name').distinct('name')
+        # grocery_lists = GroceryList.objects.prefetch_related('ingredient__categories').annotate(category_name=Coalesce(F('ingredient__categories__name'), 'name')).order_by('name', 'category_name').distinct('name')
+        grocery_lists = GroceryList.objects.filter(user=request.user).order_by('name').distinct('name')
 
         serializer = GroceryListSerializer(grocery_lists, many=True)
         response = {"data": serializer.data, "message": "Grocery lists fetched successfully."}
@@ -45,6 +45,12 @@ def makeGroceryList(request):
             grocery_list = GroceryList(user=request.user, ingredient=ingredient, name=ingredient.name, notes=ingredient.notes)
             grocery_list.save()
 
+            # Add categories to the grocery list for each ingredient
+            categories = ingredient.categories.all()
+            for category in categories:
+                grocery_list_category = GroceryListCategory(grocery_list=grocery_list, category=category, user=request.user)
+                grocery_list_category.save()
+
         # Return all created grocery lists as a response
         grocery_lists = GroceryList.objects.filter(user=request.user)
         serializer = GroceryListSerializer(grocery_lists, many=True)
@@ -61,7 +67,17 @@ def addGroceryListItem(request):
         serializer = GroceryListSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save(user=request.user)
+            grocery_list = serializer.save(user=request.user)
+
+            # Get the list of category IDs from the request data
+            category_ids_str = request.data.get('category_ids', '')
+            category_ids = list(map(int, category_ids_str.split(','))) if category_ids_str else []
+
+            # Create grocery_list_categories objects for each category ID
+            for category_id in category_ids:
+                grocery_list_category = GroceryListCategory(grocery_list=grocery_list, category_id=category_id, user=request.user)
+                grocery_list_category.save()
+
             response = {"data": serializer.data, "message": "Grocery list item created successfully."}
             return Response(data=response, status=status.HTTP_201_CREATED)
         else:
@@ -75,6 +91,23 @@ def addGroceryListItem(request):
 def updateGroceryListItem(request):
     try:
         grocery_list = GroceryList.objects.get(id=request.data['id'], user=request.user)
+
+        # Get the list of category IDs from the request data
+        category_ids_str = request.data.get('category_ids', '')
+        if category_ids_str is not None and category_ids_str != '':
+            category_ids = list(map(int, category_ids_str.split(','))) if category_ids_str else []
+
+            # Delete all existing grocery_list_categories associations
+            GroceryListCategory.objects.filter(grocery_list=grocery_list).delete()
+
+            # Create grocery_list_categories objects for each category ID
+            for category_id in category_ids:
+                grocery_list_category = GroceryListCategory(grocery_list=grocery_list, category_id=category_id, user=request.user)
+                grocery_list_category.save()
+        else:
+            # Delete all existing grocery_list_categories associations
+            GroceryListCategory.objects.filter(grocery_list=grocery_list).delete()
+
         serializer = GroceryListSerializer(grocery_list, data=request.data)
 
         if serializer.is_valid():

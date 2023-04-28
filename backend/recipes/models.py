@@ -5,7 +5,7 @@ from ingredients.models import Ingredient
  
 # Create your models here.
 class Recipe(models.Model):
-    title = models.CharField(max_length=120, unique=True)
+    title = models.CharField(max_length=120)
     description = models.TextField(null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ingredients = models.ManyToManyField(Ingredient, through='recipe_ingredients.RecipeIngredient')
@@ -16,3 +16,7 @@ class Recipe(models.Model):
     def save(self, *args, **kwargs):
         self.title = self.title.lower()
         super(Recipe, self).save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['title']
+        unique_together = ['title', 'user']
