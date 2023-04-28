@@ -16,7 +16,8 @@ from rest_framework import status
 @api_view(['GET'])
 def getGroceryLists(request):
     try:
-        grocery_lists = GroceryList.objects.filter(user=request.user).order_by('name')
+        # grocery_lists = GroceryList.objects.prefetch_related('ingredient__categories').annotate(category_name=Coalesce(F('ingredient__categories__name'), 'name')).order_by('name', 'category_name').distinct('name')
+        grocery_lists = GroceryList.objects.filter(user=request.user).order_by('name').distinct('name')
 
         serializer = GroceryListSerializer(grocery_lists, many=True)
         response = {"data": serializer.data, "message": "Grocery lists fetched successfully."}
