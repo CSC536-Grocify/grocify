@@ -6,6 +6,7 @@ import {
     useDeleteCategoryMutation,
     useUpdateCategoryMutation,
 } from '../../../features/categories/categoriesApiSlice';
+import { useGetGroceryListQuery } from '../../../features/grocery_list/groceryListApiSlice';
 import {
     Button,
     Dialog,
@@ -27,6 +28,9 @@ function CategoriesManagement({ open, handleClose }) {
         isCategoriesLoading,
         refetch: refetchCategories,
     } = useGetCategoriesQuery();
+    const {
+        refetch: refetchGroceryList
+    } = useGetGroceryListQuery();
 
     const handleCloseClick = () => {
         handleClose();
@@ -64,6 +68,7 @@ function CategoriesManagement({ open, handleClose }) {
                 });
             }
             await refetchCategories();
+            await refetchGroceryList();
             setAddCategoryOpenArgument(null);
         } catch (error) {
             console.error(error);
@@ -81,6 +86,7 @@ function CategoriesManagement({ open, handleClose }) {
         try {
             await deleteCategoryAPI({ id });
             await refetchCategories();
+            await refetchGroceryList();
             setAddCategoryOpenArgument(null);
         } catch (error) {
             console.error(error);
@@ -88,10 +94,10 @@ function CategoriesManagement({ open, handleClose }) {
     };
 
     return (isCategoriesLoading || isCreateLoading || isUpdateLoading || isDeleteCategoryLoading ? <div>Loading...</div> :
-        <Dialog open={open} onClose={handleCloseClick}>
+        <Dialog  open={open} onClose={handleCloseClick}>
             <DialogTitle>Edit Categories</DialogTitle>
             <DialogContent>
-                <button id="button" onClick={() => handleCreateNew()}>
+                <button className="add_category" id="button" onClick={() => handleCreateNew()}>
                     <span>Add category</span>
                 </button>
                 <AddCategoryModal

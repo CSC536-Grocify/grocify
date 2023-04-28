@@ -220,3 +220,41 @@
     color: #c0c0c0;
   }
 }
+
+.selected-categories-container{
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px;
+  height: 250px;
+  /* set a fixed height */
+  overflow-y: auto;
+}
+.selected-categories{
+  display: grid;
+  align-items: center;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.selected_remove_item{
+  flex-grow: 1;
+  font-size: small;
+}
+.selected_remove{
+  border: .5px solid rgb(14, 167, 126);
+  background-color: #00b894;
+  padding: 2px;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  color: white;
+  margin-right: 10px;
+}
+

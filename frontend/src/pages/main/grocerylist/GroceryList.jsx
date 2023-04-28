@@ -63,17 +63,18 @@ function GroceryList() {
         try {
             if (newItem.id === null) {
                 await addGroceryItem({
-                    name: newItem.name
+                    name: newItem.name,
+                    category_ids: newItem.category_ids.join(',')
                 });
             } else {
                 await updateGroceryItem({
                     id: newItem.id,
                     name: newItem.name,
+                    category_ids: newItem.category_ids.join(',')
                 });
             }
             await refetch();
             setAddItemModalOpenArgument(null);
-            await refetch();
         } catch (error) {
             console.log(error);
         }
@@ -152,7 +153,7 @@ function GroceryList() {
                     onChange={handleCategoryChange}
                 >
                     <MenuItem value={""}>No Category</MenuItem>
-                    {categoriesFromAPI.data.map((category) => (
+                    {categoriesFromAPI?.data.map((category) => (
                         <MenuItem key={category.id} value={category}>{category.name}</MenuItem>
                     ))}
                 </Select>
@@ -171,13 +172,20 @@ function GroceryList() {
             <div className="ingredients-container">
                 {filteredItems.map((item) => (
                     <div className="ingredient-card" key={item.id}>
-                        <span className="ingredient-title">{item.name}</span>
-                        <button onClick={(event) => handleEditButton(event, item)}>
-                            Edit
-                        </button>
-                        <button onClick={(event) => handleRemoveButton(event, item.id)}>
-                            Remove
-                        </button>
+                        <div className="ingredient-and-buttons">
+                            <span className="ingredient-title">{item.name}</span>
+                            <button className="edit-button" onClick={(event) => handleEditButton(event, item)}>
+                                Edit
+                            </button>
+                            <button className="remove-button" onClick={(event) => handleRemoveButton(event, item.id)}>
+                                Remove
+                            </button>
+                        </div>
+                        <ul>
+                            {item.categories.map((category) => (
+                                <li className="category-name" key={category.id}>{category.name}</li>
+                            ))}
+                        </ul>
                     </div>
                 ))}
             </div>
