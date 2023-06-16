@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+(IMPORTANT!) This project has ended. It is no longer deployed. Development ended.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
