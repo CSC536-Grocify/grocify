@@ -1,5 +1,7 @@
 # Grocify
 
+(IMPORTANT!) This project has ended. It is no longer deployed. Development ended.
+
 A webapp for preparing a grocery list.
 
 # Set up
